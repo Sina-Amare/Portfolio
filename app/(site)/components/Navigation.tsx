@@ -19,7 +19,7 @@ export default function Navigation() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="fixed top-4 left-1/2 -translate-x-1/2 max-w-3xl w-full mx-auto flex justify-between items-center py-3 px-8 rounded-full z-50 bg-white/5 backdrop-blur-2xl border border-white/10 shadow-lg"
+      className="fixed top-4 left-1/2 -translate-x-1/2 max-w-3xl w-full mx-auto flex justify-between items-center py-4 px-8 rounded-full z-50 bg-white/5 backdrop-blur-2xl border border-white/10 shadow-lg shadow-black/20"
     >
       <Link href="/">
         <motion.h1
@@ -37,9 +37,7 @@ export default function Navigation() {
             <Link href={link.path}>
               <motion.span
                 className={`font-medium transition-all duration-300 relative ${
-                  pathname === link.path
-                    ? "text-white"
-                    : "text-gray-300 hover:text-white"
+                  pathname === link.path ? "text-white" : "text-gray-300 hover:text-white"
                 }`}
                 whileHover={{ y: -2 }}
                 transition={{ type: "spring", stiffness: 300 }}

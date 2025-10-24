@@ -1,12 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useMotionValue,
-  useSpring,
-} from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -147,9 +141,9 @@ export default function Hero() {
               <div className="absolute inset-0 bg-gradient-to-br from-brand-accent/20 to-cyan-400/20 rounded-3xl blur-3xl transform scale-110" />
 
               {/* Portrait image */}
-              <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl overflow-hidden shadow-2xl border border-white/10">
+              <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl overflow-hidden shadow-2xl border border-white/10 shadow-brand-accent/10">
                 <motion.img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=1000&fit=crop&crop=center"
+                  src="https://images.unsplash.com/photo-150700321169-0a1dd7228f2d?w=800&h=1000&fit=crop&crop=center"
                   alt="Sina Amareh"
                   className="w-full h-auto object-cover"
                   style={{ x: springX, y: springY }}
@@ -157,7 +151,10 @@ export default function Hero() {
                 />
 
                 {/* Subtle overlay for depth */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+
+                {/* Enhanced cinematic border glow */}
+                <div className="absolute inset-0 rounded-3xl border border-transparent shadow-[inset_0_0_20px_#2563eb30] pointer-events-none" />
               </div>
 
               {/* Floating accent elements */}

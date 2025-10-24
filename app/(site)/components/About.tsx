@@ -27,13 +27,16 @@ export default function About() {
           >
             <div className="relative">
               <div className="absolute -inset-2 bg-gradient-to-br from-cyan-400/20 to-brand-accent/20 rounded-3xl blur-3xl" />
-              <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl overflow-hidden shadow-2xl border border-white/10">
+              <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl overflow-hidden shadow-2xl border border-white/10 shadow-brand-accent/10">
                 <img
                   src="https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?w=800&h=1000&fit=crop&crop=faces"
                   alt="Sina Amareh - Workspace"
                   className="w-full h-auto object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+
+                {/* Enhanced cinematic border glow */}
+                <div className="absolute inset-0 rounded-3xl border-transparent shadow-[inset_0_0_20px_#2563eb30] pointer-events-none" />
               </div>
             </div>
           </motion.div>
@@ -61,11 +64,19 @@ export default function About() {
 
             <div className="space-y-6 text-gray-300 text-lg leading-relaxed">
               <p>
-                I'm <span className="font-semibold text-white">Sina Amareh</span>, a systems-minded engineer passionate about creating technology that is intelligent, ethical, and timeless. My approach combines design sensitivity with structured engineering—where simplicity and precision coexist.
+                I'm <span className="font-semibold text-white">Sina Amareh</span>, a systems-minded
+                engineer passionate about creating technology that is intelligent, ethical, and
+                timeless. My approach combines design sensitivity with structured engineering—where
+                simplicity and precision coexist.
               </p>
 
               <p>
-                With a foundation in <span className="font-medium text-white">Python, TypeScript, and modern web architecture</span>, I craft digital products that merge clarity with performance. I believe great engineering is not about complexity, but the art of creating balance.
+                With a foundation in{" "}
+                <span className="font-medium text-white">
+                  Python, TypeScript, and modern web architecture
+                </span>
+                , I craft digital products that merge clarity with performance. I believe great
+                engineering is not about complexity, but the art of creating balance.
               </p>
             </div>
 
@@ -76,14 +87,21 @@ export default function About() {
               viewport={{ once: true }}
               transition={{ delay: 0.6, duration: 0.8 }}
             >
-              <h3 className="font-display text-xl text-white font-semibold mb-4">Core Principles</h3>
+              <h3 className="font-display text-xl text-white font-semibold mb-4">
+                Core Principles
+              </h3>
               <ul className="space-y-3 text-gray-400">
-                <li className="flex items-center"><span className="text-brand-accent mr-3">→</span> Design-driven Engineering</li>
-                <li className="flex items-center"><span className="text-brand-accent mr-3">→</span> Ethical & Human-Centered AI</li>
-                <li className="flex items-center"><span className="text-brand-accent mr-3">→</span> Scalable & Maintainable Systems</li>
+                <li className="flex items-center">
+                  <span className="text-brand-accent mr-3">→</span> Design-driven Engineering
+                </li>
+                <li className="flex items-center">
+                  <span className="text-brand-accent mr-3">→</span> Ethical & Human-Centered AI
+                </li>
+                <li className="flex items-center">
+                  <span className="text-brand-accent mr-3">→</span> Scalable & Maintainable Systems
+                </li>
               </ul>
             </motion.div>
-
           </motion.div>
         </div>
       </div>
