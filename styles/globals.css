@@ -19,6 +19,8 @@ body {
     "kern" 1;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  background-color: #f9fafb; /* Use the new secondary background color */
+  color: #111827; /* Use the new primary text color */
 }
 
 h1,
@@ -30,13 +32,13 @@ h6 {
   font-family: var(--font-poppins);
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: #0f172a;
+  color: #111827; /* Use the new primary text color */
 }
 
 p {
   font-family: var(--font-inter);
   line-height: 1.75;
-  color: #334155;
+  color: #6b7280; /* Use the new secondary text color */
 }
 
 a {
@@ -46,7 +48,7 @@ a {
 }
 
 a:hover {
-  color: #2563eb;
+  color: #2563eb; /* Use the new accent color */
   transform: translateY(-1px);
 }
 
@@ -59,4 +61,31 @@ a:hover {
   backdrop-filter: blur(12px);
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Section divider with subtle gradient */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(to right, #e5e7eb, transparent);
+  margin: 2rem 0;
+}
+
+/* Navigation link hover effect */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: linear-gradient(to right, #2563eb, #38bdf8);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
 }

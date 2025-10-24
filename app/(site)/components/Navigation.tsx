@@ -24,16 +24,16 @@ export default function Navigation() {
     >
       <h1 className="text-xl font-bold font-display">Sina Amareh</h1>
       <ul className="flex space-x-6 text-sm font-sans">
-        <li>
+        <li className="nav-link relative">
           <Link href="/">Home</Link>
         </li>
-        <li>
+        <li className="nav-link relative">
           <Link href="/about">About</Link>
         </li>
-        <li>
+        <li className="nav-link relative">
           <Link href="/projects">Projects</Link>
         </li>
-        <li>
+        <li className="nav-link relative">
           <Link href="/blog">Blog</Link>
         </li>
       </ul>
