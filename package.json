@@ -1,0 +1,40 @@
+{
+  "name": "sina-portfolio",
+  "version": "1.0.0",
+  "description": "Professional static portfolio and blog built with Next.js, TailwindCSS, shadcn/ui, and MDX.\r This repository follows structured AI-assisted engineering and documentation practices.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "prettier --write .",
+    "content:check": "contentlayer check"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "next": "^13.5.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@next/eslint-plugin-next": "^13.5.6",
+    "@types/node": "^20.11.30",
+    "@types/react": "^18.2.14",
+    "autoprefixer": "^10.4.19",
+    "contentlayer": "^0.3.4",
+    "eslint": "^8.57.0",
+    "gray-matter": "^4.0.3",
+    "next-contentlayer": "^0.3.4",
+    "postcss": "^8.4.38",
+    "prettier": "^3.2.5",
+    "reading-time": "^1.5.0",
+    "tailwindcss": "^3.4.4",
+    "typescript": "^5.4.5"
+  }
+}
