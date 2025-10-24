@@ -16,3 +16,6 @@ Thumbs.db
 # Logs and generated outputs
 project/styles/output.css
 docs/logs/*.tmp
+
+# Backup git directories
+.git_backup_*
