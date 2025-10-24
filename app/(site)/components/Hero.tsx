@@ -29,7 +29,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
-          className="text-lg text-gray-300 max-w-xl"
+          className="text-lg text-gray-30 max-w-xl"
         >
           Engineering the bridge between intelligence and design.
         </motion.p>
