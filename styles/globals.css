@@ -20,3 +20,32 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-poppins);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #0f172a;
+}
+
+p {
+  font-family: var(--font-inter);
+  line-height: 1.75;
+  color: #334155;
+}
+
+a {
+  transition:
+    color 0.3s ease,
+    transform 0.2s ease;
+}
+
+a:hover {
+  color: #2563eb;
+  transform: translateY(-1px);
+}
