@@ -2,7 +2,7 @@ import "../../styles/globals.css";
 import { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import Navigation from "./components/Navigation";
-import AmbientBackground from "./components/AmbientBackground";
+
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const playfairDisplay = Playfair_Display({
@@ -19,7 +19,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${inter.variable} ${playfairDisplay.variable}`}>
       <body className="bg-brand-secondary text-brand-textPrimary antialiased min-h-screen flex flex-col relative overflow-x-hidden">
-        <AmbientBackground />
+        
         <header className="border-b bg-transparent backdrop-blur-xl sticky top-0 z-50 transition-all duration-500 border-transparent">
           <Navigation />
         </header>
