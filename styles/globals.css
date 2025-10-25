@@ -82,7 +82,7 @@ a:hover {
   backdrop-filter: blur(20px);
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 24px;
+  border-radius: 16px; /* Use lg border radius consistently */
   box-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.1);
 }
 
@@ -135,7 +135,7 @@ a:hover {
   left: 0;
   width: 0;
   height: 1.5px;
-  background: linear-gradient(to right, #2563eb, #00c6ff);
+  background: linear-gradient(to right, #d6b98c, #3fb5a3); /* Updated to new color palette */
   transition: width 0.3s ease;
 }
 
@@ -149,16 +149,16 @@ a:hover {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0d1117;
+  background: #f8f6f1;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #2563eb, #00c6ff);
+  background: linear-gradient(to bottom, #d6b98c, #3fb5a3);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #38bdf8, #00a8e8);
+  background: linear-gradient(to bottom, #e0c9a1, #5bc0b0);
 }
 
 /* Light sweep animation for text reveals */
@@ -178,4 +178,13 @@ a:hover {
   background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: light-sweep 2s linear infinite;
+}
+
+/* Consistent border radius classes */
+.rounded-lg {
+  border-radius: 16px;
+}
+
+.rounded-xl {
+  border-radius: 24px;
 }

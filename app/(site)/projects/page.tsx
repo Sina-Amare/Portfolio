@@ -1,5 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
+import Section from "@/components/ui/Section";
+import Container from "@/components/ui/Container";
 
 export default function ProjectsPage() {
   const projects = [
@@ -54,37 +56,27 @@ export default function ProjectsPage() {
   ];
 
   return (
-    <section className="relative min-h-screen py-20 overflow-hidden">
-      {/* Background layers with new palette */}
-      <div className="absolute inset-0 bg-gradient-to-br from-brand-primary via-amber-50 to-brand-primary z-0" />
-      <div
-        className="absolute inset-0"
-        style={{
-          background: `radial-gradient(circle at 30% 70%, rgba(255, 11, 97, 0.1), transparent 70%),
-                      linear-gradient(to bottom left, #f8f6f1, #f0ebe4)`,
-        }}
-      />
-
-      <div className="relative z-20 max-w-7xl mx-auto px-6 sm:px-12">
+    <Section background="neutral" padding="lg">
+      <Container>
         <motion.div
-          className="text-center mb-20"
+          className="col-span-12 text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
           <motion.h2
-            className="text-4xl lg:text-5xl font-display font-bold text-brand-secondary mb-4"
+            className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-ink mb-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             Featured{" "}
-            <span className="bg-gradient-to-r from-brand-accent to-brand-highlight bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-gold to-teal bg-clip-text text-transparent">
               Projects
             </span>
           </motion.h2>
           <motion.p
-            className="text-xl text-brand-textSecondary max-w-2xl mx-auto"
+            className="text-lg md:text-xl text-brand-textSecondary max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
@@ -94,18 +86,18 @@ export default function ProjectsPage() {
           </motion.p>
         </motion.div>
 
-        {/* Cinematic masonry grid */}
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-8 space-y-8">
+        {/* Cinematic grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 col-span-12">
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
-              className="break-inside-avoid group relative bg-white/50 backdrop-blur-sm rounded-3xl overflow-hidden border border-brand-accent/20 shadow-lg"
+              className="group relative bg-white/50 backdrop-blur-sm rounded-xl md:rounded-2xl overflow-hidden border border-gold/20 shadow-lg hover:shadow-xl transition-all duration-300"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               whileHover={{ y: -10, scale: 1.02 }}
             >
-              <div className="relative overflow-hidden rounded-3xl">
+              <div className="relative overflow-hidden rounded-xl md:rounded-2xl">
                 <div className="aspect-w-16 aspect-h-10 overflow-hidden">
                   <img
                     src={project.image}
@@ -113,16 +105,16 @@ export default function ProjectsPage() {
                     className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110 mix-blend-multiply brightness-110"
                   />
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-secondary/80 via-transparent to-transparent opacity-80" />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink/50 via-transparent to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <h3 className="text-2xl font-bold font-display">{project.title}</h3>
-                  <p className="text-brand-primary mt-2">{project.description}</p>
+                  <h3 className="text-xl md:text-2xl font-bold font-display">{project.title}</h3>
+                  <p className="text-cream mt-2 text-sm md:text-base">{project.description}</p>
                 </div>
                 <div className="absolute top-4 right-4 flex flex-wrap gap-2">
                   {project.tags.map((tag, tagIndex) => (
                     <span
                       key={tagIndex}
-                      className="px-3 py-1 bg-brand-accent/80 text-white text-sm rounded-full backdrop-blur-sm"
+                      className="px-3 py-1 bg-gold/80 text-white text-xs md:text-sm rounded-full backdrop-blur-sm"
                     >
                       {tag}
                     </span>
@@ -132,20 +124,20 @@ export default function ProjectsPage() {
               <div className="p-6">
                 <p className="text-brand-textSecondary">{project.description}</p>
                 <div className="mt-4 flex justify-between items-center">
-                  <button className="text-brand-accent font-medium hover:text-brand-highlight transition-colors">
+                  <button className="text-gold font-medium hover:text-teal transition-colors">
                     View Details →
                   </button>
                   <div className="flex space-x-2">
-                    <div className="w-3 h-3 rounded-full bg-brand-accent"></div>
-                    <div className="w-3 h-3 rounded-full bg-brand-highlight"></div>
-                    <div className="w-3 h-3 rounded-full bg-brand-accentSecondary"></div>
+                    <div className="w-3 h-3 rounded-full bg-gold"></div>
+                    <div className="w-3 h-3 rounded-full bg-teal"></div>
+                    <div className="w-3 h-3 rounded-full bg-coral"></div>
                   </div>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

@@ -1,5 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
+import Section from "@/components/ui/Section";
+import Container from "@/components/ui/Container";
 
 export default function BlogPage() {
   const blogPosts = [
@@ -42,38 +44,28 @@ export default function BlogPage() {
   ];
 
   return (
-    <section className="relative min-h-screen py-20 overflow-hidden">
-      {/* Background layers with new palette */}
-      <div className="absolute inset-0 bg-gradient-to-br from-brand-primary via-amber-50 to-brand-primary z-0" />
-      <div
-        className="absolute inset-0"
-        style={{
-          background: `radial-gradient(circle at 70% 30%, rgba(63, 181, 163, 0.1), transparent 60%),
-                      linear-gradient(to bottom right, #f8f6f1, #e8e3d7)`,
-        }}
-      />
-
-      <div className="relative z-20 max-w-7xl mx-auto px-6 sm:px-12">
+    <Section background="cream" padding="lg">
+      <Container>
         <motion.div
-          className="text-center mb-20"
+          className="col-span-12 text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
           <motion.h2
-            className="text-4xl lg:text-5xl font-display font-bold text-brand-secondary mb-4"
+            className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-ink mb-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             Thoughts on{" "}
-            <span className="bg-gradient-to-r from-brand-accent to-brand-highlight bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-gold to-teal bg-clip-text text-transparent">
               Technology
             </span>{" "}
             & Design
           </motion.h2>
           <motion.p
-            className="text-xl text-brand-textSecondary max-w-2xl mx-auto"
+            className="text-lg md:text-xl text-brand-textSecondary max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
@@ -84,34 +76,36 @@ export default function BlogPage() {
         </motion.div>
 
         {/* Blog posts grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 col-span-12">
           {blogPosts.map((post, index) => (
             <motion.article
               key={post.id}
-              className="group bg-white/50 backdrop-blur-sm rounded-3xl overflow-hidden border border-brand-accent/20 shadow-lg"
+              className="lg:col-span-6 group bg-white/50 backdrop-blur-sm rounded-xl md:rounded-2xl overflow-hidden border border-gold/20 shadow-lg hover:shadow-xl transition-all duration-300"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               whileHover={{ y: -10, scale: 1.01 }}
             >
-              <div className="overflow-hidden rounded-t-3xl">
+              <div className="overflow-hidden rounded-xl md:rounded-2xl">
                 <img
                   src={post.image}
                   alt={post.title}
                   className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110 mix-blend-multiply brightness-110"
                 />
               </div>
-              <div className="p-8">
+              <div className="p-6 md:p-8">
                 <div className="flex items-center text-sm text-brand-textSecondary mb-4">
                   <span>{post.date}</span>
                   <span className="mx-2">•</span>
                   <span>{post.readTime}</span>
                 </div>
-                <h3 className="text-2xl font-display font-bold text-brand-secondary mb-4 group-hover:text-brand-accent transition-colors duration-300">
+                <h3 className="text-xl md:text-2xl font-display font-bold text-ink mb-4 group-hover:text-gold transition-colors duration-300 max-w-[65ch]">
                   {post.title}
                 </h3>
-                <p className="text-brand-textSecondary mb-6 leading-relaxed">{post.excerpt}</p>
-                <button className="text-brand-accent font-medium flex items-center group-hover:text-brand-highlight transition-colors">
+                <p className="text-brand-textSecondary mb-6 leading-relaxed max-w-[65ch]">
+                  {post.excerpt}
+                </p>
+                <button className="text-gold font-medium flex items-center group-hover:text-teal transition-colors">
                   Continue Reading
                   <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
                 </button>
@@ -122,14 +116,12 @@ export default function BlogPage() {
 
         {/* Newsletter section */}
         <motion.div
-          className="mt-24 bg-gradient-to-r from-brand-accent/10 to-brand-highlight/10 rounded-3xl p-10 text-center"
+          className="mt-16 lg:col-span-12 bg-gradient-to-r from-gold/10 to-teal/10 rounded-xl md:rounded-2xl p-8 md:p-10 text-center"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
-          <h3 className="text-2xl font-display font-bold text-brand-secondary mb-4">
-            Stay Updated
-          </h3>
+          <h3 className="text-2xl font-display font-bold text-ink mb-4">Stay Updated</h3>
           <p className="text-brand-textSecondary max-w-2xl mx-auto mb-6">
             Subscribe to my newsletter to receive insights on technology, design, and innovation
             directly in your inbox.
@@ -138,14 +130,14 @@ export default function BlogPage() {
             <input
               type="email"
               placeholder="Your email address"
-              className="flex-1 px-6 py-4 rounded-full border border-brand-accent/30 bg-white/70 focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent"
+              className="flex-1 px-6 py-4 rounded-xl border border-gold/30 bg-white/70 focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent"
             />
-            <button className="px-8 py-4 bg-brand-accent text-white font-medium rounded-full hover:bg-brand-highlight transition-colors duration-300 shadow-lg hover:shadow-brand-accent/30">
+            <button className="px-8 py-4 bg-gold text-white font-medium rounded-xl hover:bg-teal transition-colors duration-300 shadow-lg hover:shadow-gold/30">
               Subscribe
             </button>
           </div>
         </motion.div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

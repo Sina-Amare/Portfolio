@@ -24,7 +24,9 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
           <Navigation />
         </header>
 
-        <main className="flex-1 max-w-5xl mx-auto p-6 relative z-10">{children}</main>
+        <main className="flex-1 max-w-screen-xl mx-auto px-6 md:px-8 pt-18 relative z-10">
+          {children}
+        </main>
 
         <footer className="relative z-10 mt-20 bg-gradient-to-r from-transparent via-brand-accent/20 to-transparent py-10">
           <div className="max-w-7xl mx-auto px-6 text-center">

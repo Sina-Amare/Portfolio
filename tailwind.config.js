@@ -8,6 +8,10 @@ module.exports = {
     "./docs/**/*.{md,mdx}",
   ],
   theme: {
+    container: {
+      center: true,
+      padding: "1.5rem",
+    },
     extend: {
       colors: {
         brand: {
@@ -19,13 +23,25 @@ module.exports = {
           textPrimary: "#101820", // deep navy for content (new)
           textSecondary: "#6B7280", // secondary text (updated contrast)
         },
+        cream: "#f8f6f1",
+        ink: "#101820",
+        gold: "#d6b98c",
+        teal: "#3fb5a3",
+        coral: "#ff6f61",
+      },
+      borderRadius: {
+        lg: "16px",
+        xl: "24px",
+      },
+      height: {
+        18: "72px",
       },
       fontFamily: {
         sans: ["Inter", ...fontFamily.sans],
         display: ["Poppins", ...fontFamily.sans],
       },
       boxShadow: {
-        soft: "0 4px 20px rgba(0,0,0,0.05)",
+        soft: "0 4px 20px rgba(0,0,0.05)",
         "2xl/5": "0 25px 50px -12px rgba(0, 0, 0, 0.05)",
         cinematic: "0 20px 40px rgba(37,99,235,0.15)",
       },
@@ -50,5 +66,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/container-queries")],
 };
