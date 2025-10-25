@@ -25,13 +25,13 @@ body {
 }
 
 body::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('/assets/grid.svg');
+  background-image: url("/assets/grid.svg");
   background-repeat: repeat;
   background-size: 20px 20px;
   opacity: 0.1;
@@ -41,16 +41,14 @@ body::after {
 }
 
 body::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: linear-gradient(to right, rgba(255, 79, 163, 0.2), rgba(63, 181, 163, 0.2));
-    mix-blend-mode: screen;
-    pointer-events: none;
-    z-index: 0;
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(to right, rgba(255, 79, 163, 0.2), rgba(63, 181, 163, 0.2));
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 0;
 }
-
-
 
 h1,
 h2,
@@ -145,4 +143,30 @@ a:hover {
 
 .rounded-xl {
   border-radius: 24px;
+}
+
+/* Glassmorphic code block */
+.glassmorphic-code-block {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.05);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.glassmorphic-code-block:hover {
+  box-shadow: 0 0 35px rgba(0, 255, 255, 0.1);
+  transform: translateY(-5px);
+}
+
+.code-highlight span {
+  transition: all 0.3s ease;
+}
+
+.code-highlight:hover span {
+  opacity: 0.8;
+  text-shadow: 0 0 8px currentColor;
 }
