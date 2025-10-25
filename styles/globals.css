@@ -19,9 +19,38 @@ body {
     "kern" 1;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  background-color: #f8f6f1; /* Soft cream background */
-  color: #101820; /* Deep navy text */
+  background-image: radial-gradient(circle at top left, #1b1f2a 0%, #0a0b10 100%);
+  color: #e2e8f0; /* Light text for contrast */
+  position: relative;
 }
+
+body::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('/assets/grid.svg');
+  background-repeat: repeat;
+  background-size: 20px 20px;
+  opacity: 0.1;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(to right, rgba(255, 79, 163, 0.2), rgba(63, 181, 163, 0.2));
+    mix-blend-mode: screen;
+    pointer-events: none;
+    z-index: 0;
+}
+
+
 
 h1,
 h2,
@@ -29,16 +58,16 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Playfair Display", serif; /* Updated to Playfair Display */
+  font-family: "Poppins", sans-serif;
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: #101820; /* Deep navy text for headings */
+  color: #ffffff; /* White text for headings */
 }
 
 p {
   font-family: var(--font-inter);
   line-height: 1.75;
-  color: #6b7280; /* Updated gray text */
+  color: #cbd5e1; /* Light gray text */
 }
 
 a {
@@ -48,79 +77,8 @@ a {
 }
 
 a:hover {
-  color: #d6b98c; /* Warm gold accent color */
+  color: #3fb5a3; /* Teal accent color */
   transform: translateY(-1px);
-}
-
-/* Cinematic gradient background */
-.gradient-bg {
-  background: radial-gradient(circle at 30% 50%, rgba(214, 185, 140, 0.25), transparent 70%),
-    linear-gradient(to bottom right, #f8f6f1, #e8e3d7);
-}
-
-.gradient-cyan {
-  background: radial-gradient(circle at 70% 30%, rgba(63, 181, 163, 0.1), transparent 60%),
-    linear-gradient(to bottom right, #f8f6f1, #dcd6c7);
-}
-
-/* Warm coral gradient */
-.gradient-coral {
-  background: radial-gradient(circle at 30% 70%, rgba(255, 111, 97, 0.15), transparent 70%),
-    linear-gradient(to bottom right, #f8f6f1, #f0ebe4);
-}
-
-/* Glass card effect for content sections */
-.glass-card {
-  backdrop-filter: blur(12px);
-  background: rgba(25, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-}
-
-/* Enhanced cinematic glass effect */
-.cinematic-glass {
-  backdrop-filter: blur(20px);
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px; /* Use lg border radius consistently */
-  box-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.1);
-}
-
-/* Floating animation */
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.float-slow {
-  animation: float 6s ease-in-out infinite;
-}
-
-/* Pulse animation for light effects */
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 0.6;
-  }
-}
-
-.pulse-slow {
-  animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-/* Section divider with subtle gradient */
-.section-divider {
-  height: 1px;
-  background: linear-gradient(to right, rgba(37, 99, 235, 0.3), transparent);
-  margin: 2rem 0;
 }
 
 /* Navigation link hover effect */
@@ -135,7 +93,7 @@ a:hover {
   left: 0;
   width: 0;
   height: 1.5px;
-  background: linear-gradient(to right, #d6b98c, #3fb5a3); /* Updated to new color palette */
+  background: linear-gradient(to right, #ff4fa3, #3fb5a3); /* Magenta to teal gradient */
   transition: width 0.3s ease;
 }
 
@@ -143,22 +101,22 @@ a:hover {
   width: 100%;
 }
 
-/* Custom scrollbar for cinematic feel */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f8f6f1;
+  background: #0b0c10;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #d6b98c, #3fb5a3);
+  background: linear-gradient(to bottom, #ff4fa3, #3fb5a3);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #e0c9a1, #5bc0b0);
+  background: linear-gradient(to bottom, #ff6fb7, #5bc0b0);
 }
 
 /* Light sweep animation for text reveals */
