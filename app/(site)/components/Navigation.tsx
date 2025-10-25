@@ -12,6 +12,7 @@ export default function Navigation() {
     { name: "About", path: "/about" },
     { name: "Projects", path: "/projects" },
     { name: "Blog", path: "/blog" },
+    { name: "Contact", path: "/contact" },
   ];
 
   return (
@@ -19,11 +20,11 @@ export default function Navigation() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="fixed top-4 left-1/2 -translate-x-1/2 max-w-3xl w-full mx-auto flex justify-between items-center py-4 px-8 rounded-full z-50 bg-white/5 backdrop-blur-2xl border border-white/10 shadow-lg shadow-black/20"
+      className="fixed top-4 left-1/2 -translate-x-1/2 max-w-3xl w-full mx-auto flex justify-between items-center py-4 px-8 rounded-full z-50 bg-brand-primary/30 backdrop-blur-xl border border-brand-accent/30 shadow-lg shadow-brand-accent/10"
     >
       <Link href="/">
         <motion.h1
-          className="text-xl font-bold font-display tracking-tight bg-gradient-to-r from-brand-accent to-cyan-400 bg-clip-text text-transparent"
+          className="text-xl font-bold font-display tracking-tight bg-gradient-to-r from-brand-accent to-brand-highlight bg-clip-text text-transparent"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -37,7 +38,9 @@ export default function Navigation() {
             <Link href={link.path}>
               <motion.span
                 className={`font-medium transition-all duration-300 relative ${
-                  pathname === link.path ? "text-white" : "text-gray-300 hover:text-white"
+                  pathname === link.path
+                    ? "text-brand-secondary"
+                    : "text-brand-textSecondary hover:text-brand-accent"
                 }`}
                 whileHover={{ y: -2 }}
                 transition={{ type: "spring", stiffness: 300 }}
@@ -45,7 +48,7 @@ export default function Navigation() {
                 {link.name}
                 {pathname === link.path && (
                   <motion.div
-                    className="absolute -bottom-1.5 left-0 right-0 h-0.5 bg-gradient-to-r from-brand-accent to-cyan-400 rounded-full"
+                    className="absolute -bottom-1.5 left-0 right-0 h-0.5 bg-gradient-to-r from-brand-accent to-brand-highlight rounded-full"
                     layoutId="navUnderline"
                     initial={false}
                     transition={{ type: "spring", stiffness: 500, damping: 30 }}

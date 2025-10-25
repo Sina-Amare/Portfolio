@@ -51,24 +51,24 @@ export default function Hero() {
       className="relative min-h-screen flex items-center overflow-hidden"
       style={{ opacity, scale }}
     >
-      {/* Cinematic gradient background */}
+      {/* Cinematic gradient background with new palette */}
       <motion.div
-        className="absolute inset-0 bg-gradient-to-br from-[#0D1117] via-[#1E293B] to-[#0D1117] z-0"
+        className="absolute inset-0 bg-gradient-to-br from-brand-primary via-amber-50 to-brand-primary z-0"
         style={{ y }}
       />
       <motion.div
         className="absolute inset-0"
         style={{
-          background: `radial-gradient(circle at 30% 50%, rgba(37,99,235,0.15), transparent 70%),
-                      linear-gradient(to bottom right, #0D1117, #1E293B)`,
+          background: `radial-gradient(circle at 30% 50%, rgba(214, 185, 140, 0.15), transparent 70%),
+                      linear-gradient(to bottom right, #f8f6f1, #e8e3d7)`,
           y,
         }}
       />
 
-      {/* Floating light particles */}
+      {/* Floating light particles with new colors */}
       <motion.div className="absolute inset-0 z-10" style={{ y }}>
-        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse delay-1000" />
+        <div className="absolute top-20 left-10 w-72 h-72 bg-amber-200/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-teal-300/20 rounded-full blur-3xl animate-pulse delay-1000" />
       </motion.div>
 
       {/* Split layout container */}
@@ -82,20 +82,20 @@ export default function Hero() {
             className="space-y-8"
           >
             <motion.h1
-              className="text-5xl lg:text-6xl font-display font-bold text-white leading-tight"
+              className="text-5xl lg:text-6xl font-display font-bold text-brand-secondary leading-tight"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 1, ease: "easeOut" }}
             >
-              Engineering Clarity Between
-              <span className="block bg-gradient-to-r from-brand-accent to-cyan-400 bg-clip-text text-transparent">
+              Blending Logic, Design, and
+              <span className="block bg-gradient-to-r from-brand-accent to-brand-highlight bg-clip-text text-transparent">
                 {" "}
-                Intelligence and Design
+                Imagination
               </span>
             </motion.h1>
 
             <motion.p
-              className="text-xl text-gray-300 max-w-lg leading-relaxed"
+              className="text-xl text-brand-textSecondary max-w-lg leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 1, ease: "easeOut" }}
@@ -111,14 +111,14 @@ export default function Hero() {
               className="flex flex-col sm:flex-row gap-4"
             >
               <Link href="/projects">
-                <Button className="px-8 py-4 text-lg font-semibold bg-gradient-to-r from-brand-accent to-cyan-400 text-white transform transition-all duration-300 hover:shadow-2xl hover:shadow-brand-accent/30 hover:-translate-y-1 hover:scale-105">
+                <Button className="px-8 py-4 text-lg font-semibold bg-gradient-to-r from-brand-accent to-brand-highlight text-white transform transition-all duration-300 hover:shadow-2xl hover:shadow-brand-accent/30 hover:-translate-y-1 hover:scale-105">
                   View Projects
                 </Button>
               </Link>
               <Link href="/about">
                 <Button
                   variant="outline"
-                  className="px-8 py-4 text-lg font-semibold text-white border-2 border-brand-accent hover:bg-brand-accent hover:text-white hover:shadow-lg hover:shadow-brand-accent/30 hover:-translate-y-1 transition-all duration-300"
+                  className="px-8 py-4 text-lg font-semibold text-brand-secondary border-2 border-brand-accent hover:bg-brand-accent hover:text-white hover:shadow-lg hover:shadow-brand-accent/30 hover:-translate-y-1 transition-all duration-300"
                 >
                   About Me
                 </Button>
@@ -126,7 +126,7 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Right side - Portrait image */}
+          {/* Right side - Portrait image with creative placement */}
           <motion.div
             style={{ x: springX, y: springY }}
             initial={{ opacity: 0, scale: 0.9, x: 50 }}
@@ -135,35 +135,35 @@ export default function Hero() {
             whileHover={{ scale: 1.02 }}
             className="relative"
           >
-            {/* Portrait container with cinematic styling */}
-            <div className="relative">
+            {/* Creative portrait with diagonal composition */}
+            <div className="relative transform rotate-3">
               {/* Soft glow effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-brand-accent/20 to-cyan-400/20 rounded-3xl blur-3xl transform scale-110" />
+              <div className="absolute inset-0 bg-gradient-to-br from-brand-accent/30 to-brand-highlight/20 rounded-3xl blur-3xl transform scale-110 -rotate-3" />
 
-              {/* Portrait image */}
-              <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl overflow-hidden shadow-2xl border border-white/10 shadow-brand-accent/10">
+              {/* Portrait image with organic blob mask */}
+              <div className="relative overflow-hidden rounded-[40px] shadow-2xl border-4 border-brand-accent/30 shadow-brand-accent/20 z-10">
                 <motion.img
                   src="https://images.unsplash.com/photo-150700321169-0a1dd7228f2d?w=800&h=1000&fit=crop&crop=center"
                   alt="Sina Amareh"
-                  className="w-full h-auto object-cover"
+                  className="w-full h-auto object-cover mix-blend-multiply brightness-110"
                   style={{ x: springX, y: springY }}
                   transition={{ stiffness: 50, damping: 20 }}
                 />
 
                 {/* Subtle overlay for depth */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-brand-accent/10 to-brand-highlight/10" />
 
                 {/* Enhanced cinematic border glow */}
-                <div className="absolute inset-0 rounded-3xl border border-transparent shadow-[inset_0_0_20px_#2563eb30] pointer-events-none" />
+                <div className="absolute inset-0 rounded-[40px] border-transparent shadow-[inset_0_0_30px_#d6b98c40] pointer-events-none" />
               </div>
 
               {/* Floating accent elements */}
               <motion.div
-                className="absolute -top-4 -right-4 w-24 h-24 bg-brand-accent/20 rounded-full blur-xl animate-pulse"
+                className="absolute -top-6 -right-6 w-24 h-24 bg-brand-accent/20 rounded-full blur-xl animate-pulse"
                 style={{ x: springX, y: springY }}
               />
               <motion.div
-                className="absolute -bottom-4 -left-4 w-32 h-32 bg-cyan-400/20 rounded-full blur-xl animate-pulse delay-500"
+                className="absolute -bottom-6 -left-6 w-32 h-32 bg-brand-highlight/20 rounded-full blur-xl animate-pulse delay-500"
                 style={{ x: springX, y: springY }}
               />
             </div>

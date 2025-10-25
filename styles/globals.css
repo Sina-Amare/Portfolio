@@ -19,8 +19,8 @@ body {
     "kern" 1;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  background-color: #0d1117; /* Deep graphite background */
-  color: #e5e7eb; /* Light gray text for dark backgrounds */
+  background-color: #f8f6f1; /* Soft cream background */
+  color: #101820; /* Deep navy text */
 }
 
 h1,
@@ -29,16 +29,16 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-inter);
+  font-family: "Playfair Display", serif; /* Updated to Playfair Display */
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: #ffffff; /* White text for dark backgrounds */
+  color: #101820; /* Deep navy text for headings */
 }
 
 p {
   font-family: var(--font-inter);
   line-height: 1.75;
-  color: #e5e7eb; /* Light gray text for dark backgrounds */
+  color: #6b7280; /* Updated gray text */
 }
 
 a {
@@ -48,19 +48,25 @@ a {
 }
 
 a:hover {
-  color: #00c6ff; /* Cyan accent color */
+  color: #d6b98c; /* Warm gold accent color */
   transform: translateY(-1px);
 }
 
 /* Cinematic gradient background */
 .gradient-bg {
-  background: radial-gradient(circle at 30% 50%, rgba(37, 99, 235, 0.25), transparent 70%),
-    linear-gradient(to bottom right, #0d1117, #111827);
+  background: radial-gradient(circle at 30% 50%, rgba(214, 185, 140, 0.25), transparent 70%),
+    linear-gradient(to bottom right, #f8f6f1, #e8e3d7);
 }
 
 .gradient-cyan {
-  background: radial-gradient(circle at 70% 30%, rgba(0, 198, 255, 0.1), transparent 60%),
-    linear-gradient(to bottom right, #0d1117, #1e293b);
+  background: radial-gradient(circle at 70% 30%, rgba(63, 181, 163, 0.1), transparent 60%),
+    linear-gradient(to bottom right, #f8f6f1, #dcd6c7);
+}
+
+/* Warm coral gradient */
+.gradient-coral {
+  background: radial-gradient(circle at 30% 70%, rgba(255, 111, 97, 0.15), transparent 70%),
+    linear-gradient(to bottom right, #f8f6f1, #f0ebe4);
 }
 
 /* Glass card effect for content sections */

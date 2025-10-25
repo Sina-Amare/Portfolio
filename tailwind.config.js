@@ -11,13 +11,13 @@ module.exports = {
     extend: {
       colors: {
         brand: {
-          primary: "#0A0A0A", // soft black / graphite
-          secondary: "#F9FAFB", // light neutral white
-          accent: "#2563EB", // refined blue
-          accentSecondary: "#00C6FF", // gradient pairing cyan
-          highlight: "#FACC15", // gentle emphasis yellow
-          textPrimary: "#111827", // dark gray for content
-          textSecondary: "#6B7280", // secondary text
+          primary: "#f8f6f1", // soft cream (new)
+          secondary: "#101820", // deep navy (new)
+          accent: "#d6b98c", // warm gold (new)
+          accentSecondary: "#ff6f61", // coral (new)
+          highlight: "#3fb5a3", // teal (new)
+          textPrimary: "#101820", // deep navy for content (new)
+          textSecondary: "#6B7280", // secondary text (updated contrast)
         },
       },
       fontFamily: {
