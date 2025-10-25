@@ -7,11 +7,12 @@ export default function Navigation() {
   const pathname = usePathname();
 
   const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
-    { name: "Projects", path: "/projects" },
-    { name: "Blog", path: "/blog" },
-    { name: "Contact", path: "/contact" },
+    { name: "ABOUT", path: "/about" },
+    { name: "EXPERIENCE", path: "/experience" },
+    { name: "SKILLS", path: "/skills" },
+    { name: "EDUCATION", path: "/education" },
+    { name: "BLOGS", path: "/blogs" },
+    { name: "PROJECTS", path: "/projects" },
   ];
 
   return (
@@ -25,19 +26,19 @@ export default function Navigation() {
         <Link href="/">
           <motion.h1
             className="text-xl font-bold font-display tracking-tight bg-gradient-to-r from-[#ff4fa3] to-[#3fb5a3] bg-clip-text text-transparent"
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.05, textShadow: "0 0 8px #3fb5a3" }}
             whileTap={{ scale: 0.95 }}
           >
-            Sina Amareh
+            SINA AMAREH
           </motion.h1>
         </Link>
 
-        <ul className="flex space-x-8 text-sm font-sans">
+        <ul className="hidden md:flex space-x-8 text-sm font-sans">
           {navLinks.map((link) => (
             <li key={link.path} className="nav-link relative">
               <Link href={link.path}>
                 <motion.span
-                  className={`font-medium transition-all duration-300 relative ${
+                  className={`font-semibold tracking-wider transition-all duration-300 relative ${
                     pathname === link.path ? "text-white" : "text-gray-400 hover:text-white"
                   }`}
                 >
