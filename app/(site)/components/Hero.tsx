@@ -53,10 +53,12 @@ const Hero = () => {
         }}
       ></motion.div>
       {/* Animated gradient streaks */}
-      {/* <motion.div
+      <motion.div
         className="absolute inset-0 bg-gradient-animated bg-[length:400%_400%] opacity-30"
         style={{ x: parallax.x * 0.3, y: parallax.y * 0.3 }}
-      ></motion.div> */}
+        animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+      ></motion.div>
       {/* Glow effect */}
       <motion.div
         className="pointer-events-none fixed inset-0 z-30 transition duration-300 mix-blend-lighten"
@@ -79,7 +81,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-7xl font-extrabold leading-[1.1] tracking-tight text-white z-10"
+            className="text-7xl font-extrabold leading-[1.1] tracking-tight text-white z-10 light-sweep-text"
           >
             Hello <span className="inline-block animate-wave">👋</span>
             <br />
@@ -101,67 +103,9 @@ const Hero = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex gap-4 mt-8 text-3xl text-gray-400 z-10"
-          >
-            <Link
-              href="https://github.com/sina-amareh"
-              aria-label="Github"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <motion.div whileHover={{ scale: 1.2, y: -5 }} whileTap={{ scale: 0.9 }}>
-                <FaGithub className="hover:text-white transition-colors" />
-              </motion.div>
-            </Link>
-            <Link
-              href="https://linkedin.com/in/sina-amareh"
-              aria-label="LinkedIn"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <motion.div whileHover={{ scale: 1.2, y: -5 }} whileTap={{ scale: 0.9 }}>
-                <FaLinkedin className="hover:text-white transition-colors" />
-              </motion.div>
-            </Link>
-            <Link
-              href="https://facebook.com/sina.amareh"
-              aria-label="Facebook"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <motion.div whileHover={{ scale: 1.2, y: -5 }} whileTap={{ scale: 0.9 }}>
-                <FaFacebook className="hover:text-white transition-colors" />
-              </motion.div>
-            </Link>
-            <Link
-              href="https://twitter.com/sina_amareh"
-              aria-label="Twitter"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <motion.div whileHover={{ scale: 1.2, y: -5 }} whileTap={{ scale: 0.9 }}>
-                <FaTwitter className="hover:text-white transition-colors" />
-              </motion.div>
-            </Link>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
             className="flex flex-col sm:flex-row gap-4 mt-8 z-10"
           >
-            <Link href="/contact" passHref>
-              <motion.button
-                whileHover={{ scale: 1.05, boxShadow: "0 0 25px #ff3ea5aa" }}
-                whileTap={{ scale: 0.95 }}
-                className="px-6 py-3 rounded-xl font-semibold text-white border border-[#ff3ea5]/50 bg-white/5 backdrop-blur-lg transition-all duration-300"
-                aria-label="Contact Me"
-              >
-                Contact Me ✉️
-              </motion.button>
-            </Link>
             <Link href="/resume.pdf" passHref legacyBehavior>
               <motion.button
                 whileHover={{ scale: 1.05, boxShadow: "0 0 30px #00ffe0aa" }}
@@ -182,7 +126,7 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
           className="w-full max-w-md mx-auto z-10"
         >
-          <div className="p-6 rounded-2xl bg-white/5 backdrop-blur-2xl border border-white/10 shadow-[0_0_30px_#00ffe033] text-gray-300">
+          <div className="glassmorphic-code-block p-6 text-gray-300">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-3 h-3 rounded-full bg-[#ff605c]"></div>
               <div className="w-3 h-3 rounded-full bg-[#ffbd44]"></div>

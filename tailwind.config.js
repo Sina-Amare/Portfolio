@@ -20,7 +20,7 @@ module.exports = {
           accent: "#d6b98c", // warm gold (new)
           accentSecondary: "#ff6f61", // coral (new)
           highlight: "#3fb5a3", // teal (new)
-          textPrimary: "#101820", // deep navy for content (new)
+          textPrimary: "#f8f6f1", // soft cream for content (new)
           textSecondary: "#6B7280", // secondary text (updated contrast)
         },
         cream: "#f8f6f1",
