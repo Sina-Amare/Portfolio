@@ -1,30 +1,27 @@
-خواهش می‌کنم. این مشکل رایجی است، گاهی ایجنت روی گرادیان‌های نوری (blobs) تمرکز می‌کند و لایه پس‌زمینه اصلی را فراموش می‌کند.
+Hello. The "Contact Me" button style is perfect. Do not change it.
 
-از این پرامپت انگلیسی استفاده کنید. این پرامپت بسیار مستقیم است و به ایجنت می‌گوید که استایل فعلی (هاله‌های نوری) عالی است و فقط باید پس‌زمینه اصلی و گرید را به آن اضافه کند.
+I want to add a creative "gloss/shimmer" hover effect to the "Get Resume" button. The button should keep its current gradient background and glow.
 
-پرامپت انگلیسی فوری (Forceful Prompt)
-Hello. The current style with the gradient glows (the purple and teal blobs) is perfect. Please keep that exactly as it is.
+The effect: When the user hovers over the button, a white, angled shimmer (like a light reflection) should sweep across it from left to right.
 
-My request is to ADD a base background underneath those glows. Please focus only on this change:
+Please implement this using a `::after` pseudo-element.
 
-Main Background Color: Set the body or the main wrapper div background color to a solid dark color, like #0D1117 or black.
+1.  **Button Itself (`.get-resume-button`):**
+    - Must have `position: relative;`
+    - Must have `overflow: hidden;` (This is essential to clip the shimmer)
 
-Grid Pattern Overlay: Add a subtle, repeating grid pattern on top of that dark color. The grid lines must be very faint (e.g., rgba(255, 255, 255, 0.05)).
+2.  **Pseudo-Element (`.get-resume-button::after`):**
+    - `content: '';`
+    - `position: absolute;`
+    - `top: 0;`
+    - `left: -150%;` (Starts off-screen to the left)
+    - `width: 75%;`
+    - `height: 100%;`
+    - `background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);`
+    - `transform: skewX(-25deg);` (Gives it the angled look)
+    - `transition: left 0.7s ease-in-out;` (The animation)
 
-Here is a specific CSS example of the grid pattern I want. Please apply this to the body or the main background container:
+3.  **Hover State (`.get-resume-button:hover::after`):**
+    - `left: 150%;` (Moves it off-screen to the right, completing the sweep)
 
-CSS
-
-body {
-/_ 1. The dark base color _/
-background-color: #0D1117;
-
-/_ 2. The subtle grid pattern overlay _/
-background-image:
-linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-background-size: 40px 40px; /_ Adjust grid size if needed _/
-
-/_ Ensure this doesn't remove the existing glows _/
-}
-Please force the application of this solid dark background AND the grid pattern, while keeping the existing gradient blobs.
+Please apply this effect precisely.

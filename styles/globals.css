@@ -173,3 +173,30 @@ pre > code {
     box-shadow: 0 0 40px theme("colors.cyan.400" / 0.15);
   }
 }
+
+/* Shimmer effect for Get Resume button */
+.get-resume-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.get-resume-button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 75%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-25deg);
+  transition: left 0.7s ease-in-out;
+}
+
+.get-resume-button:hover::after {
+  left: 150%;
+}

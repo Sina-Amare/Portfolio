@@ -156,9 +156,21 @@ const Hero = () => {
           >
             <Link href="/contact" passHref>
               <motion.button
-                whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(0,255,255,0.15)" }}
+                whileHover={{
+                  y: -5,
+                  backgroundColor: "rgba(147, 51, 234, 0.1)",
+                  boxShadow: "0 0 10px rgba(147, 51, 234, 0.5), 0 0 20px rgba(6, 182, 212, 0.2)",
+                }}
                 whileTap={{ scale: 0.95 }}
-                className="px-6 h-[48px] rounded-full font-semibold text-gray-50 border border-white/30 bg-transparent backdrop-blur-lg transition-all duration-300"
+                className="relative inline-flex items-center justify-center py-[14px] px-[28px] rounded-[8px] text-[1.1rem] font-semibold text-white bg-transparent transition-all duration-300 ease-in-out"
+                style={{
+                  border: "2px solid transparent",
+                  backgroundImage:
+                    "linear-gradient(rgba(13, 17, 23, 1), rgba(13, 17, 23, 1)), linear-gradient(to right, #9333EA, #06B6D4)",
+                  backgroundOrigin: "border-box",
+                  backgroundClip: "padding-box, border-box",
+                  boxShadow: "0 0 5px rgba(147, 51, 234, 0.3)",
+                }}
                 aria-label="Contact Me"
               >
                 Contact Me ✉️
@@ -166,9 +178,15 @@ const Hero = () => {
             </Link>
             <Link href="/resume.pdf" passHref legacyBehavior>
               <motion.button
-                whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(0,255,255,0.15)" }}
+                whileHover={{
+                  y: -5,
+                  boxShadow: "0 0 15px rgba(147, 51, 234, 0.6), 0 0 30px rgba(6, 182, 212, 0.4)",
+                }}
                 whileTap={{ scale: 0.95 }}
-                className="px-6 h-[48px] rounded-full font-semibold text-gray-50 bg-gradient-to-r from-pink-500 to-blue-600 transition-all duration-300"
+                className="get-resume-button py-[14px] px-[28px] rounded-[8px] text-[1.1rem] font-semibold text-white bg-gradient-to-r from-[#9333EA] to-[#06B6D4] border-none transition-all duration-300 ease-in-out"
+                style={{
+                  boxShadow: "0 0 10px rgba(147, 51, 234, 0.4), 0 0 20px rgba(6, 182, 212, 0.2)",
+                }}
                 aria-label="Get my resume"
               >
                 Get Resume ⬇️
