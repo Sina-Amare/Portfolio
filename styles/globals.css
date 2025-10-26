@@ -1,53 +1,35 @@
-/* globals.css */
+:root {
+  --color-bg-dark: #0d1117;
+  --color-accent-pink: #d74cf0;
+  --color-accent-cyan: #00e0d3;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #c9d1d9;
+  --transition-base: all 0.3s ease-in-out;
+  --blur-glass: blur(16px);
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-html,
-body {
-  height: 100%;
-  margin: 0;
-}
 
 html {
   scroll-behavior: smooth;
 }
 
 body {
+  /* 1. The dark base color */
+  background-color: #0d1117;
+  /* 2. The subtle grid pattern overlay */
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 30px 30px;
+
   font-feature-settings:
     "liga" 1,
     "kern" 1;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  background-image: radial-gradient(circle at top left, #1b1f2a 0%, #0a0b10 100%);
-  color: #e2e8f0; /* Light text for contrast */
-  position: relative;
-}
-
-body::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url("/assets/grid.svg");
-  background-repeat: repeat;
-  background-size: 20px 20px;
-  opacity: 0.1;
-  mix-blend-mode: overlay;
-  pointer-events: none;
-  z-index: 0;
-}
-
-body::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: linear-gradient(to right, rgba(255, 79, 163, 0.2), rgba(63, 181, 163, 0.2));
-  mix-blend-mode: screen;
-  pointer-events: none;
-  z-index: 0;
+  color: var(--color-text-secondary);
 }
 
 h1,
@@ -59,27 +41,23 @@ h6 {
   font-family: "Poppins", sans-serif;
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: #ffffff; /* White text for headings */
+  color: var(--color-text-primary);
 }
 
 p {
-  font-family: var(--font-inter);
+  font-family: "Inter", sans-serif;
   line-height: 1.75;
-  color: #cbd5e1; /* Light gray text */
+  color: var(--color-text-secondary);
 }
 
 a {
-  transition:
-    color 0.3s ease,
-    transform 0.2s ease;
+  transition: var(--transition-base);
 }
 
 a:hover {
-  color: #3fb5a3; /* Teal accent color */
-  transform: translateY(-1px);
+  color: var(--color-accent-cyan);
 }
 
-/* Navigation link hover effect */
 .nav-link {
   position: relative;
 }
@@ -91,7 +69,7 @@ a:hover {
   left: 0;
   width: 0;
   height: 1.5px;
-  background: linear-gradient(to right, #ff4fa3, #3fb5a3); /* Magenta to teal gradient */
+  background: linear-gradient(to right, var(--color-accent-pink), var(--color-accent-cyan));
   transition: width 0.3s ease;
 }
 
@@ -99,7 +77,6 @@ a:hover {
   width: 100%;
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -109,7 +86,7 @@ a:hover {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #ff4fa3, #3fb5a3);
+  background: linear-gradient(to bottom, var(--color-accent-pink), var(--color-accent-cyan));
   border-radius: 4px;
 }
 
@@ -117,56 +94,109 @@ a:hover {
   background: linear-gradient(to bottom, #ff6fb7, #5bc0b0);
 }
 
-/* Light sweep animation for text reveals */
-@keyframes light-sweep {
-  0% {
-    background-position: -200% 0;
+/* Dracula Theme for Code Blocks */
+pre,
+code {
+  @apply !font-mono;
+}
+
+pre > code {
+  @apply block overflow-x-auto rounded-lg border border-gray-700/50 bg-[#282a36] p-4 text-sm;
+}
+
+/* Syntax Highlighting Colors (Dracula-like) */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  @apply text-gray-500;
+}
+.token.punctuation {
+  @apply text-gray-400;
+}
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  @apply text-[#ff79c6];
+}
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  @apply text-[#50fa7b];
+}
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  @apply text-[#8be9fd];
+}
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  @apply text-[#ff79c6];
+}
+.token.function,
+.token.class-name {
+  @apply text-[#f1fa8c];
+}
+.token.regex,
+.token.important,
+.token.variable {
+  @apply text-[#ffb86c];
+}
+
+/* For typewriter cursor */
+.typing-cursor {
+  border-right: 2px solid var(--color-accent-cyan, #8be9fd);
+  animation: typing-cursor 0.7s steps(2, start) infinite;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+/* Glowing Border for Code Block */
+@layer components {
+  .code-block-glow-wrapper {
+    background: linear-gradient(
+      110deg,
+      transparent 20%,
+      theme("colors.cyan.400" / 0.4),
+      transparent 80%
+    );
+    box-shadow: 0 0 40px theme("colors.cyan.400" / 0.15);
   }
-  100% {
-    background-position: 200% 0;
-  }
 }
 
-.light-sweep-text {
-  background: linear-gradient(90deg, #ffffff 40%, #94a3b8 50%, #ffffff 60%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: light-sweep 2s linear infinite;
-}
-
-/* Consistent border radius classes */
-.rounded-lg {
-  border-radius: 16px;
-}
-
-.rounded-xl {
-  border-radius: 24px;
-}
-
-/* Glassmorphic code block */
-.glassmorphic-code-block {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 0 25px rgba(0, 255, 255, 0.05);
-  border-radius: 16px;
+/* Shimmer effect for Get Resume button */
+.get-resume-button {
+  position: relative;
   overflow: hidden;
-  transition: all 0.3s ease;
 }
 
-.glassmorphic-code-block:hover {
-  box-shadow: 0 0 35px rgba(0, 255, 255, 0.1);
-  transform: translateY(-5px);
+.get-resume-button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 75%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-25deg);
+  transition: left 0.7s ease-in-out;
 }
 
-.code-highlight span {
-  transition: all 0.3s ease;
-}
-
-.code-highlight:hover span {
-  opacity: 0.8;
-  text-shadow: 0 0 8px currentColor;
+.get-resume-button:hover::after {
+  left: 150%;
 }

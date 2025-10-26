@@ -10,7 +10,7 @@ export default function Navigation() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      setScrolled(window.scrollY > 50);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -34,15 +34,15 @@ export default function Navigation() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 flex justify-center z-[999] h-16 md:h-20 transition-all duration-300 ${
-        scrolled ? "bg-black/10 backdrop-blur-lg shadow-[0_0_15px_#00ffe022]" : "bg-transparent"
+      className={`sticky top-0 left-0 right-0 flex justify-center z-50 h-16 md:h-20 transition-all duration-300 ${
+        scrolled ? "bg-[#0D1117]/70 backdrop-blur-[10px]" : "bg-transparent"
       }`}
     >
       <div className="max-w-screen-xl w-full mx-auto px-6 md:px-8 flex justify-between items-center h-full">
         <Link href="/">
           <motion.h1
-            className="text-xl font-bold font-display tracking-tight text-brand-primary"
-            whileHover={{ scale: 1.05, textShadow: "0 0 8px #3fb5a3" }}
+            className="text-xl font-bold font-display tracking-tight bg-gradient-to-r from-[#ff3ea5] via-[#b040ff] to-[#00ffe0] bg-clip-text text-transparent"
+            whileHover={{ scale: 1.05, textShadow: "0 0 10px rgba(63, 181, 163, 0.5)" }}
             whileTap={{ scale: 0.95 }}
           >
             SINA AMAREH
