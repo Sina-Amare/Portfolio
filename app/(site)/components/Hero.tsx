@@ -2,72 +2,64 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { FaGithub, FaLinkedin, FaFacebook, FaTwitter, FaCopy } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
 const Hero = () => {
-  const [cursorPos, setCursorPos] = useState({ x: -200, y: -200 });
   const [copied, setCopied] = useState("Copy");
-  const [parallax, setParallax] = useState({ x: 0, y: 0 });
+  const [displayedCode, setDisplayedCode] = useState("");
+
+  const plainCodeString = `const coder = {
+  name: 'Sina Amareh',
+  skills: ['React', 'Next.js', 'NestJS', 'PostgreSQL', 'Docker'],
+  focus: 'Backend Architecture & System Design',
+  hireable: true
+};`;
+
+  const highlightedCodeString = `<span class="token keyword">const</span> <span class="token function-variable function">coder</span> <span class="token operator">=</span> <span class="token punctuation">{</span><br/>  <span class="token property">name</span><span class="token operator">:</span> <span class="token string">'Sina Amareh'</span><span class="token punctuation">,</span><br/>  <span class="token property">skills</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'React'</span><span class="token punctuation">,</span> <span class="token string">'Next.js'</span><span class="token punctuation">,</span> <span class="token string">'NestJS'</span><span class="token punctuation">,</span> <span class="token string">'PostgreSQL'</span><span class="token punctuation">,</span> <span class="token string">'Docker'</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br/>  <span class="token property">focus</span><span class="token operator">:</span> <span class="token string">'Backend Architecture & System Design'</span><span class="token punctuation">,</span><br/>  <span class="token property">hireable</span><span class="token operator">:</span> <span class="token boolean">true</span><br/><span class="token punctuation">};</span>`;
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setCursorPos({ x: e.clientX, y: e.clientY });
+    let i = 0;
+    // Use the highlighted version for the typewriter effect
+    const codeString = highlightedCodeString;
+    const interval = setInterval(() => {
+      // If the current character is the start of an HTML tag, jump to the end of it
+      if (codeString[i] === "<") {
+        const closingTagIndex = codeString.indexOf(">", i);
+        i = closingTagIndex + 1;
+      } else {
+        i++;
+      }
 
-      // Calculate parallax effect based on mouse position
-      const centerX = window.innerWidth / 2;
-      const centerY = window.innerHeight / 2;
-      const moveX = (e.clientX - centerX) / 50; // Max ±20px
-      const moveY = (e.clientY - centerY) / 50; // Max ±20px
+      if (i >= codeString.length) {
+        setDisplayedCode(codeString); // Ensure the full string is displayed at the end
+        clearInterval(interval);
+      } else {
+        setDisplayedCode(codeString.substring(0, i));
+      }
+    }, 25); // Faster typing speed
 
-      setParallax({ x: Math.max(-20, Math.min(20, moveX)), y: Math.max(-20, Math.min(20, moveY)) });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
+    return () => clearInterval(interval);
+  }, [highlightedCodeString]);
 
   const handleCopy = () => {
-    const codeString = `const coder = {\n  name: 'Sina Amareh',\n  skills: ['React', 'Next.js', 'NestJS', 'PostgreSQL', 'Docker'],\n  focus: 'Backend Architecture & System Design',\n  hireable: true\n};`;
-    navigator.clipboard.writeText(codeString);
+    navigator.clipboard.writeText(plainCodeString);
     setCopied("Copied!");
     setTimeout(() => setCopied("Copy"), 2000);
   };
 
   return (
-    <section className="w-screen h-screen flex items-center justify-center bg-[#0b0f19] relative overflow-hidden">
-      {/* Animated gradient background */}
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-br from-[#070810]/0 via-[#0c0d14] to-[#121522]/0"
-        style={{ x: parallax.x, y: parallax.y }}
-      ></motion.div>
-      {/* Grid Overlay */}
-      <motion.div
-        className="absolute inset-0 bg-repeat opacity-[0.04]"
-        style={{
-          backgroundImage: "url(/assets/grid.svg)",
-          x: parallax.x * 0.5,
-          y: parallax.y * 0.5,
-        }}
-      ></motion.div>
-      {/* Animated gradient streaks */}
-      {/* <motion.div
-        className="absolute inset-0 bg-gradient-animated bg-[length:400%_400%] opacity-30"
-        style={{ x: parallax.x * 0.3, y: parallax.y * 0.3 }}
-      ></motion.div> */}
-      {/* Glow effect */}
-      <motion.div
-        className="pointer-events-none fixed inset-0 z-30 transition duration-300 mix-blend-lighten"
-        style={{
-          background: `radial-gradient(circle, rgba(0,255,255,0.12) 0%, transparent 70%)`,
-          filter: "blur(50px)",
-          transform: `translate(${cursorPos.x - 150}px, ${cursorPos.y - 150}px)`,
-        }}
-      />
-
-      <div className="w-full max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-12 lg:gap-8 px-6 md:px-8">
+    <section
+      className="w-full min-h-screen flex items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8"
+      // style={{ padding: "6rem 8rem" }}
+    >
+      {/* Background Glows (Aurora) */}
+      <div aria-hidden="true" className="absolute inset-0 -z-10">
+        {/* Purple/Magenta Blob */}
+        <div className="absolute left-[-20%] top-[10%] h-[500px] w-[500px] rounded-full bg-purple-600/40 opacity-50 blur-[120px]" />
+        {/* Cyan/Teal Blob */}
+        <div className="absolute right-[-20%] top-[30%] h-[500px] w-[500px] rounded-full bg-cyan-500/40 opacity-50 blur-[120px]" />
+      </div>
+      <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-12 lg:gap-8">
         {/* Left Column */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
@@ -76,15 +68,13 @@ const Hero = () => {
           className="flex flex-col items-center lg:items-start text-center lg:text-left"
         >
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-7xl font-extrabold leading-[1.1] tracking-tight text-white z-10"
+            className="text-[4rem] font-bold font-display leading-[1.1] tracking-tight text-gray-50 z-10"
           >
-            Hello <span className="inline-block animate-wave">👋</span>
-            <br />
-            I'm{" "}
-            <span className="bg-gradient-to-r from-[#ff3ea5] via-[#b040ff] to-[#00ffe0] bg-clip-text text-transparent">
+            Hello <span className="inline-block animate-wave">👋</span>, <br /> I'm{" "}
+            <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-400 bg-clip-text text-transparent">
               Sina Amareh
             </span>
           </motion.h1>
@@ -92,10 +82,10 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="mt-6 text-[#e6e6e6] text-xl max-w-[48ch] z-10"
+            className="mt-6 text-gray-300 text-[1rem] max-w-[48ch] z-10"
           >
-            Engineering intelligent systems where <span className="text-[#00ffe0]">clarity</span>{" "}
-            meets <span className="text-[#ff3ea5]">imagination</span>.
+            Engineering intelligent systems where <span className="text-link-blue">clarity</span>{" "}
+            meets <span className="text-link-pink">imagination</span>.
           </motion.p>
 
           <motion.div
@@ -110,8 +100,11 @@ const Hero = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <motion.div whileHover={{ scale: 1.2, y: -5 }} whileTap={{ scale: 0.9 }}>
-                <FaGithub className="hover:text-white transition-colors" />
+              <motion.div
+                whileHover={{ scale: 1.2, y: -5, color: "#00e0d3", textShadow: "0 0 10px #00e0d3" }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <FaGithub className="hover:text-accent-cyan transition-colors" />
               </motion.div>
             </Link>
             <Link
@@ -120,8 +113,11 @@ const Hero = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <motion.div whileHover={{ scale: 1.2, y: -5 }} whileTap={{ scale: 0.9 }}>
-                <FaLinkedin className="hover:text-white transition-colors" />
+              <motion.div
+                whileHover={{ scale: 1.2, y: -5, color: "#00e0d3", textShadow: "0 0 10px #00e0d3" }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <FaLinkedin className="hover:text-accent-cyan transition-colors" />
               </motion.div>
             </Link>
             <Link
@@ -130,8 +126,11 @@ const Hero = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <motion.div whileHover={{ scale: 1.2, y: -5 }} whileTap={{ scale: 0.9 }}>
-                <FaFacebook className="hover:text-white transition-colors" />
+              <motion.div
+                whileHover={{ scale: 1.2, y: -5, color: "#00e0d3", textShadow: "0 0 10px #00e0d3" }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <FaFacebook className="hover:text-accent-cyan transition-colors" />
               </motion.div>
             </Link>
             <Link
@@ -140,8 +139,11 @@ const Hero = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <motion.div whileHover={{ scale: 1.2, y: -5 }} whileTap={{ scale: 0.9 }}>
-                <FaTwitter className="hover:text-white transition-colors" />
+              <motion.div
+                whileHover={{ scale: 1.2, y: -5, color: "#00e0d3", textShadow: "0 0 10px #00e0d3" }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <FaTwitter className="hover:text-accent-cyan transition-colors" />
               </motion.div>
             </Link>
           </motion.div>
@@ -154,9 +156,9 @@ const Hero = () => {
           >
             <Link href="/contact" passHref>
               <motion.button
-                whileHover={{ scale: 1.05, boxShadow: "0 0 25px #ff3ea5aa" }}
+                whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(0,255,255,0.15)" }}
                 whileTap={{ scale: 0.95 }}
-                className="px-6 py-3 rounded-xl font-semibold text-white border border-[#ff3ea5]/50 bg-white/5 backdrop-blur-lg transition-all duration-300"
+                className="px-6 h-[48px] rounded-full font-semibold text-gray-50 border border-white/30 bg-transparent backdrop-blur-lg transition-all duration-300"
                 aria-label="Contact Me"
               >
                 Contact Me ✉️
@@ -164,9 +166,9 @@ const Hero = () => {
             </Link>
             <Link href="/resume.pdf" passHref legacyBehavior>
               <motion.button
-                whileHover={{ scale: 1.05, boxShadow: "0 0 30px #00ffe0aa" }}
+                whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(0,255,255,0.15)" }}
                 whileTap={{ scale: 0.95 }}
-                className="px-6 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-[#ff3ea5] to-[#00ffe0] transition-all duration-300"
+                className="px-6 h-[48px] rounded-full font-semibold text-gray-50 bg-gradient-to-r from-pink-500 to-blue-600 transition-all duration-300"
                 aria-label="Get my resume"
               >
                 Get Resume ⬇️
@@ -179,52 +181,39 @@ const Hero = () => {
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-          className="w-full max-w-md mx-auto z-10"
+          transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
+          className="w-full max-w-lg mx-auto z-10 float-slow"
         >
-          <div className="p-6 rounded-2xl bg-white/5 backdrop-blur-2xl border border-white/10 shadow-[0_0_30px_#00ffe033] text-gray-300">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-3 h-3 rounded-full bg-[#ff605c]"></div>
-              <div className="w-3 h-3 rounded-full bg-[#ffbd44]"></div>
-              <div className="w-3 h-3 rounded-full bg-[#00ca4e]"></div>
-              <button
-                onClick={handleCopy}
-                className="ml-auto px-3 py-1 rounded-md bg-white/5 hover:bg-white/10 transition-colors text-xs flex items-center gap-1.5 border border-white/10"
-                aria-label="Copy code to clipboard"
-              >
-                {copied === "Copy" && (
-                  <>
-                    <FaCopy className="w-3 h-3" /> Copy
-                  </>
-                )}
-                {copied === "Copied!" && "Copied!"}
-              </button>
-            </div>
-            <div className="p-4 overflow-x-auto">
-              <pre className="font-mono text-sm text-slate-200 whitespace-pre-wrap">
-                <code className="code-highlight">
-                  <span className="text-[#c792ea]">const</span>{" "}
-                  <span className="text-[#82aaff]">coder</span> = {"{"}
-                  <br />
-                  &nbsp;&nbsp;<span className="text-[#f07178]">name</span>:{" "}
-                  <span className="text-[#c3e88d]">'Sina Amareh'</span>,
-                  <br />
-                  &nbsp;&nbsp;<span className="text-[#f07178]">skills</span>: [
-                  <span className="text-[#c3e88d]">'React'</span>,{" "}
-                  <span className="text-[#c3e88d]">'Next.js'</span>,{" "}
-                  <span className="text-[#c3e88d]">'NestJS'</span>,{" "}
-                  <span className="text-[#c3e88d]">'PostgreSQL'</span>,{" "}
-                  <span className="text-[#c3e88d]">'Docker'</span>
-                  ],
-                  <br />
-                  &nbsp;&nbsp;<span className="text-[#f07178]">focus</span>:{" "}
-                  <span className="text-[#c3e88d]">'Backend Architecture & System Design'</span>,
-                  <br />
-                  &nbsp;&nbsp;<span className="text-[#f07178]">hireable</span>:{" "}
-                  <span className="text-[#89ddff]">true</span>,
-                  <br />
-                  {"};"}
-                </code>
+          {/* Glowing Border Wrapper */}
+          <div className="code-block-glow-wrapper p-[1.5px] rounded-lg">
+            <div className="bg-[#282a36]/80 rounded-[7px] p-4 backdrop-blur-sm">
+              <div className="flex items-center justify-between gap-2 mb-4">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-[#ff605c]"></div>
+                  <div className="w-3 h-3 rounded-full bg-[#ffbd44]"></div>
+                  <div className="w-3 h-3 rounded-full bg-[#00ca4e]"></div>
+                  <span className="ml-2 text-xs text-gray-400 font-mono">zsh</span>
+                </div>
+                <button
+                  onClick={handleCopy}
+                  className="px-3 py-1 rounded-md bg-gray-700/50 hover:bg-gray-600/50 transition-colors text-xs flex items-center gap-1.5 border border-gray-600/50"
+                  aria-label="Copy code to clipboard"
+                >
+                  {copied === "Copy" && (
+                    <>
+                      <FaCopy className="w-3 h-3" /> Copy
+                    </>
+                  )}
+                  {copied === "Copied!" && "Copied!"}
+                </button>
+              </div>
+              <pre className="!bg-transparent !p-0 !border-none min-h-[150px] whitespace-pre-wrap break-words">
+                <code
+                  className="language-js !bg-transparent !p-0 !border-none"
+                  dangerouslySetInnerHTML={{
+                    __html: displayedCode + '<span class="typing-cursor"></span>',
+                  }}
+                ></code>
               </pre>
             </div>
           </div>
