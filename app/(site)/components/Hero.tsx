@@ -186,7 +186,7 @@ const Hero = () => {
         >
           {/* Glowing Border Wrapper */}
           <div className="code-block-glow-wrapper p-[1.5px] rounded-lg">
-            <div className="bg-[#282a36]/80 rounded-[7px] p-4 backdrop-blur-sm">
+            <div className="bg-[#282a36]/80 rounded-[14px] p-4 backdrop-blur-sm">
               <div className="flex items-center justify-between gap-2 mb-4">
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full bg-[#ff605c]"></div>
@@ -196,7 +196,7 @@ const Hero = () => {
                 </div>
                 <button
                   onClick={handleCopy}
-                  className="px-3 py-1 rounded-md bg-gray-700/50 hover:bg-gray-600/50 transition-colors text-xs flex items-center gap-1.5 border border-gray-600/50"
+                  className="px-3 py-1 rounded-[8px] bg-gray-700/50 hover:bg-gray-600/50 transition-colors text-xs flex items-center gap-1.5 border border-gray-600/50"
                   aria-label="Copy code to clipboard"
                 >
                   {copied === "Copy" && (
@@ -207,7 +207,7 @@ const Hero = () => {
                   {copied === "Copied!" && "Copied!"}
                 </button>
               </div>
-              <pre className="!bg-transparent !p-0 !border-none min-h-[150px] whitespace-pre-wrap break-words">
+              <pre className="!bg-transparent !border-none whitespace-pre-wrap break-words pb-6">
                 <code
                   className="language-js !bg-transparent !p-0 !border-none"
                   dangerouslySetInnerHTML={{
