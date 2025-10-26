@@ -10,12 +10,16 @@ const Hero = () => {
 
   const plainCodeString = `const coder = {
   name: 'Sina Amareh',
-  skills: ['React', 'Next.js', 'NestJS', 'PostgreSQL', 'Docker'],
+  skills: [
+    'React', 'Next.js',
+    'NestJS', 'PostgreSQL',
+    'Docker'
+  ],
   focus: 'Backend Architecture & System Design',
   hireable: true
 };`;
 
-  const highlightedCodeString = `<span class="token keyword">const</span> <span class="token function-variable function">coder</span> <span class="token operator">=</span> <span class="token punctuation">{</span><br/>  <span class="token property">name</span><span class="token operator">:</span> <span class="token string">'Sina Amareh'</span><span class="token punctuation">,</span><br/>  <span class="token property">skills</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'React'</span><span class="token punctuation">,</span> <span class="token string">'Next.js'</span><span class="token punctuation">,</span> <span class="token string">'NestJS'</span><span class="token punctuation">,</span> <span class="token string">'PostgreSQL'</span><span class="token punctuation">,</span> <span class="token string">'Docker'</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br/>  <span class="token property">focus</span><span class="token operator">:</span> <span class="token string">'Backend Architecture & System Design'</span><span class="token punctuation">,</span><br/>  <span class="token property">hireable</span><span class="token operator">:</span> <span class="token boolean">true</span><br/><span class="token punctuation">};</span>`;
+  const highlightedCodeString = `<span class="token keyword">const</span> <span class="token function-variable function">coder</span> <span class="token operator">=</span> <span class="token punctuation">{</span><br/>  <span class="token property">name</span><span class="token operator">:</span> <span class="token string">'Sina Amareh'</span><span class="token punctuation">,</span><br/>  <span class="token property">skills</span><span class="token operator">:</span> <span class="token punctuation">[</span><br/>    <span class="token string">'React'</span><span class="token punctuation">,</span> <span class="token string">'Next.js'</span><span class="token punctuation">,</span><br/>    <span class="token string">'NestJS'</span><span class="token punctuation">,</span> <span class="token string">'PostgreSQL'</span><span class="token punctuation">,</span><br/>    <span class="token string">'Docker'</span><br/>  <span class="token punctuation">]</span><span class="token punctuation">,</span><br/>  <span class="token property">focus</span><span class="token operator">:</span> <span class="token string">'Backend Architecture & System Design'</span><span class="token punctuation">,</span><br/>  <span class="token property">hireable</span><span class="token operator">:</span> <span class="token boolean">true</span><br/><span class="token punctuation">};</span>`;
 
   useEffect(() => {
     let i = 0;
@@ -48,9 +52,7 @@ const Hero = () => {
   };
 
   return (
-    <section
-      className="w-full min-h-screen flex items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8"
-    >
+    <section className="w-full min-h-screen flex items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8">
       {/* Background Glows (Aurora) */}
       <div aria-hidden="true" className="absolute inset-0 -z-10">
         {/* Purple/Magenta Blob */}
@@ -199,7 +201,7 @@ const Hero = () => {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-          className="w-full max-w-lg mx-auto z-10 float-slow"
+          className="w-full max-w-2xl mx-auto z-10 float-slow"
         >
           {/* Glowing Border Wrapper */}
           <div className="code-block-glow-wrapper p-[1.5px] rounded-lg">
@@ -224,9 +226,17 @@ const Hero = () => {
                   {copied === "Copied!" && "Copied!"}
                 </button>
               </div>
-              <pre className="!bg-transparent !border-none whitespace-pre-wrap break-words pb-6">
+              <pre className="!bg-transparent !border-none !overflow-hidden !p-0 whitespace-pre pb-2">
                 <code
-                  className="language-js !bg-transparent !p-0 !border-none"
+                  className="language-js !bg-transparent !pb-0.55 !border-none !overflow-hidden !block"
+                  style={{
+                    overflow: "hidden !important",
+                    maxWidth: "100%",
+                    wordWrap: "break-word",
+                    whiteSpace: "normal",
+                    lineHeight: "1.5",
+                    fontSize: "0.875rem",
+                  }}
                   dangerouslySetInnerHTML={{
                     __html: displayedCode + '<span class="typing-cursor"></span>',
                   }}
