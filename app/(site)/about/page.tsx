@@ -3,11 +3,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Link from "next/link";
-import {
-  FaServer,
-  FaReact,
-  FaDocker,
-} from "react-icons/fa";
+import { FaServer, FaReact, FaDocker } from "react-icons/fa";
 
 export default function AboutPage() {
   // --- STATE & HOOKS ---
@@ -99,15 +95,30 @@ export default function AboutPage() {
         </div>
 
         {/* Section Title */}
-        <motion.h2
-          className="font-mono text-2xl md:text-3xl text-gray-400 mb-12 self-start max-w-[1200px] w-full mx-auto"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          {displayedTitle}
-          {!titleTyped && <span className="typing-cursor"></span>}
-        </motion.h2>
+        <div className="w-full max-w-[1200px] mx-auto mb-12">
+          <motion.h2
+            className="font-mono text-2xl md:text-3xl text-gray-400 mb-4 self-start"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            {displayedTitle}
+            {!titleTyped && <span className="typing-cursor"></span>}
+          </motion.h2>
+
+          {/* Introduction Text */}
+          <motion.p
+            className="text-gray-400 text-base md:text-lg leading-relaxed max-w-[700px]"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: titleTyped ? 1 : 0, y: titleTyped ? 0 : 10 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            Passionate about crafting{" "}
+            <span className="text-purple-400 font-medium">scalable systems</span> and{" "}
+            <span className="text-cyan-400 font-medium">elegant solutions</span>. I transform complex
+            challenges into clean, maintainable code that powers modern applications.
+          </motion.p>
+        </div>
 
         {/* Code Block and Photo Container */}
         <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -200,9 +211,11 @@ export default function AboutPage() {
               Crafting Digital Excellence
             </h3>
             <p className="text-gray-300 text-lg leading-relaxed">
-              I specialize in <span className="text-purple-400 font-semibold">backend architecture</span> and{" "}
-              <span className="text-cyan-400 font-semibold">system design</span>, building software that's both 
-              elegant and robust. My approach combines technical expertise with user-centric thinking.
+              I specialize in{" "}
+              <span className="text-purple-400 font-semibold">backend architecture</span> and{" "}
+              <span className="text-cyan-400 font-semibold">system design</span>, building software
+              that's both elegant and robust. My approach combines technical expertise with
+              user-centric thinking.
             </p>
           </motion.div>
 
