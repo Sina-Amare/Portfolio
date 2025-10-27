@@ -82,18 +82,24 @@ const About = () => {
       {/* Background Glows */}
       <div aria-hidden="true" className="absolute inset-0 -z-10">
         {/* Purple Glow (Behind right column glassmorphic card) */}
-        <div className="absolute top-[15%] right-[10%] h-[600px] w-[600px] rounded-full bg-[#9333ea]/[0.15] blur-[120px]" />
+        <div className="absolute top-[15%] right-[10%] h-[600px] w-[600px] rounded-full bg-[#9333ea]/[0.15] blur-[120px] animate-pulse-slow" />
         {/* Cyan Glow (Behind left column text) */}
-        <div className="absolute top-[20%] left-[5%] h-[500px] w-[500px] rounded-full bg-[#06b6d4]/[0.15] blur-[100px]" />
+        <div className="absolute top-[20%] left-[5%] h-[500px] w-[500px] rounded-full bg-[#06b6d4]/[0.15] blur-[100px] animate-pulse-slow" />
       </div>
 
-      <h2 className="font-mono text-2xl md:text-3xl text-gray-400 mb-12">
+      {/* Section Title */}
+      <motion.h2
+        className="font-mono text-2xl md:text-3xl text-gray-400 mb-12"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
         {displayedTitle}
         <span className="typing-cursor"></span>
-      </h2>
+      </motion.h2>
 
       <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-[55%_45%] items-start gap-12 lg:gap-16">
-        {/* Left Column (Text) */}
+        {/* Left Column (Text Content) */}
         <motion.div
           className="text-gray-300 text-lg leading-relaxed space-y-6"
           initial="hidden"
@@ -104,49 +110,102 @@ const About = () => {
           }}
         >
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. My work is deeply rooted in{" "}
+            I'm a software engineer with a passion for building elegant solutions to complex
+            problems. My work is deeply rooted in{" "}
             <span style={{ color: "#9333ea", fontWeight: 600 }}>backend architecture</span> and{" "}
             <span style={{ color: "#06b6d4", fontWeight: 600 }}>system design</span>, where I strive
-            to build robust and scalable solutions.
+            to build robust and scalable solutions that stand the test of time.
           </p>
           <p>
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-            commodo consequat. I am passionate about creating{" "}
+            With expertise spanning from crafting high-performance APIs to designing distributed
+            systems, I am passionate about creating{" "}
             <span style={{ color: "#06b6d4", fontWeight: 600 }}>elegant user experiences</span>{" "}
-            backed by powerful, efficient code. Duis aute irure dolor in reprehenderit in voluptate
-            velit esse cillum dolore eu fugiat nulla pariatur.
+            backed by powerful, efficient code. Every line I write is an opportunity to solve
+            real-world challenges with creativity and precision.
           </p>
           <p>
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-            mollit anim id est laborum. This involves a continuous journey of learning and adapting,
+            My journey in software development involves a continuous cycle of learning and adapting,
             always seeking to integrate the best{" "}
             <span style={{ color: "#9333ea", fontWeight: 600 }}>modern development practices</span>.
+            I believe in writing code that not only works but tells a story of thoughtful
+            engineering and user-centric design.
           </p>
         </motion.div>
 
-        {/* Right Column (Glassmorphic Avatar Card) */}
+        {/* Right Column (Glassmorphic Photo Card) */}
         <div className="relative">
           {/* Glassmorphic Card Container */}
-          <div className="bg-white/8 backdrop-blur-[15px] border border-white/10 rounded-[16px] p-[2.5rem] shadow-[0_8px_32px_0_rgba(0,0,0,0.2)] flex flex-col items-center relative overflow-hidden">
-            {/* Profile Photo */}
-            <img
-              src="/me.jpg"
-              alt="Sina Amareh"
-              className="w-[200px] h-[200px] rounded-full object-cover object-center mb-[2rem] border-[3px] border-[#9333EA] shadow-[0_0_15px_rgba(147,51,234,0.6)] opacity-0 transition-opacity duration-500"
-              style={{ opacity: photoRendered ? 1 : 0 }}
-            />
-
-            {/* Code Box */}
-            <pre className="w-full text-left p-0">
-              <code
-                className="language-html !bg-transparent"
-                dangerouslySetInnerHTML={{
-                  __html: displayedCode + '<span class="typing-cursor"></span>',
+          <motion.div
+            className="relative overflow-hidden flex flex-col"
+            style={{
+              background: "rgba(255, 255, 255, 0.08)",
+              backdropFilter: "blur(15px)",
+              border: "1px solid rgba(255, 255, 255, 0.1)",
+              borderRadius: "16px",
+              boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.2)",
+            }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            {/* Profile Photo Container with Inner Glow */}
+            <div className="relative p-6 pb-4">
+              <motion.div
+                className="relative"
+                style={{
+                  opacity: photoRendered ? 1 : 0,
+                  transition: "opacity 0.8s ease",
                 }}
-              ></code>
-            </pre>
-          </div>
+              >
+                {/* Photo with gradient border effect */}
+                <div
+                  className="relative"
+                  style={{
+                    padding: "3px",
+                    background: "linear-gradient(135deg, #9333EA 0%, #06B6D4 100%)",
+                    borderRadius: "12px",
+                    boxShadow: "0 0 30px rgba(147, 51, 234, 0.4), 0 0 60px rgba(6, 182, 212, 0.2)",
+                  }}
+                >
+                  <img
+                    src="/me.jpg"
+                    alt="Sina Amareh"
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                      maxHeight: "480px",
+                      borderRadius: "10px",
+                      objectFit: "cover",
+                      objectPosition: "center top",
+                      display: "block",
+                      backgroundColor: "#0d1117",
+                    }}
+                  />
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Code Box - Bottom Section */}
+            <div className="px-6 pb-6 pt-2">
+              <pre
+                className="w-full text-left"
+                style={{
+                  background: "transparent",
+                  border: "none",
+                  boxShadow: "none",
+                  padding: 0,
+                  margin: 0,
+                }}
+              >
+                <code
+                  className="language-html !bg-transparent !text-sm"
+                  dangerouslySetInnerHTML={{
+                    __html: displayedCode + '<span class="typing-cursor"></span>',
+                  }}
+                ></code>
+              </pre>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
