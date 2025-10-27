@@ -167,21 +167,42 @@ export default function AboutPage() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="order-1 lg:order-2 flex justify-center float-slow"
           >
-            <div
-              className="relative"
-              style={{
-                padding: "4px",
-                background: "linear-gradient(135deg, #9333EA 0%, #06B6D4 100%)",
-                borderRadius: "16px",
-                boxShadow: "0 0 40px rgba(147, 51, 234, 0.5), 0 0 80px rgba(6, 182, 212, 0.3)",
-              }}
-            >
+            <div className="relative w-full max-w-[450px]">
+              {/* Seamless gradient fade to match website background */}
+              <div
+                className="absolute inset-0 pointer-events-none z-10"
+                style={{
+                  background: `
+                    radial-gradient(
+                      circle at center,
+                      transparent 45%,
+                      rgba(13, 17, 23, 0.3) 60%,
+                      rgba(13, 17, 23, 0.7) 75%,
+                      rgba(13, 17, 23, 1) 90%
+                    )
+                  `,
+                }}
+              />
+
+              {/* Subtle background glow */}
+              <div
+                className="absolute -inset-10 -z-10 blur-[100px] opacity-60"
+                style={{
+                  background:
+                    "radial-gradient(circle, rgba(147, 51, 234, 0.25) 0%, rgba(6, 182, 212, 0.25) 100%)",
+                }}
+              />
+
+              {/* Image with seamless integration - effects applied immediately */}
               <img
                 src="/me.jpg"
                 alt="Sina Amareh"
-                className="rounded-[14px] w-full max-w-[450px] h-auto object-cover"
+                className="w-full h-auto object-cover"
+                loading="eager"
                 style={{
-                  backgroundColor: "#0d1117",
+                  maskImage: "radial-gradient(circle at center, black 40%, transparent 95%)",
+                  WebkitMaskImage: "radial-gradient(circle at center, black 40%, transparent 95%)",
+                  imageRendering: "crisp-edges",
                 }}
               />
             </div>

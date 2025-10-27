@@ -261,3 +261,9 @@ pre > code {
     background-position: 200% 0;
   }
 }
+
+/* Seamless image integration - prevent flash of borders */
+img[src="/me.jpg"] {
+  -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 95%) !important;
+  mask-image: radial-gradient(circle at center, black 40%, transparent 95%) !important;
+}
