@@ -100,8 +100,15 @@ code {
   @apply !font-mono;
 }
 
+pre {
+  width: 100%;
+  max-width: 100%;
+}
+
 pre > code {
   @apply block overflow-x-auto rounded-lg border border-gray-700/50 bg-[#282a36] p-4 text-sm;
+  width: 100%;
+  max-width: 100%;
 }
 
 /* Syntax Highlighting Colors (Dracula-like) */
@@ -159,6 +166,35 @@ pre > code {
   animation: typing-cursor 0.7s steps(2, start) infinite;
   display: inline-block;
   vertical-align: bottom;
+}
+
+@keyframes typing-cursor {
+  0%,
+  50% {
+    border-color: var(--color-accent-cyan, #8be9fd);
+  }
+  51%,
+  100% {
+    border-color: transparent;
+  }
+}
+
+/* Wave animation for emoji */
+@keyframes wave {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-20deg);
+  }
+  75% {
+    transform: rotate(20deg);
+  }
+}
+
+.animate-wave {
+  animation: wave 1s ease-in-out infinite;
 }
 
 /* Glowing Border for Code Block */

@@ -226,14 +226,14 @@ const Hero = () => {
                   {copied === "Copied!" && "Copied!"}
                 </button>
               </div>
-              <pre className="!bg-transparent !border-none !overflow-hidden !p-0 whitespace-pre pb-2">
+              <pre className="!bg-transparent !border-none !overflow-visible !p-0 whitespace-pre pb-2">
                 <code
-                  className="language-js !bg-transparent !pb-0.55 !border-none !overflow-hidden !block"
+                  className="language-js !bg-transparent !pb-0.55 !border-none !overflow-visible !block"
                   style={{
-                    overflow: "hidden !important",
+                    overflow: "visible !important",
+                    width: "100%",
                     maxWidth: "100%",
-                    wordWrap: "break-word",
-                    whiteSpace: "normal",
+                    whiteSpace: "pre",
                     lineHeight: "1.5",
                     fontSize: "0.875rem",
                   }}

@@ -1,170 +1,156 @@
 "use client";
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
-export default function About() {
+const About = () => {
+  // --- STATE & HOOKS ---
+  const [titleTyped, setTitleTyped] = useState(false);
+  const [codeTyped, setCodeTyped] = useState(false);
+  const [photoRendered, setPhotoRendered] = useState(false);
+  const [displayedTitle, setDisplayedTitle] = useState("");
+  const [displayedCode, setDisplayedCode] = useState("");
+
+  const controls = useAnimation();
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  });
+
+  // --- CONSTANTS ---
+  const titleString = "// 01. About Me";
+  const codeString = `<span class="token tag"><img</span> 
+  <span class="token attr-name">src</span><span class="token attr-value">="/me.jpg"</span>
+  <span class="token attr-name">alt</span><span class="token attr-value">="Sina Amareh"</span>
+<span class="token tag">></span>`;
+
+  // --- TYPEWRITER EFFECTS ---
+
+  // Effect for the main section title
+  useEffect(() => {
+    if (inView) {
+      let i = 0;
+      const interval = setInterval(() => {
+        if (i < titleString.length) {
+          setDisplayedTitle((prev) => prev + titleString.charAt(i));
+          i++;
+        } else {
+          clearInterval(interval);
+          setTitleTyped(true);
+        }
+      }, 50);
+      return () => clearInterval(interval);
+    }
+  }, [inView]);
+
+  // Effect for the code block, triggers after title is typed
+  useEffect(() => {
+    if (titleTyped) {
+      controls.start("visible"); // Start fade-in for the left column text
+
+      let i = 0;
+      const interval = setInterval(() => {
+        if (codeString[i] === "<") {
+          const closingTagIndex = codeString.indexOf(">", i);
+          i = closingTagIndex + 1;
+        } else {
+          i++;
+        }
+
+        if (i >= codeString.length) {
+          setDisplayedCode(codeString);
+          clearInterval(interval);
+          setTimeout(() => {
+            setCodeTyped(true);
+            // Start photo animation after code finishes
+            setTimeout(() => setPhotoRendered(true), 300);
+          }, 300); // Delay before fading in photo
+        } else {
+          setDisplayedCode(codeString.substring(0, i));
+        }
+      }, 25);
+      return () => clearInterval(interval);
+    }
+  }, [titleTyped, controls, codeString]);
+
+  // --- RENDER ---
   return (
-    <section className="relative min-h-screen flex items-center py-20 overflow-hidden">
-      {/* Background layers with new palette */}
-      <div className="absolute inset-0 bg-gradient-to-br from-brand-primary via-amber-50 to-brand-primary z-0" />
-      <div
-        className="absolute inset-0"
-        style={{
-          background: `radial-gradient(circle at 70% 30%, rgba(214, 185, 140, 0.1), transparent 60%),
-                      linear-gradient(to bottom right, #f8f6f1, #e8e3d7)`,
-        }}
-      />
+    <section
+      ref={ref}
+      className="w-full min-h-screen flex flex-col justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8 py-24"
+    >
+      {/* Background Glows */}
+      <div aria-hidden="true" className="absolute inset-0 -z-10">
+        {/* Purple Glow (Behind right column glassmorphic card) */}
+        <div className="absolute top-[15%] right-[10%] h-[600px] w-[600px] rounded-full bg-[#9333ea]/[0.15] blur-[120px]" />
+        {/* Cyan Glow (Behind left column text) */}
+        <div className="absolute top-[20%] left-[5%] h-[500px] w-[500px] rounded-full bg-[#06b6d4]/[0.15] blur-[100px]" />
+      </div>
 
-      {/* Content */}
-      <div className="relative z-20 max-w-7xl mx-auto px-6 sm:px-12">
-        <div className="flex flex-col lg:flex-row gap-24 items-center">
-          {/* Left Column - Timeline */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            viewport={{ once: true }}
-            className="w-full lg:w-1/2 space-y-12"
-          >
-            <motion.h2
-              className="text-4xl lg:text-5xl font-display font-bold text-brand-secondary leading-tight mb-12 text-center"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              My{" "}
-              <span className="bg-gradient-to-r from-brand-accent to-brand-highlight bg-clip-text text-transparent">
-                Journey
-              </span>{" "}
-              Unfolds
-            </motion.h2>
+      <h2 className="font-mono text-2xl md:text-3xl text-gray-400 mb-12">
+        {displayedTitle}
+        <span className="typing-cursor"></span>
+      </h2>
 
-            {/* Timeline items */}
-            <div className="relative space-y-12 pl-8 border-l-2 border-brand-accent/30">
-              {/* Timeline separator with curve */}
-              <div className="absolute left-[-13px] top-0 w-6 h-6 rounded-full bg-brand-accent border-4 border-white shadow-lg"></div>
+      <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-[55%_45%] items-start gap-12 lg:gap-16">
+        {/* Left Column (Text) */}
+        <motion.div
+          className="text-gray-300 text-lg leading-relaxed space-y-6"
+          initial="hidden"
+          animate={controls}
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: { opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.2 } },
+          }}
+        >
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. My work is deeply rooted in{" "}
+            <span style={{ color: "#9333ea", fontWeight: 600 }}>backend architecture</span> and{" "}
+            <span style={{ color: "#06b6d4", fontWeight: 600 }}>system design</span>, where I strive
+            to build robust and scalable solutions.
+          </p>
+          <p>
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+            commodo consequat. I am passionate about creating{" "}
+            <span style={{ color: "#06b6d4", fontWeight: 600 }}>elegant user experiences</span>{" "}
+            backed by powerful, efficient code. Duis aute irure dolor in reprehenderit in voluptate
+            velit esse cillum dolore eu fugiat nulla pariatur.
+          </p>
+          <p>
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+            mollit anim id est laborum. This involves a continuous journey of learning and adapting,
+            always seeking to integrate the best{" "}
+            <span style={{ color: "#9333ea", fontWeight: 600 }}>modern development practices</span>.
+          </p>
+        </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="relative bg-white/50 backdrop-blur-sm p-6 rounded-2xl border border-brand-accent/20 shadow-lg"
-              >
-                <div className="absolute -left-11 top-0 w-5 h-5 rounded-full bg-brand-highlight border-4 border-white shadow-md"></div>
-                <h3 className="text-xl font-bold text-brand-secondary mb-2">Early Foundations</h3>
-                <p className="text-brand-textSecondary">
-                  Started my journey in computer science with a passion for creating elegant
-                  solutions to complex problems.
-                </p>
-              </motion.div>
+        {/* Right Column (Glassmorphic Avatar Card) */}
+        <div className="relative">
+          {/* Glassmorphic Card Container */}
+          <div className="bg-white/8 backdrop-blur-[15px] border border-white/10 rounded-[16px] p-[2.5rem] shadow-[0_8px_32px_0_rgba(0,0,0,0.2)] flex flex-col items-center relative overflow-hidden">
+            {/* Profile Photo */}
+            <img
+              src="/me.jpg"
+              alt="Sina Amareh"
+              className="w-[200px] h-[200px] rounded-full object-cover object-center mb-[2rem] border-[3px] border-[#9333EA] shadow-[0_0_15px_rgba(147,51,234,0.6)] opacity-0 transition-opacity duration-500"
+              style={{ opacity: photoRendered ? 1 : 0 }}
+            />
 
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="relative bg-white/50 backdrop-blur-sm p-6 rounded-2xl border border-brand-accent/20 shadow-lg"
-              >
-                <div className="absolute -left-11 top-0 w-5 h-5 rounded-full bg-brand-highlight border-4 border-white shadow-md"></div>
-                <h3 className="text-xl font-bold text-brand-secondary mb-2">Professional Growth</h3>
-                <p className="text-brand-textSecondary">
-                  Developed expertise in full-stack development, AI integration, and user-centered
-                  design principles.
-                </p>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="relative bg-white/50 backdrop-blur-sm p-6 rounded-2xl border border-brand-accent/20 shadow-lg"
-              >
-                <div className="absolute -left-11 top-0 w-5 h-5 rounded-full bg-brand-highlight border-4 border-white shadow-md"></div>
-                <h3 className="text-xl font-bold text-brand-secondary mb-2">Current Focus</h3>
-                <p className="text-brand-textSecondary">
-                  Specializing in AI engineering, creating systems that blend technical precision
-                  with creative vision.
-                </p>
-              </motion.div>
-            </div>
-          </motion.div>
-
-          {/* Right Column - Content */}
-          <motion.div
-            initial={{ opacity: 0, x: 80 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-            viewport={{ once: true }}
-            className="space-y-10 w-full lg:w-1/2"
-          >
-            <motion.div
-              initial={{ opacity: 0, x: 80 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
-              viewport={{ once: true }}
-              className="relative"
-            >
-              {/* Creative portrait placement */}
-              <div className="relative overflow-hidden rounded-[40px] shadow-2xl border-4 border-brand-accent/30 shadow-brand-accent/20 z-10 mx-auto w-4/5 lg:w-full">
-                <img
-                  src="https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?w=800&h=1000&fit=crop&crop=faces"
-                  alt="Sina Amareh - Workspace"
-                  className="w-full h-auto object-cover mix-blend-multiply brightness-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-tr from-brand-accent/10 to-brand-highlight/10" />
-                <div className="absolute inset-0 rounded-[40px] border-transparent shadow-[inset_0_0_30px_#d6b98c40] pointer-events-none" />
-              </div>
-            </motion.div>
-
-            <div className="space-y-6 text-brand-textSecondary text-lg leading-relaxed bg-white/30 backdrop-blur-sm p-8 rounded-2xl border border-brand-accent/20 shadow-lg">
-              <p>
-                I'm <span className="font-semibold text-brand-secondary">Sina Amareh</span>, a
-                systems-minded engineer passionate about creating technology that is intelligent,
-                ethical, and timeless. My approach combines design sensitivity with structured
-                engineering—where simplicity and precision coexist.
-              </p>
-
-              <p>
-                With a foundation in{" "}
-                <span className="font-medium text-brand-secondary">
-                  Python, TypeScript, and modern web architecture
-                </span>
-                , I craft digital products that merge clarity with performance. I believe great
-                engineering is not about complexity, but the art of creating balance.
-              </p>
-            </div>
-
-            <motion.div
-              className="pt-8 border-t border-brand-accent/30 bg-white/30 backdrop-blur-sm p-8 rounded-2xl border border-brand-accent/20 shadow-lg"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-            >
-              <h3 className="font-display text-xl text-brand-secondary font-semibold mb-4 text-center">
-                Core Principles
-              </h3>
-              <ul className="space-y-3 text-brand-textSecondary grid grid-cols-1 md:grid-cols-2 gap-4">
-                <li className="flex items-start">
-                  <span className="text-brand-accent mr-3 mt-1">✦</span> Design-driven Engineering
-                </li>
-                <li className="flex items-start">
-                  <span className="text-brand-accent mr-3 mt-1">✦</span> Ethical & Human-Centered AI
-                </li>
-                <li className="flex items-start">
-                  <span className="text-brand-accent mr-3 mt-1">✦</span> Scalable & Maintainable
-                  Systems
-                </li>
-                <li className="flex items-start">
-                  <span className="text-brand-accent mr-3 mt-1">✦</span> Creative Minimalism
-                </li>
-              </ul>
-            </motion.div>
-          </motion.div>
+            {/* Code Box */}
+            <pre className="w-full text-left p-0">
+              <code
+                className="language-html !bg-transparent"
+                dangerouslySetInnerHTML={{
+                  __html: displayedCode + '<span class="typing-cursor"></span>',
+                }}
+              ></code>
+            </pre>
+          </div>
         </div>
       </div>
     </section>
   );
-}
+};
+
+export default About;
