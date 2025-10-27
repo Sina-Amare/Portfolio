@@ -72,7 +72,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-[4rem] font-bold font-display leading-[1.1] tracking-tight text-gray-50 z-10"
+            className="text-[4rem] font-bold leading-[1.1] tracking-tight text-gray-50 z-10 font-montserrat"
           >
             Hello <span className="inline-block animate-wave">👋</span>, <br /> I'm{" "}
             <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-400 bg-clip-text text-transparent">

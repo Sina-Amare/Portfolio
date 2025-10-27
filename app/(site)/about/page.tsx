@@ -115,8 +115,8 @@ export default function AboutPage() {
           >
             Passionate about crafting{" "}
             <span className="text-purple-400 font-medium">scalable systems</span> and{" "}
-            <span className="text-cyan-400 font-medium">elegant solutions</span>. I transform complex
-            challenges into clean, maintainable code that powers modern applications.
+            <span className="text-cyan-400 font-medium">elegant solutions</span>. I transform
+            complex challenges into clean, maintainable code that powers modern applications.
           </motion.p>
         </div>
 

@@ -181,20 +181,35 @@ pre > code {
 
 /* Wave animation for emoji */
 @keyframes wave {
-  0%,
+  0% {
+    transform: rotate(0deg) translateY(0px);
+  }
+  10% {
+    transform: rotate(14deg) translateY(-2px);
+  }
+  20% {
+    transform: rotate(-8deg) translateY(-1px);
+  }
+  30% {
+    transform: rotate(14deg) translateY(-2px);
+  }
+  40% {
+    transform: rotate(-4deg) translateY(-1px);
+  }
+  50% {
+    transform: rotate(10deg) translateY(-2px);
+  }
+  60% {
+    transform: rotate(0deg) translateY(0px);
+  }
   100% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(-20deg);
-  }
-  75% {
-    transform: rotate(20deg);
+    transform: rotate(0deg) translateY(0px);
   }
 }
 
 .animate-wave {
-  animation: wave 1s ease-in-out infinite;
+  animation: wave 2s ease-in-out infinite;
+  transform-origin: 70% 70%;
 }
 
 /* Glowing Border for Code Block */
@@ -235,4 +250,14 @@ pre > code {
 
 .get-resume-button:hover::after {
   left: 150%;
+}
+
+/* Shimmer animation for skeleton loader */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }

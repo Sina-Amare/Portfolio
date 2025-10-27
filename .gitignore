@@ -19,3 +19,18 @@ docs/logs/*.tmp
 
 # Backup git directories
 .git_backup_*
+
+# IDE and Editor directories
+.cursor/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build and cache directories
+.cache/
+.turbo/
+.vercel/
+.tmp/
+temp/
