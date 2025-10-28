@@ -4,6 +4,10 @@ import { useState } from "react";
 import { SkillBar } from "@/components/ui/SkillBar";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { useScrollAnimation, fadeInUp } from "@/hooks/useScrollAnimation";
+import Card3D from "@/components/3d/Card3D";
+import ParallaxLayer from "@/components/effects/ParallaxLayer";
+import PageBackground from "@/components/effects/PageBackground";
+import { CopyButton } from "@/components/ui/CopyButton";
 
 export default function SkillsPage() {
   const [activeTab, setActiveTab] = useState("backend");
@@ -47,14 +51,20 @@ class ProjectViewSet(viewsets.ModelViewSet):
       codeExample: `# PostgreSQL Query Optimization
 from django.db.models import Prefetch, Count, F
 
-# Optimized query with prefetch and annotations
+# Optimized query with prefetch
 projects = Project.objects.select_related(
     'owner', 'category'
 ).prefetch_related(
-    Prefetch('tasks', queryset=Task.objects.filter(status='active'))
+    Prefetch(
+        'tasks',
+        queryset=Task.objects.filter(
+            status='active'
+        )
+    )
 ).annotate(
     task_count=Count('tasks'),
-    completion_rate=F('completed_tasks') * 100 / F('total_tasks')
+    completion_rate=F('completed_tasks') * 100 
+                    / F('total_tasks')
 ).order_by('-created_at')`,
     },
     devops: {
@@ -126,11 +136,16 @@ def send_notification_email(self, user_id, subject, message):
 
   return (
     <div className="w-full bg-primary-background min-h-screen">
+      <PageBackground theme="skills" />
       <section className="w-full flex flex-col items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8 py-20 md:py-32">
-        {/* Background Effects */}
+        {/* Background Effects with Parallax */}
         <div aria-hidden="true" className="absolute inset-0 -z-10">
-          <div className="absolute top-[15%] right-[10%] h-[400px] w-[400px] rounded-full bg-purple-600/[0.04] blur-[100px]" />
-          <div className="absolute bottom-[15%] left-[10%] h-[400px] w-[400px] rounded-full bg-cyan-500/[0.04] blur-[100px]" />
+          <ParallaxLayer speed={0.4}>
+            <div className="absolute top-[15%] right-[10%] h-[400px] w-[400px] rounded-full bg-purple-600/[0.04] blur-[100px]" />
+          </ParallaxLayer>
+          <ParallaxLayer speed={0.6} direction="down">
+            <div className="absolute bottom-[15%] left-[10%] h-[400px] w-[400px] rounded-full bg-cyan-500/[0.04] blur-[100px]" />
+          </ParallaxLayer>
         </div>
 
         <div className="w-full max-w-[1200px] mx-auto">
@@ -196,54 +211,57 @@ def send_notification_email(self, user_id, subject, message):
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <GlassCard variant="terminal" className="p-6 h-full" glow>
-                <div className="flex items-center gap-2 mb-6 pb-3 border-b border-cyan-500/20">
-                  <div className="w-2 h-2 rounded-full bg-[#50fa7b] animate-pulse"></div>
-                  <span className="text-sm font-mono text-gray-400 uppercase tracking-wider">
-                    Proficiency Metrics
-                  </span>
-                </div>
+              <Card3D intensity={6}>
+                <GlassCard variant="terminal" className="p-6 h-full" glow interactive>
+                  <div className="flex items-center gap-2 mb-6 pb-3 border-b border-cyan-500/20">
+                    <div className="w-2 h-2 rounded-full bg-[#50fa7b] animate-pulse"></div>
+                    <span className="text-sm font-mono text-gray-400 uppercase tracking-wider">
+                      Proficiency Metrics
+                    </span>
+                  </div>
 
-                <div className="space-y-6">
-                  {skillCategories[activeTab as keyof typeof skillCategories].skills.map(
-                    (skill, index) => (
-                      <SkillBar
-                        key={skill.name}
-                        skill={skill.name}
-                        percentage={skill.percentage}
-                        experience={skill.experience}
-                        delay={index * 0.1}
-                      />
-                    )
-                  )}
-                </div>
+                  <div className="space-y-6">
+                    {skillCategories[activeTab as keyof typeof skillCategories].skills.map(
+                      (skill, index) => (
+                        <SkillBar
+                          key={skill.name}
+                          skill={skill.name}
+                          percentage={skill.percentage}
+                          experience={skill.experience}
+                          delay={index * 0.1}
+                        />
+                      )
+                    )}
+                  </div>
 
-                {/* Summary Stats */}
-                <div className="mt-6 pt-4 border-t border-cyan-500/20 grid grid-cols-3 gap-4 text-center">
-                  <div>
-                    <div className="text-2xl font-bold font-mono text-cyan-400">
-                      {skillCategories[activeTab as keyof typeof skillCategories].skills.length}
+                  {/* Summary Stats */}
+                  <div className="mt-6 pt-4 border-t border-cyan-500/20 grid grid-cols-3 gap-4 text-center">
+                    <div>
+                      <div className="text-2xl font-bold font-mono text-cyan-400">
+                        {skillCategories[activeTab as keyof typeof skillCategories].skills.length}
+                      </div>
+                      <div className="text-xs font-mono text-gray-500 mt-1">Skills</div>
                     </div>
-                    <div className="text-xs font-mono text-gray-500 mt-1">Skills</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold font-mono text-purple-400">
-                      {Math.round(
-                        skillCategories[activeTab as keyof typeof skillCategories].skills.reduce(
-                          (acc, s) => acc + s.percentage,
-                          0
-                        ) / skillCategories[activeTab as keyof typeof skillCategories].skills.length
-                      )}
-                      %
+                    <div>
+                      <div className="text-2xl font-bold font-mono text-purple-400">
+                        {Math.round(
+                          skillCategories[activeTab as keyof typeof skillCategories].skills.reduce(
+                            (acc, s) => acc + s.percentage,
+                            0
+                          ) /
+                            skillCategories[activeTab as keyof typeof skillCategories].skills.length
+                        )}
+                        %
+                      </div>
+                      <div className="text-xs font-mono text-gray-500 mt-1">Avg Level</div>
                     </div>
-                    <div className="text-xs font-mono text-gray-500 mt-1">Avg Level</div>
+                    <div>
+                      <div className="text-2xl font-bold font-mono text-[#50fa7b]">2y</div>
+                      <div className="text-xs font-mono text-gray-500 mt-1">Experience</div>
+                    </div>
                   </div>
-                  <div>
-                    <div className="text-2xl font-bold font-mono text-[#50fa7b]">2y</div>
-                    <div className="text-xs font-mono text-gray-500 mt-1">Experience</div>
-                  </div>
-                </div>
-              </GlassCard>
+                </GlassCard>
+              </Card3D>
             </motion.div>
 
             {/* Code Example */}
@@ -253,36 +271,45 @@ def send_notification_email(self, user_id, subject, message):
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <GlassCard variant="terminal" className="p-6 h-full">
-                <div className="flex items-center gap-2 mb-4 pb-3 border-b border-cyan-500/20">
-                  <div className="flex gap-1.5">
-                    <div className="w-3 h-3 rounded-full bg-[#ff605c]"></div>
-                    <div className="w-3 h-3 rounded-full bg-[#ffbd44]"></div>
-                    <div className="w-3 h-3 rounded-full bg-[#00ca4e]"></div>
+              <Card3D intensity={6}>
+                <GlassCard variant="terminal" className="p-6 h-full" interactive>
+                  <div className="flex items-center justify-between gap-2 mb-4 pb-3 border-b border-cyan-500/20">
+                    <div className="flex items-center gap-2">
+                      <div className="flex gap-1.5">
+                        <div className="w-3 h-3 rounded-full bg-[#ff605c]"></div>
+                        <div className="w-3 h-3 rounded-full bg-[#ffbd44]"></div>
+                        <div className="w-3 h-3 rounded-full bg-[#00ca4e]"></div>
+                      </div>
+                      <span className="text-xs font-mono text-gray-400 ml-2">example.py</span>
+                    </div>
+                    <CopyButton
+                      textToCopy={
+                        skillCategories[activeTab as keyof typeof skillCategories].codeExample
+                      }
+                    />
                   </div>
-                  <span className="text-xs font-mono text-gray-400 ml-2">
-                    example.py
-                  </span>
-                </div>
 
-                <pre className="text-xs md:text-sm overflow-x-auto custom-scrollbar">
-                  <code
-                    className="language-python"
-                    dangerouslySetInnerHTML={{
-                      __html: skillCategories[activeTab as keyof typeof skillCategories].codeExample
-                        .replace(/</g, "&lt;")
-                        .replace(/>/g, "&gt;"),
-                    }}
-                  />
-                </pre>
+                  <pre className="text-xs md:text-sm overflow-hidden">
+                    <code
+                      className="language-python whitespace-pre-wrap break-words"
+                      dangerouslySetInnerHTML={{
+                        __html: skillCategories[
+                          activeTab as keyof typeof skillCategories
+                        ].codeExample
+                          .replace(/</g, "&lt;")
+                          .replace(/>/g, "&gt;"),
+                      }}
+                    />
+                  </pre>
 
-                <div className="mt-4 pt-3 border-t border-cyan-500/20">
-                  <div className="flex items-center gap-2 text-xs font-mono text-gray-600">
-                    <span className="text-[#50fa7b]">✓</span>
-                    <span>Code compiled successfully</span>
+                  <div className="mt-4 pt-3 border-t border-cyan-500/20">
+                    <div className="flex items-center gap-2 text-xs font-mono text-gray-600">
+                      <span className="text-[#50fa7b]">✓</span>
+                      <span>Code compiled successfully</span>
+                    </div>
                   </div>
-                </div>
-              </GlassCard>
+                </GlassCard>
+              </Card3D>
             </motion.div>
           </div>
 
@@ -300,20 +327,22 @@ def send_notification_email(self, user_id, subject, message):
                 2 years of hands-on backend development experience with{" "}
                 <span className="text-purple-400 font-semibold">Python</span>,{" "}
                 <span className="text-cyan-400 font-semibold">Django</span>, and{" "}
-                <span className="text-[#50fa7b] font-semibold">FastAPI</span>.
-                Specialized in building scalable APIs, optimizing database performance,
-                and implementing robust system architectures. Employed professionally for 1 year,
-                delivering production-grade solutions.
+                <span className="text-[#50fa7b] font-semibold">FastAPI</span>. Specialized in
+                building scalable APIs, optimizing database performance, and implementing robust
+                system architectures. Employed professionally for 1 year, delivering
+                production-grade solutions.
               </p>
               <div className="flex flex-wrap justify-center gap-3">
-                {["Python", "Django", "FastAPI", "PostgreSQL", "Docker", "REST APIs"].map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs font-mono text-gray-400 hover:border-cyan-500/30 hover:text-cyan-400 transition-colors"
-                  >
-                    {tech}
-                  </span>
-                ))}
+                {["Python", "Django", "FastAPI", "PostgreSQL", "Docker", "REST APIs"].map(
+                  (tech) => (
+                    <span
+                      key={tech}
+                      className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs font-mono text-gray-400 hover:border-cyan-500/30 hover:text-cyan-400 transition-colors"
+                    >
+                      {tech}
+                    </span>
+                  )
+                )}
               </div>
             </GlassCard>
           </motion.div>
@@ -325,18 +354,17 @@ def send_notification_email(self, user_id, subject, message):
           width: 6px;
           height: 6px;
         }
-        
+
         .custom-scrollbar::-webkit-scrollbar-track {
           background: rgba(255, 255, 255, 0.05);
           border-radius: 3px;
         }
-        
+
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: linear-gradient(to bottom, #9333EA, #06B6D4);
+          background: linear-gradient(to bottom, #9333ea, #06b6d4);
           border-radius: 3px;
         }
       `}</style>
     </div>
   );
 }
-

@@ -1,8 +1,16 @@
 "use client";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaMapMarkerAlt, FaClock } from "react-icons/fa";
+import {
+  FaGithub,
+  FaLinkedin,
+  FaTwitter,
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaClock,
+} from "react-icons/fa";
 import { GlassCard } from "@/components/ui/GlassCard";
+import PageBackground from "@/components/effects/PageBackground";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -66,6 +74,7 @@ export default function ContactPage() {
 
   return (
     <div className="w-full bg-primary-background min-h-screen">
+      <PageBackground theme="contact" />
       <section className="w-full flex flex-col items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8 py-20 md:py-32">
         {/* Background Effects */}
         <div aria-hidden="true" className="absolute inset-0 -z-10">
@@ -141,9 +150,9 @@ export default function ContactPage() {
                         <span className="text-cyan-400">└─</span> GET /resume.pdf
                       </div>
                     </div>
-              </div>
+                  </div>
 
-              <div>
+                  <div>
                     <div className="text-gray-500 mb-2">System Info:</div>
                     <div className="space-y-1 pl-4">
                       <div className="text-gray-400 flex items-center gap-2">
@@ -159,7 +168,7 @@ export default function ContactPage() {
                       </div>
                     </div>
                   </div>
-              </div>
+                </div>
               </GlassCard>
 
               {/* Social Links */}
@@ -199,8 +208,8 @@ export default function ContactPage() {
                 <div className="flex items-center gap-3">
                   <div className="text-3xl text-cyan-400">
                     <FaEnvelope />
-              </div>
-              <div>
+                  </div>
+                  <div>
                     <div className="text-xs font-mono text-gray-500 mb-1">Direct Email:</div>
                     <a
                       href="mailto:hello@sina-amareh.dev"
@@ -209,7 +218,7 @@ export default function ContactPage() {
                       hello@sina-amareh.dev
                     </a>
                   </div>
-              </div>
+                </div>
               </GlassCard>
             </motion.div>
 
@@ -227,11 +236,11 @@ export default function ContactPage() {
                     <span className="text-sm font-mono text-gray-400 uppercase tracking-wider">
                       Send Message
                     </span>
-              </div>
+                  </div>
                   <code className="text-xs font-mono text-gray-600">
                     POST /api/v1/contact/message
                   </code>
-          </div>
+                </div>
 
                 {/* Python-style Form */}
                 <form onSubmit={handleSubmit} className="space-y-5">
@@ -262,12 +271,12 @@ export default function ContactPage() {
                       required
                       className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-cyan-500/50 text-gray-300 placeholder-gray-600 font-mono text-sm transition-colors"
                     />
-                </div>
+                  </div>
 
                   {/* Subject Field */}
                   <div>
-                  <input
-                    type="text"
+                    <input
+                      type="text"
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
@@ -319,7 +328,8 @@ export default function ContactPage() {
                     >
                       <div className="font-mono text-sm space-y-1">
                         <div className="text-gray-400">
-                          <span className="text-[#50fa7b]">$</span> curl -X POST /api/v1/contact/message
+                          <span className="text-[#50fa7b]">$</span> curl -X POST
+                          /api/v1/contact/message
                         </div>
                         <div className="text-[#50fa7b]">
                           <span>✓</span> 200 OK
@@ -331,13 +341,13 @@ export default function ContactPage() {
                           Response time: ~{Math.floor(Math.random() * 100 + 50)}ms
                         </div>
                       </div>
-                </motion.div>
+                    </motion.div>
                   )}
 
                   {submitStatus === "error" && (
-                <motion.div
+                    <motion.div
                       initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
+                      animate={{ opacity: 1, y: 0 }}
                       className="mt-4 p-4 bg-[#ff5555]/10 border border-[#ff5555]/30 rounded-lg"
                     >
                       <div className="font-mono text-sm text-[#ff5555]">
@@ -350,19 +360,20 @@ export default function ContactPage() {
                   )}
                 </form>
               </GlassCard>
-                </motion.div>
+            </motion.div>
           </div>
 
           {/* Bottom Info */}
           <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
             <GlassCard variant="subtle" className="p-6 text-center">
               <p className="text-gray-400 font-mono text-sm">
-                <span className="text-[#50fa7b]">›</span> Open to freelance projects and full-time opportunities •{" "}
-                <span className="text-cyan-400">Response time:</span> Usually within 24 hours
+                <span className="text-[#50fa7b]">›</span> Open to freelance projects and full-time
+                opportunities • <span className="text-cyan-400">Response time:</span> Usually within
+                24 hours
               </p>
             </GlassCard>
           </motion.div>

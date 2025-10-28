@@ -41,15 +41,13 @@ export default function Footer() {
               Backend Architect & System Designer
             </p>
             <p className="text-xs text-gray-600 font-mono">
-              > Building systems where clarity meets creativity
+              {`> Building systems where clarity meets creativity`}
             </p>
           </div>
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h4 className="text-sm font-mono text-gray-400 uppercase tracking-wider">
-              Navigate
-            </h4>
+            <h4 className="text-sm font-mono text-gray-400 uppercase tracking-wider">Navigate</h4>
             <ul className="space-y-2">
               {navLinks.map((link) => (
                 <li key={link.path}>
@@ -69,9 +67,7 @@ export default function Footer() {
 
           {/* Social Links */}
           <div className="space-y-4">
-            <h4 className="text-sm font-mono text-gray-400 uppercase tracking-wider">
-              Connect
-            </h4>
+            <h4 className="text-sm font-mono text-gray-400 uppercase tracking-wider">Connect</h4>
             <div className="flex gap-4">
               {socialLinks.map((social) => (
                 <motion.a

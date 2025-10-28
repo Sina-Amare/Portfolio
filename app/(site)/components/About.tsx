@@ -134,9 +134,9 @@ const About = () => {
 
         {/* Right Column (Glassmorphic Photo Card) */}
         <div className="relative">
-          {/* Glassmorphic Card Container */}
+          {/* Glassmorphic Card Container - Fixed Height */}
           <motion.div
-            className="relative overflow-hidden flex flex-col"
+            className="relative overflow-hidden flex flex-col h-fit"
             style={{
               background: "rgba(255, 255, 255, 0.08)",
               backdropFilter: "blur(15px)",
@@ -148,45 +148,56 @@ const About = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            {/* Profile Photo Container with Inner Glow */}
+            {/* Profile Photo Container with Immediate Masking */}
             <div className="relative p-6 pb-4">
               <motion.div
                 className="relative"
-                style={{
-                  opacity: photoRendered ? 1 : 0,
-                  transition: "opacity 0.8s ease",
-                }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: photoRendered ? 1 : 0 }}
+                transition={{ duration: 0.8 }}
               >
-                {/* Photo with gradient border effect */}
-                <div
-                  className="relative"
-                  style={{
-                    padding: "3px",
-                    background: "linear-gradient(135deg, #9333EA 0%, #06B6D4 100%)",
-                    borderRadius: "12px",
-                    boxShadow: "0 0 30px rgba(147, 51, 234, 0.4), 0 0 60px rgba(6, 182, 212, 0.2)",
-                  }}
-                >
+                {/* Holographic Corner Accents */}
+                <div className="absolute -top-2 -left-2 w-8 h-8 border-t-2 border-l-2 border-cyan-400 rounded-tl-lg opacity-60"></div>
+                <div className="absolute -top-2 -right-2 w-8 h-8 border-t-2 border-r-2 border-purple-500 rounded-tr-lg opacity-60"></div>
+                <div className="absolute -bottom-2 -left-2 w-8 h-8 border-b-2 border-l-2 border-purple-500 rounded-bl-lg opacity-60"></div>
+                <div className="absolute -bottom-2 -right-2 w-8 h-8 border-b-2 border-r-2 border-cyan-400 rounded-br-lg opacity-60"></div>
+
+                {/* Photo with gradient border and immediate fade effect */}
+                <div className="relative overflow-hidden rounded-xl">
                   <img
                     src="/me.jpg"
                     alt="Sina Amareh"
+                    className="w-full h-auto object-cover object-center"
                     style={{
-                      width: "100%",
-                      height: "auto",
-                      maxHeight: "480px",
-                      borderRadius: "10px",
-                      objectFit: "cover",
-                      objectPosition: "center top",
+                      maxHeight: "420px",
                       display: "block",
-                      backgroundColor: "#0d1117",
+                      WebkitMaskImage: "linear-gradient(to bottom, black 60%, transparent 100%)",
+                      maskImage: "linear-gradient(to bottom, black 60%, transparent 100%)",
+                    }}
+                  />
+                  {/* Scan Line Effect */}
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      background:
+                        "repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0px, transparent 1px, transparent 2px, rgba(0, 0, 0, 0.1) 3px)",
+                      animation: "scan 8s linear infinite",
+                    }}
+                  />
+                  {/* Gradient Glow Behind */}
+                  <div
+                    className="absolute inset-0 -z-10 blur-2xl"
+                    style={{
+                      background:
+                        "linear-gradient(135deg, rgba(147, 51, 234, 0.3) 0%, rgba(6, 182, 212, 0.3) 100%)",
                     }}
                   />
                 </div>
               </motion.div>
             </div>
 
-            {/* Code Box - Bottom Section */}
-            <div className="px-6 pb-6 pt-2">
+            {/* Code Box - Fixed Height Container */}
+            <div className="px-6 pb-6 pt-2" style={{ minHeight: "60px" }}>
               <pre
                 className="w-full text-left"
                 style={{
@@ -200,7 +211,9 @@ const About = () => {
                 <code
                   className="language-html !bg-transparent !text-sm"
                   dangerouslySetInnerHTML={{
-                    __html: displayedCode + '<span class="typing-cursor"></span>',
+                    __html:
+                      displayedCode +
+                      (displayedCode && !codeTyped ? '<span class="typing-cursor"></span>' : ""),
                   }}
                 ></code>
               </pre>

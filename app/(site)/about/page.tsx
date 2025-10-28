@@ -1,21 +1,24 @@
 "use client";
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { 
-  SiDjango, 
-  SiFastapi, 
-  SiPostgresql, 
-  SiRedis, 
-  SiDocker, 
+import {
+  SiDjango,
+  SiFastapi,
+  SiPostgresql,
+  SiRedis,
+  SiDocker,
   SiPython,
   SiGit,
-  SiNginx
+  SiNginx,
 } from "react-icons/si";
 import { TerminalWindow } from "@/components/ui/TerminalWindow";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { useScrollAnimation, fadeInUp } from "@/hooks/useScrollAnimation";
+import Card3D from "@/components/3d/Card3D";
+import ParallaxLayer from "@/components/effects/ParallaxLayer";
+import PageBackground from "@/components/effects/PageBackground";
 
 export default function AboutPage() {
   const [displayedCode, setDisplayedCode] = useState("");
@@ -23,6 +26,8 @@ export default function AboutPage() {
   const [importingTech, setImportingTech] = useState<number>(-1);
 
   const { ref: techStackRef, controls: techStackControls } = useScrollAnimation(0.2);
+  const techGridRef = useRef(null);
+  const isTechGridInView = useInView(techGridRef, { once: true, amount: 0.2 });
 
   const journeyCode = `# journey.py
 
@@ -88,7 +93,11 @@ print(developer.philosophy())`;
   const techStack = [
     { name: "Django", icon: <SiDjango className="text-[#092e20]" />, import: "import django" },
     { name: "FastAPI", icon: <SiFastapi className="text-[#009688]" />, import: "import fastapi" },
-    { name: "PostgreSQL", icon: <SiPostgresql className="text-[#336791]" />, import: "import psycopg2" },
+    {
+      name: "PostgreSQL",
+      icon: <SiPostgresql className="text-[#336791]" />,
+      import: "import psycopg2",
+    },
     { name: "Redis", icon: <SiRedis className="text-[#DC382D]" />, import: "import redis" },
     { name: "Docker", icon: <SiDocker className="text-[#2496ED]" />, import: "import docker" },
     { name: "Python", icon: <SiPython className="text-[#3776AB]" />, import: "import python" },
@@ -96,9 +105,10 @@ print(developer.philosophy())`;
     { name: "Nginx", icon: <SiNginx className="text-[#009639]" />, import: "import nginx" },
   ];
 
-  // Animate tech stack imports
+  // Animate tech stack imports - start earlier, run faster
   useEffect(() => {
-    if (codeTyped) {
+    // Start as soon as code starts typing, not when it finishes
+    const startDelay = setTimeout(() => {
       let currentIndex = 0;
       const importInterval = setInterval(() => {
         if (currentIndex < techStack.length) {
@@ -108,19 +118,26 @@ print(developer.philosophy())`;
           clearInterval(importInterval);
           setImportingTech(-1);
         }
-      }, 400);
+      }, 250); // Faster animation (was 400ms)
 
       return () => clearInterval(importInterval);
-    }
-  }, [codeTyped]);
+    }, 800); // Start shortly after component mounts
+
+    return () => clearTimeout(startDelay);
+  }, []); // Run once on mount
 
   return (
     <div className="w-full bg-primary-background min-h-screen">
+      <PageBackground theme="about" />
       <section className="w-full flex flex-col items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8 py-20 md:py-32">
-        {/* Subtle Background Glows */}
+        {/* Subtle Background Glows with Parallax */}
         <div aria-hidden="true" className="absolute inset-0 -z-10">
-          <div className="absolute top-[10%] right-[15%] h-[400px] w-[400px] rounded-full bg-purple-600/[0.05] blur-[100px] animate-pulse-subtle" />
-          <div className="absolute bottom-[20%] left-[10%] h-[400px] w-[400px] rounded-full bg-cyan-500/[0.05] blur-[100px] animate-pulse-subtle" />
+          <ParallaxLayer speed={0.3}>
+            <div className="absolute top-[10%] right-[15%] h-[400px] w-[400px] rounded-full bg-purple-600/[0.05] blur-[100px] animate-pulse-subtle" />
+          </ParallaxLayer>
+          <ParallaxLayer speed={0.5} direction="down">
+            <div className="absolute bottom-[20%] left-[10%] h-[400px] w-[400px] rounded-full bg-cyan-500/[0.05] blur-[100px] animate-pulse-subtle" />
+          </ParallaxLayer>
         </div>
 
         <div className="w-full max-w-[1200px] mx-auto">
@@ -134,99 +151,113 @@ print(developer.philosophy())`;
             // 01. About
           </motion.div>
 
-          {/* Developer Profile Card */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-            {/* Profile Image with Terminal Aesthetic */}
+          {/* Developer Profile - Redesigned without container box */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+            {/* Profile Image directly on page */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
+              className="flex flex-col items-center space-y-6"
             >
-              <GlassCard variant="terminal" className="p-6 h-full" glow>
-                <div className="flex items-start gap-2 mb-4 pb-3 border-b border-cyan-500/20">
-                  <span className="text-[#50fa7b] font-mono text-sm">$</span>
-                  <span className="text-gray-400 font-mono text-sm">whoami</span>
-                </div>
-                
-                <div className="flex flex-col items-center">
-                  {/* Profile Image with Scan Lines Effect */}
-                  <div className="relative w-48 h-48 mb-6">
-                    <div className="absolute inset-0 rounded-lg overflow-hidden">
-                      <Image
-                        src="/me.jpg"
-                        alt="Sina Amareh"
-                        width={200}
-                        height={200}
-                        className="w-full h-full object-cover"
-                        priority
-                      />
-                      {/* Scan Lines Overlay */}
-                      <div className="absolute inset-0 pointer-events-none">
-                        <div
-                          className="w-full h-full"
-                          style={{
-                            background: `repeating-linear-gradient(
-                              0deg,
-                              rgba(0, 0, 0, 0.15) 0px,
-                              transparent 1px,
-                              transparent 2px,
-                              rgba(0, 0, 0, 0.15) 3px
-                            )`,
-                            animation: "scan 8s linear infinite",
-                          }}
-                        />
-                      </div>
-                    </div>
-                    <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/30 to-cyan-500/30 rounded-lg blur-md -z-10" />
+              {/* Profile Image - Larger and more prominent */}
+              <div className="relative w-[350px] h-[350px]">
+                <div className="absolute inset-0 rounded-2xl overflow-hidden">
+                  <Image
+                    src="/me.jpg"
+                    alt="Sina Amareh"
+                    width={350}
+                    height={350}
+                    className="w-full h-full"
+                    style={{
+                      objectFit: "cover",
+                      objectPosition: "center 20%",
+                      WebkitMaskImage: "radial-gradient(circle, black 85%, transparent 100%)",
+                      maskImage: "radial-gradient(circle, black 85%, transparent 100%)",
+                    }}
+                    priority
+                  />
+                  {/* Subtle Scan Lines */}
+                  <div className="absolute inset-0 pointer-events-none opacity-20">
+                    <div
+                      className="w-full h-full"
+                      style={{
+                        background: `repeating-linear-gradient(
+                          0deg,
+                          rgba(0, 0, 0, 0.1) 0px,
+                          transparent 1px,
+                          transparent 2px,
+                          rgba(0, 0, 0, 0.1) 3px
+                        )`,
+                        animation: "scan 8s linear infinite",
+                      }}
+                    />
                   </div>
+                </div>
+                {/* Glowing gradient border */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/30 to-cyan-500/30 rounded-2xl blur-xl -z-10 animate-pulse-subtle" />
+              </div>
 
-                  {/* Terminal Info */}
-                  <div className="w-full space-y-2 font-mono text-sm">
-                    <div className="flex items-start gap-2">
-                      <span className="text-cyan-400">›</span>
-                      <span className="text-gray-300">Sina Amareh</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-cyan-400">›</span>
-                      <span className="text-gray-300">Backend Architect</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-cyan-400">›</span>
-                      <span className="text-gray-300">Experience: <span className="text-[#50fa7b]">2 years</span></span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-cyan-400">›</span>
-                      <span className="text-gray-300">Employment: <span className="text-[#50fa7b]">1 year</span></span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-cyan-400">›</span>
-                      <span className="text-gray-300">Status: <span className="text-[#50fa7b]">Available</span></span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-cyan-400">›</span>
-                      <span className="text-gray-300">Location: Remote (UTC+3:30)</span>
-                    </div>
-                  </div>
+              {/* Info directly below - no container */}
+              <div className="w-full max-w-[350px] space-y-3 font-mono text-sm">
+                <div className="flex items-center gap-3 text-gray-300">
+                  <span className="text-cyan-400 text-lg">›</span>
+                  <span className="text-lg font-semibold">Sina Amareh</span>
                 </div>
-              </GlassCard>
+                <div className="flex items-center gap-3 text-gray-400">
+                  <span className="text-purple-500">›</span>
+                  <span>Backend Architect & System Designer</span>
+                </div>
+                <div className="flex items-center gap-3 text-gray-400">
+                  <span className="text-cyan-400">›</span>
+                  <span>
+                    Experience: <span className="text-[#50fa7b]">2 years</span>
+                  </span>
+                </div>
+                <div className="flex items-center gap-3 text-gray-400">
+                  <span className="text-cyan-400">›</span>
+                  <span>
+                    Employment: <span className="text-[#50fa7b]">1 year</span>
+                  </span>
+                </div>
+                <div className="flex items-center gap-3 text-gray-400">
+                  <span className="text-green-500">›</span>
+                  <span>
+                    Status: <span className="text-[#50fa7b] font-semibold">Available for Work</span>
+                  </span>
+                </div>
+                <div className="flex items-center gap-3 text-gray-400">
+                  <span className="text-purple-500">›</span>
+                  <span>Location: Remote (UTC+3:30)</span>
+                </div>
+              </div>
             </motion.div>
 
-            {/* Journey Code Block */}
+            {/* Journey Code Block - Fixed height without scrollbar */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
               className="flex items-stretch"
             >
-              <TerminalWindow title="journey.py" className="w-full">
-                <pre className="!bg-transparent !border-none !overflow-visible !p-0 whitespace-pre text-xs md:text-sm max-h-[500px] overflow-y-auto custom-scrollbar">
+              <TerminalWindow
+                title="journey.py"
+                className="w-full"
+                showCopy={true}
+                codeContent={journeyCode}
+              >
+                <pre
+                  className="!bg-transparent !border-none !p-0 whitespace-pre text-xs md:text-sm overflow-hidden"
+                  style={{ height: "460px", minHeight: "460px", maxHeight: "460px" }}
+                >
                   <code
-                    className="language-python !bg-transparent !border-none !overflow-visible !block"
+                    className="language-python !bg-transparent !border-none !block"
                     style={{
                       lineHeight: "1.6",
                     }}
                     dangerouslySetInnerHTML={{
-                      __html: displayedCode + (!codeTyped ? '<span class="typing-cursor"></span>' : ""),
+                      __html:
+                        displayedCode + (!codeTyped ? '<span class="typing-cursor"></span>' : ""),
                     }}
                   ></code>
                 </pre>
@@ -249,9 +280,9 @@ print(developer.philosophy())`;
               <span className="text-[#50fa7b]">"</span>
             </p>
             <p className="mt-6 text-gray-400 text-base leading-relaxed">
-              Specialized in designing and implementing scalable backend architectures.
-              Passionate about clean code, system optimization, and creating robust APIs
-              that power modern applications.
+              Specialized in designing and implementing scalable backend architectures. Passionate
+              about clean code, system optimization, and creating robust APIs that power modern
+              applications.
             </p>
           </motion.div>
 
@@ -271,45 +302,61 @@ print(developer.philosophy())`;
               </p>
             </motion.div>
 
-            {/* Tech Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+            {/* Tech Grid with WOW scroll animation */}
+            <div ref={techGridRef} className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
               {techStack.map((tech, index) => (
                 <motion.div
                   key={tech.name}
-                  initial={{ opacity: 0, scale: 0.8 }}
+                  initial={{ opacity: 0, scale: 0.7, y: 30 }}
                   animate={
-                    codeTyped
-                      ? { opacity: 1, scale: 1 }
-                      : { opacity: 0, scale: 0.8 }
+                    isTechGridInView
+                      ? { opacity: 1, scale: 1, y: 0 }
+                      : { opacity: 0, scale: 0.7, y: 30 }
                   }
-                  transition={{ duration: 0.3, delay: index * 0.1 + 0.5 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 200,
+                    damping: 15,
+                    delay: index * 0.1,
+                  }}
                 >
-                  <GlassCard
-                    variant="subtle"
-                    className={`p-6 text-center transition-all duration-300 ${
-                      importingTech === index
-                        ? "border-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.3)]"
-                        : "hover:border-cyan-500/30"
-                    }`}
-                  >
-                    <div className="text-5xl mb-3 flex justify-center">
-                      {tech.icon}
-                    </div>
-                    <div className="font-mono text-sm text-gray-300 mb-2">
-                      {tech.name}
-                    </div>
-                    <div className="font-mono text-xs text-gray-600">
-                      {importingTech === index && (
-                        <motion.span
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          className="text-[#50fa7b]"
-                        >
-                          {tech.import} ✓
-                        </motion.span>
-                      )}
-                    </div>
-                  </GlassCard>
+                  <Card3D intensity={8}>
+                    <GlassCard
+                      variant="subtle"
+                      interactive
+                      className={`p-6 text-center transition-all duration-300 ${
+                        importingTech === index
+                          ? "border-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.3)]"
+                          : "hover:border-cyan-500/30"
+                      }`}
+                    >
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={isTechGridInView ? { scale: 1 } : { scale: 0 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 260,
+                          damping: 20,
+                          delay: index * 0.1 + 0.2,
+                        }}
+                        className="text-5xl mb-3 flex justify-center"
+                      >
+                        {tech.icon}
+                      </motion.div>
+                      <div className="font-mono text-sm text-gray-300 mb-2">{tech.name}</div>
+                      <div className="font-mono text-xs text-gray-600">
+                        {importingTech === index && (
+                          <motion.span
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="text-[#50fa7b]"
+                          >
+                            {tech.import} ✓
+                          </motion.span>
+                        )}
+                      </div>
+                    </GlassCard>
+                  </Card3D>
                 </motion.div>
               ))}
             </div>
@@ -345,18 +392,18 @@ print(developer.philosophy())`;
             transform: translateY(100%);
           }
         }
-        
+
         .custom-scrollbar::-webkit-scrollbar {
           width: 6px;
         }
-        
+
         .custom-scrollbar::-webkit-scrollbar-track {
           background: rgba(255, 255, 255, 0.05);
           border-radius: 3px;
         }
-        
+
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: linear-gradient(to bottom, #9333EA, #06B6D4);
+          background: linear-gradient(to bottom, #9333ea, #06b6d4);
           border-radius: 3px;
         }
       `}</style>

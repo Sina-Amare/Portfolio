@@ -1,7 +1,7 @@
 "use client";
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import { motion } from "framer-motion";
-import { FaCopy, FaCheck } from "react-icons/fa";
+import { CopyButton } from "./CopyButton";
 
 interface TerminalWindowProps {
   title?: string;
@@ -11,23 +11,13 @@ interface TerminalWindowProps {
   codeContent?: string;
 }
 
-export const TerminalWindow = ({ 
-  title = "terminal", 
-  children, 
+export const TerminalWindow = ({
+  title = "terminal",
+  children,
   className = "",
   showCopy = false,
-  codeContent = ""
+  codeContent = "",
 }: TerminalWindowProps) => {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = () => {
-    if (codeContent) {
-      navigator.clipboard.writeText(codeContent);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }
-  };
-
   return (
     <motion.div
       className={`code-block-glow-wrapper p-[1.5px] rounded-lg ${className}`}
@@ -44,31 +34,12 @@ export const TerminalWindow = ({
             <div className="w-3 h-3 rounded-full bg-[#00ca4e]"></div>
             <span className="ml-2 text-xs text-gray-400 font-mono">{title}</span>
           </div>
-          {showCopy && (
-            <button
-              onClick={handleCopy}
-              className="px-3 py-1 rounded-lg bg-gray-700/50 hover:bg-gray-600/50 transition-colors text-xs flex items-center gap-1.5 border border-gray-600/50"
-              aria-label={copied ? "Copied!" : "Copy code"}
-            >
-              {copied ? (
-                <>
-                  <FaCheck className="w-3 h-3" /> Copied!
-                </>
-              ) : (
-                <>
-                  <FaCopy className="w-3 h-3" /> Copy
-                </>
-              )}
-            </button>
-          )}
+          {showCopy && codeContent && <CopyButton textToCopy={codeContent} />}
         </div>
-        
+
         {/* Content */}
-        <div className="p-4">
-          {children}
-        </div>
+        <div className="p-4">{children}</div>
       </div>
     </motion.div>
   );
 };
-

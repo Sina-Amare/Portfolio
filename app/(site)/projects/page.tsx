@@ -4,6 +4,7 @@ import { useState } from "react";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 import { SiDjango, SiFastapi, SiPostgresql, SiRedis, SiDocker, SiGraphql } from "react-icons/si";
+import PageBackground from "@/components/effects/PageBackground";
 
 interface Project {
   id: string;
@@ -32,8 +33,10 @@ export default function ProjectsPage() {
       method: "GET",
       status: 200,
       title: "E-commerce Backend API",
-      description: "Scalable microservices architecture for e-commerce platform with Django & PostgreSQL",
-      longDescription: "Comprehensive backend system handling authentication, product catalog, orders, and payments with Redis caching layer.",
+      description:
+        "Scalable microservices architecture for e-commerce platform with Django & PostgreSQL",
+      longDescription:
+        "Comprehensive backend system handling authentication, product catalog, orders, and payments with Redis caching layer.",
       tech: ["Django", "DRF", "PostgreSQL", "Redis", "Celery", "Docker"],
       features: [
         "JWT Authentication & Authorization",
@@ -41,10 +44,10 @@ export default function ProjectsPage() {
         "Order Processing Pipeline",
         "Payment Gateway Integration",
         "Real-time Notifications (Celery)",
-        "Redis Caching Layer"
+        "Redis Caching Layer",
       ],
       architecture: "Microservices with API Gateway pattern",
-      icon: <SiDjango className="text-4xl text-[#092e20]" />
+      icon: <SiDjango className="text-4xl text-[#092e20]" />,
     },
     {
       id: "2",
@@ -52,8 +55,10 @@ export default function ProjectsPage() {
       method: "GET",
       status: 200,
       title: "Real-time Analytics API",
-      description: "FastAPI-based analytics platform with WebSocket support for live data streaming",
-      longDescription: "High-performance analytics system processing time-series data with WebSocket connections for real-time updates.",
+      description:
+        "FastAPI-based analytics platform with WebSocket support for live data streaming",
+      longDescription:
+        "High-performance analytics system processing time-series data with WebSocket connections for real-time updates.",
       tech: ["FastAPI", "WebSocket", "InfluxDB", "Redis", "Docker"],
       features: [
         "WebSocket Live Data Streaming",
@@ -61,10 +66,10 @@ export default function ProjectsPage() {
         "Custom Metrics & Dashboards",
         "Data Aggregation Pipeline",
         "Real-time Alerting System",
-        "Historical Data Analysis"
+        "Historical Data Analysis",
       ],
       architecture: "Event-driven architecture with message queues",
-      icon: <SiFastapi className="text-4xl text-[#009688]" />
+      icon: <SiFastapi className="text-4xl text-[#009688]" />,
     },
     {
       id: "3",
@@ -73,7 +78,8 @@ export default function ProjectsPage() {
       status: 200,
       title: "Multi-tenant SaaS Backend",
       description: "Django-powered SaaS platform with PostgreSQL schema isolation and JWT auth",
-      longDescription: "Enterprise-grade multi-tenant system with isolated databases, role-based access control, and subscription management.",
+      longDescription:
+        "Enterprise-grade multi-tenant system with isolated databases, role-based access control, and subscription management.",
       tech: ["Django", "PostgreSQL", "JWT", "Stripe", "Docker", "Nginx"],
       features: [
         "Schema-based Tenant Isolation",
@@ -81,10 +87,10 @@ export default function ProjectsPage() {
         "Subscription Management",
         "Usage Tracking & Billing",
         "Multi-region Deployment",
-        "API Rate Limiting"
+        "API Rate Limiting",
       ],
       architecture: "Multi-tenant with shared database, separate schemas",
-      icon: <SiPostgresql className="text-4xl text-[#336791]" />
+      icon: <SiPostgresql className="text-4xl text-[#336791]" />,
     },
     {
       id: "4",
@@ -93,7 +99,8 @@ export default function ProjectsPage() {
       status: 200,
       title: "GraphQL API Gateway",
       description: "Unified GraphQL gateway aggregating multiple microservices with FastAPI",
-      longDescription: "API gateway layer providing a single GraphQL interface to multiple backend services with intelligent caching.",
+      longDescription:
+        "API gateway layer providing a single GraphQL interface to multiple backend services with intelligent caching.",
       tech: ["FastAPI", "GraphQL", "Strawberry", "Redis", "Docker"],
       features: [
         "Unified GraphQL Schema",
@@ -101,10 +108,10 @@ export default function ProjectsPage() {
         "Intelligent Query Caching",
         "Real-time Subscriptions",
         "Authentication Middleware",
-        "Performance Monitoring"
+        "Performance Monitoring",
       ],
       architecture: "API Gateway pattern with service mesh",
-      icon: <SiGraphql className="text-4xl text-[#E10098]" />
+      icon: <SiGraphql className="text-4xl text-[#E10098]" />,
     },
     {
       id: "5",
@@ -112,8 +119,10 @@ export default function ProjectsPage() {
       method: "GET",
       status: 200,
       title: "CI/CD Pipeline Automation",
-      description: "Automated deployment pipeline with Docker, GitHub Actions, and comprehensive testing",
-      longDescription: "Complete DevOps solution automating build, test, and deployment processes with zero-downtime deployments.",
+      description:
+        "Automated deployment pipeline with Docker, GitHub Actions, and comprehensive testing",
+      longDescription:
+        "Complete DevOps solution automating build, test, and deployment processes with zero-downtime deployments.",
       tech: ["Docker", "GitHub Actions", "Nginx", "PostgreSQL", "Redis"],
       features: [
         "Automated Testing Pipeline",
@@ -121,10 +130,10 @@ export default function ProjectsPage() {
         "Blue-green Deployments",
         "Automated Rollback System",
         "Infrastructure as Code",
-        "Monitoring & Alerting"
+        "Monitoring & Alerting",
       ],
       architecture: "CI/CD with containerized deployments",
-      icon: <SiDocker className="text-4xl text-[#2496ED]" />
+      icon: <SiDocker className="text-4xl text-[#2496ED]" />,
     },
     {
       id: "6",
@@ -133,7 +142,8 @@ export default function ProjectsPage() {
       status: 200,
       title: "Database Performance Optimization",
       description: "Query optimization project improving PostgreSQL performance by 400%",
-      longDescription: "Comprehensive database optimization including indexing strategies, query rewriting, and connection pooling.",
+      longDescription:
+        "Comprehensive database optimization including indexing strategies, query rewriting, and connection pooling.",
       tech: ["PostgreSQL", "Django ORM", "Redis", "pgAdmin", "Monitoring"],
       features: [
         "Query Performance Analysis",
@@ -141,10 +151,10 @@ export default function ProjectsPage() {
         "Connection Pooling (PgBouncer)",
         "N+1 Query Elimination",
         "Materialized Views",
-        "Performance Monitoring Dashboard"
+        "Performance Monitoring Dashboard",
       ],
       architecture: "Optimized relational database with caching layer",
-      icon: <SiRedis className="text-4xl text-[#DC382D]" />
+      icon: <SiRedis className="text-4xl text-[#DC382D]" />,
     },
   ];
 
@@ -156,9 +166,10 @@ export default function ProjectsPage() {
     { id: "docker", label: "Docker" },
   ];
 
-  const filteredProjects = selectedFilter === "all" 
-    ? projects 
-    : projects.filter(p => p.tech.some(t => t.toLowerCase().includes(selectedFilter)));
+  const filteredProjects =
+    selectedFilter === "all"
+      ? projects
+      : projects.filter((p) => p.tech.some((t) => t.toLowerCase().includes(selectedFilter)));
 
   const getMethodColor = (method: string) => {
     const colors = {
@@ -172,6 +183,7 @@ export default function ProjectsPage() {
 
   return (
     <div className="w-full bg-primary-background min-h-screen">
+      <PageBackground theme="projects" />
       <section className="w-full flex flex-col items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8 py-20 md:py-32">
         {/* Background Effects */}
         <div aria-hidden="true" className="absolute inset-0 -z-10">
@@ -181,9 +193,9 @@ export default function ProjectsPage() {
 
         <div className="w-full max-w-[1400px] mx-auto">
           {/* Section Header */}
-        <motion.div
+          <motion.div
             initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="section-number mb-12"
           >
@@ -233,15 +245,15 @@ export default function ProjectsPage() {
                 ))}
               </div>
             </GlassCard>
-        </motion.div>
+          </motion.div>
 
           {/* Projects Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProjects.map((project, index) => (
-            <motion.div
-              key={project.id}
+              <motion.div
+                key={project.id}
                 initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="relative h-[520px]"
                 style={{ perspective: "1000px" }}
@@ -255,15 +267,14 @@ export default function ProjectsPage() {
                   onClick={() => setFlippedCard(flippedCard === project.id ? null : project.id)}
                 >
                   {/* Front of Card */}
-                  <div
-                    className="absolute w-full h-full"
-                    style={{ backfaceVisibility: "hidden" }}
-                  >
+                  <div className="absolute w-full h-full" style={{ backfaceVisibility: "hidden" }}>
                     <GlassCard variant="terminal" className="p-6 h-full flex flex-col" glow>
                       {/* HTTP Method & Status */}
                       <div className="flex items-center justify-between mb-4 pb-3 border-b border-cyan-500/20">
                         <div className="flex items-center gap-2">
-                          <span className={`px-2 py-1 rounded border font-mono text-xs font-bold ${getMethodColor(project.method)}`}>
+                          <span
+                            className={`px-2 py-1 rounded border font-mono text-xs font-bold ${getMethodColor(project.method)}`}
+                          >
                             {project.method}
                           </span>
                           <span className="px-2 py-1 rounded border border-[#50fa7b] text-[#50fa7b] font-mono text-xs font-bold">
@@ -271,44 +282,42 @@ export default function ProjectsPage() {
                           </span>
                         </div>
                         <div className="text-2xl">{project.icon}</div>
-                </div>
+                      </div>
 
                       {/* Endpoint */}
                       <div className="mb-4">
                         <code className="text-xs font-mono text-gray-500 break-all">
                           {project.endpoint}
                         </code>
-                </div>
+                      </div>
 
                       {/* Title & Description */}
                       <h3 className="text-lg font-bold text-white mb-2 font-mono">
                         {project.title}
                       </h3>
-                      <p className="text-sm text-gray-400 mb-4 flex-grow">
-                        {project.description}
-                      </p>
+                      <p className="text-sm text-gray-400 mb-4 flex-grow">{project.description}</p>
 
                       {/* Tech Stack */}
                       <div className="flex flex-wrap gap-2 mb-4">
                         {project.tech.slice(0, 4).map((tech) => (
-                    <span
+                          <span
                             key={tech}
                             className="px-2 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-gray-400"
-                    >
+                          >
                             {tech}
-                    </span>
-                  ))}
+                          </span>
+                        ))}
                         {project.tech.length > 4 && (
                           <span className="px-2 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-gray-400">
                             +{project.tech.length - 4}
                           </span>
                         )}
-                </div>
+                      </div>
 
                       {/* Click to flip hint */}
                       <div className="text-xs font-mono text-gray-600 text-center pt-3 border-t border-cyan-500/20">
                         <span className="text-cyan-400">›</span> Click to view details
-              </div>
+                      </div>
                     </GlassCard>
                   </div>
 
@@ -317,7 +326,10 @@ export default function ProjectsPage() {
                     className="absolute w-full h-full"
                     style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
                   >
-                    <GlassCard variant="terminal" className="p-6 h-full flex flex-col overflow-y-auto custom-scrollbar">
+                    <GlassCard
+                      variant="terminal"
+                      className="p-6 h-full flex flex-col overflow-y-auto custom-scrollbar"
+                    >
                       <div className="flex items-center justify-between mb-4 pb-3 border-b border-cyan-500/20">
                         <h4 className="text-sm font-mono text-cyan-400 uppercase">Details</h4>
                         <div className="text-2xl">{project.icon}</div>
@@ -327,15 +339,15 @@ export default function ProjectsPage() {
                         {project.title}
                       </h3>
 
-                      <p className="text-xs text-gray-400 mb-4">
-                        {project.longDescription}
-                      </p>
+                      <p className="text-xs text-gray-400 mb-4">{project.longDescription}</p>
 
                       {/* Architecture */}
                       {project.architecture && (
                         <div className="mb-4">
                           <div className="text-xs font-mono text-gray-500 mb-1">Architecture:</div>
-                          <div className="text-xs text-cyan-400 font-mono">{project.architecture}</div>
+                          <div className="text-xs text-cyan-400 font-mono">
+                            {project.architecture}
+                          </div>
                         </div>
                       )}
 
@@ -344,7 +356,10 @@ export default function ProjectsPage() {
                         <div className="text-xs font-mono text-gray-500 mb-2">Key Features:</div>
                         <ul className="space-y-1">
                           {project.features.map((feature, i) => (
-                            <li key={i} className="text-xs text-gray-400 font-mono flex items-start gap-2">
+                            <li
+                              key={i}
+                              className="text-xs text-gray-400 font-mono flex items-start gap-2"
+                            >
                               <span className="text-[#50fa7b]">›</span>
                               <span>{feature}</span>
                             </li>
@@ -357,7 +372,7 @@ export default function ProjectsPage() {
                         <code className="text-xs font-mono text-gray-600 block mb-3">
                           $ curl -X {project.method} {project.endpoint}
                         </code>
-                        
+
                         {/* Action Buttons */}
                         <div className="flex gap-2">
                           {project.github && (
@@ -382,13 +397,13 @@ export default function ProjectsPage() {
                               <FaExternalLinkAlt /> Demo
                             </a>
                           )}
-                </div>
-              </div>
+                        </div>
+                      </div>
                     </GlassCard>
                   </div>
                 </motion.div>
-            </motion.div>
-          ))}
+              </motion.div>
+            ))}
           </div>
 
           {/* Summary */}
@@ -400,9 +415,10 @@ export default function ProjectsPage() {
           >
             <GlassCard variant="subtle" className="p-6 text-center">
               <p className="text-gray-400 font-mono text-sm">
-                <span className="text-[#50fa7b]">✓</span> Fetched {filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''} •{" "}
-                <span className="text-cyan-400">Status: 200 OK</span> •{" "}
-                Response time: ~{Math.floor(Math.random() * 50 + 30)}ms
+                <span className="text-[#50fa7b]">✓</span> Fetched {filteredProjects.length} project
+                {filteredProjects.length !== 1 ? "s" : ""} •{" "}
+                <span className="text-cyan-400">Status: 200 OK</span> • Response time: ~
+                {Math.floor(Math.random() * 50 + 30)}ms
               </p>
             </GlassCard>
           </motion.div>
@@ -413,13 +429,13 @@ export default function ProjectsPage() {
         .custom-scrollbar::-webkit-scrollbar {
           width: 4px;
         }
-        
+
         .custom-scrollbar::-webkit-scrollbar-track {
           background: rgba(255, 255, 255, 0.05);
         }
-        
+
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: linear-gradient(to bottom, #9333EA, #06B6D4);
+          background: linear-gradient(to bottom, #9333ea, #06b6d4);
           border-radius: 2px;
         }
       `}</style>

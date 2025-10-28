@@ -1,16 +1,17 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { FaGithub, FaLinkedin, FaFacebook, FaTwitter, FaCopy } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaFacebook, FaTwitter } from "react-icons/fa";
 import { useState, useEffect, useRef } from "react";
-import { SystemStatus } from "./SystemStatus";
+import { StatusBadge } from "./StatusBadge";
+import MagneticEffect from "@/components/effects/MagneticEffect";
+import PageBackground from "@/components/effects/PageBackground";
+import { CopyButton } from "@/components/ui/CopyButton";
 
 const Hero = () => {
   const [copied, setCopied] = useState("Copy");
   const [displayedCode, setDisplayedCode] = useState("");
   const [isCompiling, setIsCompiling] = useState(false);
-  const vantaRef = useRef<HTMLDivElement>(null);
-  const vantaEffect = useRef<any>(null);
 
   const plainCodeString = `const welcomeMessage = {
   greeting: "Hello World! 👋",
@@ -25,39 +26,6 @@ const Hero = () => {
 };`;
 
   const highlightedCodeString = `<span class="token keyword">const</span> <span class="token function-variable function">welcomeMessage</span> <span class="token operator">=</span> <span class="token punctuation">{</span><br/>  <span class="token property">greeting</span><span class="token operator">:</span> <span class="token string">"Hello World! 👋"</span><span class="token punctuation">,</span><br/>  <span class="token property">role</span><span class="token operator">:</span> <span class="token string">"Backend Architect & System Designer"</span><span class="token punctuation">,</span><br/>  <span class="token property">passion</span><span class="token operator">:</span> <span class="token string">"Building scalable solutions"</span><span class="token punctuation">,</span><br/>  <span class="token property">approach</span><span class="token operator">:</span> <span class="token string">"Clean code meets creative thinking"</span><span class="token punctuation">,</span><br/>  <span class="token property">status</span><span class="token operator">:</span> <span class="token punctuation">{</span><br/>    <span class="token property">available</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span><br/>    <span class="token property">location</span><span class="token operator">:</span> <span class="token string">"Remote"</span><span class="token punctuation">,</span><br/>    <span class="token property">timezone</span><span class="token operator">:</span> <span class="token string">"UTC+3:30"</span><br/>  <span class="token punctuation">}</span><br/><span class="token punctuation">};</span>`;
-
-  // Vanta.js 3D Background Effect
-  useEffect(() => {
-    if (!vantaRef.current || typeof window === "undefined") return;
-
-    // Dynamically import Vanta to avoid SSR issues
-    import("vanta/dist/vanta.net.min").then((VantaNet) => {
-      if (vantaRef.current && !vantaEffect.current) {
-        vantaEffect.current = VantaNet.default({
-          el: vantaRef.current,
-          mouseControls: true,
-          touchControls: true,
-          gyroControls: false,
-          minHeight: 200.0,
-          minWidth: 200.0,
-          scale: 1.0,
-          scaleMobile: 1.0,
-          color: 0x6b46c1, // Purple
-          backgroundColor: 0x0d1117,
-          points: 8.0,
-          maxDistance: 20.0,
-          spacing: 15.0,
-          showDots: true,
-        });
-      }
-    });
-
-    return () => {
-      if (vantaEffect.current) {
-        vantaEffect.current.destroy();
-      }
-    };
-  }, []);
 
   // Typewriter Effect with Compilation
   useEffect(() => {
@@ -82,7 +50,7 @@ const Hero = () => {
       } else {
         setDisplayedCode(codeString.substring(0, i));
       }
-    }, 25);
+    }, 15);
 
     return () => clearInterval(interval);
   }, [highlightedCodeString]);
@@ -95,21 +63,17 @@ const Hero = () => {
 
   return (
     <section className="w-full min-h-screen flex items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8">
-      {/* Vanta.js 3D Background */}
-      <div
-        ref={vantaRef}
-        className="absolute inset-0 -z-10"
-        style={{ zIndex: -1 }}
-      />
-      
-      {/* Background Glows (Aurora) - Reduced for 3D background */}
+      {/* Page Background - Terminal Theme */}
+      <PageBackground theme="home" />
+
+      {/* Background Glows (Aurora) */}
       <div aria-hidden="true" className="absolute inset-0 -z-10">
         <div className="absolute left-[-20%] top-[10%] h-[500px] w-[500px] rounded-full bg-purple-600/20 opacity-30 blur-[120px]" />
         <div className="absolute right-[-20%] top-[30%] h-[500px] w-[500px] rounded-full bg-cyan-500/20 opacity-30 blur-[120px]" />
       </div>
 
-      {/* System Status Panel */}
-      <SystemStatus />
+      {/* Status Badge */}
+      <StatusBadge />
       <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-12 lg:gap-8">
         {/* Left Column */}
         <motion.div
@@ -127,14 +91,14 @@ const Hero = () => {
           >
             // 00. Home
           </motion.div>
-          
+
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
             className="text-[4rem] font-bold leading-[1.1] tracking-tight text-gray-50 z-10 font-montserrat"
           >
-            Hello <span className="inline-block animate-wave">👋</span>, <br /> I'm{" "}
+            Hello <span className="inline-block animate-wave">👋</span> <br /> I'm{" "}
             <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-400 bg-clip-text text-transparent">
               Sina Amareh
             </span>
@@ -155,58 +119,86 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="flex gap-4 mt-8 text-3xl text-gray-400 z-10"
           >
-            <Link
-              href="https://github.com/sina-amareh"
-              aria-label="Github"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <motion.div
-                whileHover={{ scale: 1.2, y: -5, color: "#00e0d3", textShadow: "0 0 10px #00e0d3" }}
-                whileTap={{ scale: 0.9 }}
+            <MagneticEffect strength={0.15}>
+              <Link
+                href="https://github.com/sina-amareh"
+                aria-label="Github"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <FaGithub className="hover:text-accent-cyan transition-colors" />
-              </motion.div>
-            </Link>
-            <Link
-              href="https://linkedin.com/in/sina-amareh"
-              aria-label="LinkedIn"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <motion.div
-                whileHover={{ scale: 1.2, y: -5, color: "#00e0d3", textShadow: "0 0 10px #00e0d3" }}
-                whileTap={{ scale: 0.9 }}
+                <motion.div
+                  whileHover={{
+                    scale: 1.2,
+                    y: -5,
+                    color: "#00e0d3",
+                    textShadow: "0 0 10px #00e0d3",
+                  }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <FaGithub className="hover:text-accent-cyan transition-colors" />
+                </motion.div>
+              </Link>
+            </MagneticEffect>
+            <MagneticEffect strength={0.15}>
+              <Link
+                href="https://linkedin.com/in/sina-amareh"
+                aria-label="LinkedIn"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <FaLinkedin className="hover:text-accent-cyan transition-colors" />
-              </motion.div>
-            </Link>
-            <Link
-              href="https://facebook.com/sina.amareh"
-              aria-label="Facebook"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <motion.div
-                whileHover={{ scale: 1.2, y: -5, color: "#00e0d3", textShadow: "0 0 10px #00e0d3" }}
-                whileTap={{ scale: 0.9 }}
+                <motion.div
+                  whileHover={{
+                    scale: 1.2,
+                    y: -5,
+                    color: "#00e0d3",
+                    textShadow: "0 0 10px #00e0d3",
+                  }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <FaLinkedin className="hover:text-accent-cyan transition-colors" />
+                </motion.div>
+              </Link>
+            </MagneticEffect>
+            <MagneticEffect strength={0.15}>
+              <Link
+                href="https://facebook.com/sina.amareh"
+                aria-label="Facebook"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <FaFacebook className="hover:text-accent-cyan transition-colors" />
-              </motion.div>
-            </Link>
-            <Link
-              href="https://twitter.com/sina_amareh"
-              aria-label="Twitter"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <motion.div
-                whileHover={{ scale: 1.2, y: -5, color: "#00e0d3", textShadow: "0 0 10px #00e0d3" }}
-                whileTap={{ scale: 0.9 }}
+                <motion.div
+                  whileHover={{
+                    scale: 1.2,
+                    y: -5,
+                    color: "#00e0d3",
+                    textShadow: "0 0 10px #00e0d3",
+                  }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <FaFacebook className="hover:text-accent-cyan transition-colors" />
+                </motion.div>
+              </Link>
+            </MagneticEffect>
+            <MagneticEffect strength={0.15}>
+              <Link
+                href="https://twitter.com/sina_amareh"
+                aria-label="Twitter"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <FaTwitter className="hover:text-accent-cyan transition-colors" />
-              </motion.div>
-            </Link>
+                <motion.div
+                  whileHover={{
+                    scale: 1.2,
+                    y: -5,
+                    color: "#00e0d3",
+                    textShadow: "0 0 10px #00e0d3",
+                  }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <FaTwitter className="hover:text-accent-cyan transition-colors" />
+                </motion.div>
+              </Link>
+            </MagneticEffect>
           </motion.div>
 
           <motion.div
@@ -273,18 +265,7 @@ const Hero = () => {
                   <div className="w-3 h-3 rounded-full bg-[#00ca4e]"></div>
                   <span className="ml-2 text-xs text-gray-400 font-mono">welcome.js</span>
                 </div>
-                <button
-                  onClick={handleCopy}
-                  className="px-3 py-1 rounded-[8px] bg-gray-700/50 hover:bg-gray-600/50 transition-colors text-xs flex items-center gap-1.5 border border-gray-600/50"
-                  aria-label="Copy code to clipboard"
-                >
-                  {copied === "Copy" && (
-                    <>
-                      <FaCopy className="w-3 h-3" /> Copy
-                    </>
-                  )}
-                  {copied === "Copied!" && "Copied!"}
-                </button>
+                <CopyButton textToCopy={plainCodeString} />
               </div>
               <pre className="!bg-transparent !border-none !overflow-visible !p-0 whitespace-pre pb-2">
                 <code

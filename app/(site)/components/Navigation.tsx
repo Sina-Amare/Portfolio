@@ -25,13 +25,15 @@ export default function Navigation() {
   return (
     <>
       <CommandPalette />
-      
+
       <motion.nav
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         className={`sticky top-0 left-0 right-0 flex justify-center z-40 h-16 md:h-20 transition-all duration-300 ${
-          scrolled ? "bg-[#0D1117]/80 backdrop-blur-xl border-b border-white/5" : "bg-transparent"
+          scrolled
+            ? "bg-[#0D1117]/80 backdrop-blur-xl border-b border-gray-800/50"
+            : "bg-transparent border-b border-transparent"
         }`}
       >
         <div className="max-w-screen-xl w-full mx-auto px-6 md:px-8 flex justify-between items-center h-full">
@@ -52,8 +54,8 @@ export default function Navigation() {
                   <Link href={link.path}>
                     <motion.span
                       className={`font-semibold tracking-wider transition-all duration-300 relative ${
-                        pathname === link.path 
-                          ? "text-cyan-400" 
+                        pathname === link.path
+                          ? "text-cyan-400"
                           : "text-gray-400 hover:text-cyan-400"
                       }`}
                     >
