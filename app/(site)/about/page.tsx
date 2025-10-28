@@ -17,26 +17,25 @@ export default function AboutPage() {
   const magneticRef = useMagneticEffect(0.2);
   const { ref: expertiseRef, controls: expertiseControls } = useScrollAnimation(0.2);
 
-  // --- CODE CONTENT - Matching Hero Style ---
-  const plainCodeString = `const developer = {
-  name: 'Sina Amareh',
-  role: 'Backend Architect',
-  yearsOfExperience: 5,
-  expertise: [
-    'System Design',
-    'API Development',
-    'Microservices',
-    'Database Architecture'
+  // --- CODE CONTENT - Biography/Journey Focused ---
+  const plainCodeString = `const myJourney = {
+  started: 2019,
+  background: "Computer Science",
+  evolution: [
+    "Full-stack Development",
+    "Backend Specialization",
+    "System Architecture"
   ],
-  techStack: {
-    backend: ['NestJS', 'PostgreSQL'],
-    frontend: ['React', 'Next.js'],
-    tools: ['Docker', 'CI/CD']
-  },
-  availability: 'Open to opportunities'
+  philosophy: "Simplicity is the ultimate sophistication",
+  focusAreas: [
+    "RESTful API Design",
+    "Database Optimization",
+    "Microservices Architecture"
+  ],
+  currentGoal: "Building systems that scale"
 };`;
 
-  const highlightedCodeString = `<span class="token keyword">const</span> <span class="token function-variable function">developer</span> <span class="token operator">=</span> <span class="token punctuation">{</span><br/>  <span class="token property">name</span><span class="token operator">:</span> <span class="token string">'Sina Amareh'</span><span class="token punctuation">,</span><br/>  <span class="token property">role</span><span class="token operator">:</span> <span class="token string">'Backend Architect'</span><span class="token punctuation">,</span><br/>  <span class="token property">yearsOfExperience</span><span class="token operator">:</span> <span class="token number">5</span><span class="token punctuation">,</span><br/>  <span class="token property">expertise</span><span class="token operator">:</span> <span class="token punctuation">[</span><br/>    <span class="token string">'System Design'</span><span class="token punctuation">,</span><br/>    <span class="token string">'API Development'</span><span class="token punctuation">,</span><br/>    <span class="token string">'Microservices'</span><span class="token punctuation">,</span><br/>    <span class="token string">'Database Architecture'</span><br/>  <span class="token punctuation">]</span><span class="token punctuation">,</span><br/>  <span class="token property">techStack</span><span class="token operator">:</span> <span class="token punctuation">{</span><br/>    <span class="token property">backend</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'NestJS'</span><span class="token punctuation">,</span> <span class="token string">'PostgreSQL'</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br/>    <span class="token property">frontend</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'React'</span><span class="token punctuation">,</span> <span class="token string">'Next.js'</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br/>    <span class="token property">tools</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'Docker'</span><span class="token punctuation">,</span> <span class="token string">'CI/CD'</span><span class="token punctuation">]</span><br/>  <span class="token punctuation">}</span><span class="token punctuation">,</span><br/>  <span class="token property">availability</span><span class="token operator">:</span> <span class="token string">'Open to opportunities'</span><br/><span class="token punctuation">};</span>`;
+  const highlightedCodeString = `<span class="token keyword">const</span> <span class="token function-variable function">myJourney</span> <span class="token operator">=</span> <span class="token punctuation">{</span><br/>  <span class="token property">started</span><span class="token operator">:</span> <span class="token number">2019</span><span class="token punctuation">,</span><br/>  <span class="token property">background</span><span class="token operator">:</span> <span class="token string">"Computer Science"</span><span class="token punctuation">,</span><br/>  <span class="token property">evolution</span><span class="token operator">:</span> <span class="token punctuation">[</span><br/>    <span class="token string">"Full-stack Development"</span><span class="token punctuation">,</span><br/>    <span class="token string">"Backend Specialization"</span><span class="token punctuation">,</span><br/>    <span class="token string">"System Architecture"</span><br/>  <span class="token punctuation">]</span><span class="token punctuation">,</span><br/>  <span class="token property">philosophy</span><span class="token operator">:</span> <span class="token string">"Simplicity is the ultimate sophistication"</span><span class="token punctuation">,</span><br/>  <span class="token property">focusAreas</span><span class="token operator">:</span> <span class="token punctuation">[</span><br/>    <span class="token string">"RESTful API Design"</span><span class="token punctuation">,</span><br/>    <span class="token string">"Database Optimization"</span><span class="token punctuation">,</span><br/>    <span class="token string">"Microservices Architecture"</span><br/>  <span class="token punctuation">]</span><span class="token punctuation">,</span><br/>  <span class="token property">currentGoal</span><span class="token operator">:</span> <span class="token string">"Building systems that scale"</span><br/><span class="token punctuation">};</span>`;
 
   // --- TYPEWRITER EFFECT - Matching Hero Speed ---
   useEffect(() => {
@@ -118,15 +117,15 @@ export default function AboutPage() {
               className="flex justify-center items-center"
             >
               <div className="relative w-full max-w-[400px] aspect-square">
-                {/* Image with Subtle Breathe Animation */}
+                {/* Image with Subtle Breathe Animation - Preserving Built-in Glow Ring */}
                 <Image
                   src="/me.jpg"
                   alt="Sina Amareh"
-                  width={400}
-                  height={400}
+                  width={450}
+                  height={450}
                   priority
                   quality={95}
-                  className="w-full h-full object-cover rounded-full breathe-animation"
+                  className="w-full h-full object-contain rounded-xl breathe-animation"
                   style={{
                     // Inline critical styles to prevent flash
                     imageRendering: '-webkit-optimize-contrast',
@@ -143,21 +142,16 @@ export default function AboutPage() {
               className="flex items-center"
             >
               <div className="w-full">
-                <div
-                  className="rounded-[14px] p-[1.5px]"
-                  style={{
-                    background: "linear-gradient(110deg, transparent 20%, theme('colors.cyan.400' / 0.4), transparent 80%)",
-                    boxShadow: "0 0 40px theme('colors.cyan.400' / 0.15)",
-                  }}
-                >
-                  <div className="bg-[#282a36]/80 rounded-[14px] p-5 backdrop-blur-sm">
+                {/* Using exact same class as hero */}
+                <div className="code-block-glow-wrapper p-[1.5px] rounded-lg">
+                  <div className="bg-[#282a36]/80 rounded-[14px] p-4 backdrop-blur-sm">
                     {/* Window Controls - Matching Hero */}
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-2">
                         <div className="w-3 h-3 rounded-full bg-[#ff605c]"></div>
                         <div className="w-3 h-3 rounded-full bg-[#ffbd44]"></div>
                         <div className="w-3 h-3 rounded-full bg-[#00ca4e]"></div>
-                        <span className="ml-2 text-xs text-gray-400 font-mono">developer.js</span>
+                        <span className="ml-2 text-xs text-gray-400 font-mono">journey.js</span>
                       </div>
                       <button
                         onClick={handleCopy}

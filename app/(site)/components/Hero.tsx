@@ -8,18 +8,19 @@ const Hero = () => {
   const [copied, setCopied] = useState("Copy");
   const [displayedCode, setDisplayedCode] = useState("");
 
-  const plainCodeString = `const coder = {
-  name: 'Sina Amareh',
-  skills: [
-    'React', 'Next.js',
-    'NestJS', 'PostgreSQL',
-    'Docker'
-  ],
-  focus: 'Backend Architecture & System Design',
-  hireable: true
+  const plainCodeString = `const welcomeMessage = {
+  greeting: "Hello World! 👋",
+  role: "Backend Architect & System Designer",
+  passion: "Building scalable solutions",
+  approach: "Clean code meets creative thinking",
+  status: {
+    available: true,
+    location: "Remote",
+    timezone: "UTC+3:30"
+  }
 };`;
 
-  const highlightedCodeString = `<span class="token keyword">const</span> <span class="token function-variable function">coder</span> <span class="token operator">=</span> <span class="token punctuation">{</span><br/>  <span class="token property">name</span><span class="token operator">:</span> <span class="token string">'Sina Amareh'</span><span class="token punctuation">,</span><br/>  <span class="token property">skills</span><span class="token operator">:</span> <span class="token punctuation">[</span><br/>    <span class="token string">'React'</span><span class="token punctuation">,</span> <span class="token string">'Next.js'</span><span class="token punctuation">,</span><br/>    <span class="token string">'NestJS'</span><span class="token punctuation">,</span> <span class="token string">'PostgreSQL'</span><span class="token punctuation">,</span><br/>    <span class="token string">'Docker'</span><br/>  <span class="token punctuation">]</span><span class="token punctuation">,</span><br/>  <span class="token property">focus</span><span class="token operator">:</span> <span class="token string">'Backend Architecture & System Design'</span><span class="token punctuation">,</span><br/>  <span class="token property">hireable</span><span class="token operator">:</span> <span class="token boolean">true</span><br/><span class="token punctuation">};</span>`;
+  const highlightedCodeString = `<span class="token keyword">const</span> <span class="token function-variable function">welcomeMessage</span> <span class="token operator">=</span> <span class="token punctuation">{</span><br/>  <span class="token property">greeting</span><span class="token operator">:</span> <span class="token string">"Hello World! 👋"</span><span class="token punctuation">,</span><br/>  <span class="token property">role</span><span class="token operator">:</span> <span class="token string">"Backend Architect & System Designer"</span><span class="token punctuation">,</span><br/>  <span class="token property">passion</span><span class="token operator">:</span> <span class="token string">"Building scalable solutions"</span><span class="token punctuation">,</span><br/>  <span class="token property">approach</span><span class="token operator">:</span> <span class="token string">"Clean code meets creative thinking"</span><span class="token punctuation">,</span><br/>  <span class="token property">status</span><span class="token operator">:</span> <span class="token punctuation">{</span><br/>    <span class="token property">available</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span><br/>    <span class="token property">location</span><span class="token operator">:</span> <span class="token string">"Remote"</span><span class="token punctuation">,</span><br/>    <span class="token property">timezone</span><span class="token operator">:</span> <span class="token string">"UTC+3:30"</span><br/>  <span class="token punctuation">}</span><br/><span class="token punctuation">};</span>`;
 
   useEffect(() => {
     let i = 0;
@@ -221,7 +222,7 @@ const Hero = () => {
                   <div className="w-3 h-3 rounded-full bg-[#ff605c]"></div>
                   <div className="w-3 h-3 rounded-full bg-[#ffbd44]"></div>
                   <div className="w-3 h-3 rounded-full bg-[#00ca4e]"></div>
-                  <span className="ml-2 text-xs text-gray-400 font-mono">zsh</span>
+                  <span className="ml-2 text-xs text-gray-400 font-mono">welcome.js</span>
                 </div>
                 <button
                   onClick={handleCopy}
