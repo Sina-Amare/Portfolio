@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Link from "next/link";
+import Image from "next/image";
 import { FaServer, FaReact, FaDocker } from "react-icons/fa";
 
 export default function AboutPage() {
@@ -87,17 +88,17 @@ export default function AboutPage() {
   return (
     <div className="w-full bg-primary-background">
       {/* SECTION 1: HERO INTRODUCTION WITH CODE-TO-PHOTO REVEAL */}
-      <section className="w-full min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8 py-16">
-        {/* Background Glows */}
+      <section className="w-full min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8 py-12">
+        {/* Refined Background Glows - More Subtle */}
         <div aria-hidden="true" className="absolute inset-0 -z-10">
-          <div className="absolute top-[20%] right-[15%] h-[500px] w-[500px] rounded-full bg-purple-600/30 blur-[120px] animate-pulse-slow" />
-          <div className="absolute bottom-[20%] left-[10%] h-[500px] w-[500px] rounded-full bg-cyan-500/30 blur-[120px] animate-pulse-slow" />
+          <div className="absolute top-[25%] right-[20%] h-[400px] w-[400px] rounded-full bg-purple-600/10 blur-[90px] animate-pulse-subtle" />
+          <div className="absolute bottom-[25%] left-[15%] h-[400px] w-[400px] rounded-full bg-cyan-500/10 blur-[90px] animate-pulse-subtle" />
         </div>
 
         {/* Section Title */}
-        <div className="w-full max-w-[1200px] mx-auto mb-12">
+        <div className="w-full max-w-[1100px] mx-auto mb-8">
           <motion.h2
-            className="font-mono text-2xl md:text-3xl text-gray-400 mb-4 self-start"
+            className="font-mono text-xl md:text-2xl text-gray-400 mb-3"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -106,46 +107,46 @@ export default function AboutPage() {
             {!titleTyped && <span className="typing-cursor"></span>}
           </motion.h2>
 
-          {/* Introduction Text */}
+          {/* Introduction Text - More Concise */}
           <motion.p
-            className="text-gray-400 text-base md:text-lg leading-relaxed max-w-[700px]"
+            className="text-gray-400 text-base md:text-lg leading-relaxed max-w-[650px]"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: titleTyped ? 1 : 0, y: titleTyped ? 0 : 10 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Passionate about crafting{" "}
-            <span className="text-purple-400 font-medium">scalable systems</span> and{" "}
-            <span className="text-cyan-400 font-medium">elegant solutions</span>. I transform
-            complex challenges into clean, maintainable code that powers modern applications.
+            Crafting{" "}
+            <span className="text-purple-400 font-semibold">scalable systems</span> and{" "}
+            <span className="text-cyan-400 font-semibold">elegant solutions</span> that transform
+            complex challenges into maintainable, production-ready code.
           </motion.p>
         </div>
 
-        {/* Code Block and Photo Container */}
-        <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Code Block */}
+        {/* Code Block and Photo Container - Tighter Grid */}
+        <div className="w-full max-w-[1100px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-center">
+          {/* Code Block - Refined */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             className="order-2 lg:order-1"
           >
-            <div className="code-block-glow-wrapper p-[1.5px] rounded-lg">
-              <div className="bg-[#282a36]/80 rounded-[14px] p-4 backdrop-blur-sm">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="w-3 h-3 rounded-full bg-[#ff605c]"></div>
-                  <div className="w-3 h-3 rounded-full bg-[#ffbd44]"></div>
-                  <div className="w-3 h-3 rounded-full bg-[#00ca4e]"></div>
-                  <span className="ml-2 text-xs text-gray-400 font-mono">Component.jsx</span>
+            <div className="code-block-refined p-[1px] rounded-lg">
+              <div className="bg-[#282a36]/90 rounded-[7px] p-3.5 backdrop-blur-sm">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#ff605c]"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd44]"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#00ca4e]"></div>
+                  <span className="ml-2 text-[11px] text-gray-400 font-mono">Component.jsx</span>
                 </div>
-                <pre className="!bg-transparent !border-none !overflow-visible !p-0 whitespace-pre pb-2">
+                <pre className="!bg-transparent !border-none !overflow-visible !p-0 whitespace-pre pb-1.5">
                   <code
-                    className="language-jsx !bg-transparent !pb-0.5 !border-none !overflow-visible !block text-sm"
+                    className="language-jsx !bg-transparent !pb-0.5 !border-none !overflow-visible !block text-[13px]"
                     style={{
                       overflow: "visible",
                       width: "100%",
                       maxWidth: "100%",
                       whiteSpace: "pre",
-                      lineHeight: "1.6",
+                      lineHeight: "1.65",
                     }}
                     dangerouslySetInnerHTML={{
                       __html:
@@ -157,7 +158,7 @@ export default function AboutPage() {
             </div>
           </motion.div>
 
-          {/* Photo Reveal */}
+          {/* Photo Reveal - Seamlessly Integrated */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{
@@ -165,138 +166,111 @@ export default function AboutPage() {
               scale: photoRevealed ? 1 : 0.95,
             }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="order-1 lg:order-2 flex justify-center float-slow"
+            className="order-1 lg:order-2 flex justify-center"
           >
-            <div className="relative w-full max-w-[450px]">
-              {/* Seamless gradient fade to match website background */}
-              <div
-                className="absolute inset-0 pointer-events-none z-10"
-                style={{
-                  background: `
-                    radial-gradient(
-                      circle at center,
-                      transparent 45%,
-                      rgba(13, 17, 23, 0.3) 60%,
-                      rgba(13, 17, 23, 0.7) 75%,
-                      rgba(13, 17, 23, 1) 90%
-                    )
-                  `,
-                }}
-              />
+            <div className="relative w-full max-w-[420px]">
+              {/* Vignette overlay - CSS class applied immediately */}
+              <div className="absolute inset-0 pointer-events-none z-10 about-image-vignette" />
 
-              {/* Subtle background glow */}
-              <div
-                className="absolute -inset-10 -z-10 blur-[100px] opacity-60"
-                style={{
-                  background:
-                    "radial-gradient(circle, rgba(147, 51, 234, 0.25) 0%, rgba(6, 182, 212, 0.25) 100%)",
-                }}
-              />
+              {/* Subtle background glow - CSS class */}
+              <div className="absolute -inset-12 -z-10 blur-[80px] about-image-glow" />
 
-              {/* Image with seamless integration - effects applied immediately */}
-              <img
+              {/* Image with Next.js optimization and CSS-based effects */}
+              <Image
                 src="/me.jpg"
                 alt="Sina Amareh"
-                className="w-full h-auto object-cover"
-                loading="eager"
-                style={{
-                  maskImage: "radial-gradient(circle at center, black 40%, transparent 95%)",
-                  WebkitMaskImage: "radial-gradient(circle at center, black 40%, transparent 95%)",
-                  imageRendering: "crisp-edges",
-                }}
+                width={420}
+                height={420}
+                priority
+                quality={95}
+                className="w-full h-auto object-cover about-profile-image"
               />
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* SECTION 2: CONDENSED INTRO + EXPERTISE */}
+      {/* SECTION 2: EXPERTISE - PROFESSIONAL & COMPACT */}
       <section
         ref={expertiseRef}
-        className="w-full flex items-center relative overflow-hidden px-4 sm:px-6 lg:px-8 py-16"
+        className="w-full flex items-center relative overflow-hidden px-4 sm:px-6 lg:px-8 py-12"
       >
-        {/* Background Glow */}
+        {/* Subtle Background Glow */}
         <div aria-hidden="true" className="absolute inset-0 -z-10">
-          <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-purple-600/20 blur-[150px]" />
+          <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 h-[450px] w-[450px] rounded-full bg-purple-600/8 blur-[100px]" />
         </div>
 
-        <div className="w-full max-w-[1200px] mx-auto">
-          {/* Condensed Intro Text */}
+        <div className="w-full max-w-[1100px] mx-auto">
+          {/* Refined Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={expertiseInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8 }}
-            className="text-center mb-16 max-w-[800px] mx-auto"
+            className="text-center mb-12 max-w-[700px] mx-auto"
           >
-            <h3 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
-              Crafting Digital Excellence
+            <h3 className="text-2xl md:text-3xl font-display font-bold text-white mb-4">
+              Technical Expertise
             </h3>
-            <p className="text-gray-300 text-lg leading-relaxed">
-              I specialize in{" "}
+            <p className="text-gray-400 text-base md:text-lg leading-relaxed">
+              Specializing in{" "}
               <span className="text-purple-400 font-semibold">backend architecture</span> and{" "}
-              <span className="text-cyan-400 font-semibold">system design</span>, building software
-              that's both elegant and robust. My approach combines technical expertise with
-              user-centric thinking.
+              <span className="text-cyan-400 font-semibold">system design</span>, with a focus on
+              scalability and performance.
             </p>
           </motion.div>
 
-          {/* Expertise Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Expertise Cards - More Professional Design */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {expertiseCards.map((card, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
                 animate={expertiseInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.2 + index * 0.15 }}
+                transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
                 whileHover={{
-                  y: -8,
-                  boxShadow: "0 0 30px rgba(147, 51, 234, 0.3), 0 0 60px rgba(6, 182, 212, 0.2)",
+                  y: -6,
+                  transition: { duration: 0.2 }
                 }}
-                className="relative overflow-hidden rounded-xl p-8 group cursor-pointer"
+                className="relative overflow-hidden rounded-xl p-6 group cursor-pointer bg-white/[0.03] backdrop-blur-md border border-white/[0.08] hover:border-white/[0.15] transition-all duration-300"
                 style={{
-                  background: "rgba(255, 255, 255, 0.05)",
-                  backdropFilter: "blur(15px)",
-                  border: "1px solid rgba(255, 255, 255, 0.1)",
+                  boxShadow: "0 4px 24px rgba(0, 0, 0, 0.1)"
                 }}
               >
-                <div className="flex flex-col gap-4 items-center text-center">
-                  <div className="transition-transform group-hover:scale-110 duration-300">
+                <div className="flex flex-col gap-3.5 items-center text-center relative z-10">
+                  <div className="transition-transform group-hover:scale-105 duration-300">
                     {card.icon}
                   </div>
-                  <h4 className="text-xl font-display font-semibold text-white">{card.title}</h4>
-                  <p className="text-gray-400 leading-relaxed">{card.description}</p>
+                  <h4 className="text-lg font-display font-semibold text-white">{card.title}</h4>
+                  <p className="text-gray-400 text-sm leading-relaxed">{card.description}</p>
                 </div>
 
-                {/* Hover gradient overlay */}
+                {/* Subtle gradient on hover */}
                 <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none -z-10"
                   style={{
                     background:
-                      "linear-gradient(135deg, rgba(147, 51, 234, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%)",
+                      "radial-gradient(circle at top, rgba(147, 51, 234, 0.05) 0%, transparent 70%)",
                   }}
                 />
               </motion.div>
             ))}
           </div>
 
-          {/* CTA */}
+          {/* CTA - More Refined */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={expertiseInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-16 text-center"
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="mt-12 text-center"
           >
             <Link href="/contact">
               <motion.button
                 whileHover={{
-                  y: -5,
-                  boxShadow: "0 0 20px rgba(147, 51, 234, 0.6), 0 0 40px rgba(6, 182, 212, 0.4)",
+                  y: -3,
+                  transition: { duration: 0.2 }
                 }}
-                whileTap={{ scale: 0.95 }}
-                className="py-4 px-8 rounded-lg text-lg font-semibold text-white bg-gradient-to-r from-[#9333EA] to-[#06B6D4] transition-all duration-300"
-                style={{
-                  boxShadow: "0 0 15px rgba(147, 51, 234, 0.4), 0 0 30px rgba(6, 182, 212, 0.2)",
-                }}
+                whileTap={{ scale: 0.98 }}
+                className="py-3.5 px-7 rounded-lg text-base font-semibold text-white bg-gradient-to-r from-[#9333EA] to-[#06B6D4] transition-all duration-300 shadow-lg shadow-purple-500/20 hover:shadow-purple-500/30"
               >
                 Let's Build Something Together →
               </motion.button>
