@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
+import { CursorEffect } from "@/components/ui/CursorEffect";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -24,6 +25,8 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         <link rel="preload" href="/me.jpg" as="image" type="image/jpeg" />
       </head>
       <body className="bg-primary-background text-text-secondary antialiased min-h-screen flex flex-col relative overflow-x-hidden font-sans">
+        <CursorEffect />
+        
         <header>
           <Navigation />
         </header>

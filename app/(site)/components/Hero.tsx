@@ -2,11 +2,15 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { FaGithub, FaLinkedin, FaFacebook, FaTwitter, FaCopy } from "react-icons/fa";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { SystemStatus } from "./SystemStatus";
 
 const Hero = () => {
   const [copied, setCopied] = useState("Copy");
   const [displayedCode, setDisplayedCode] = useState("");
+  const [isCompiling, setIsCompiling] = useState(false);
+  const vantaRef = useRef<HTMLDivElement>(null);
+  const vantaEffect = useRef<any>(null);
 
   const plainCodeString = `const welcomeMessage = {
   greeting: "Hello World! 👋",
@@ -22,12 +26,44 @@ const Hero = () => {
 
   const highlightedCodeString = `<span class="token keyword">const</span> <span class="token function-variable function">welcomeMessage</span> <span class="token operator">=</span> <span class="token punctuation">{</span><br/>  <span class="token property">greeting</span><span class="token operator">:</span> <span class="token string">"Hello World! 👋"</span><span class="token punctuation">,</span><br/>  <span class="token property">role</span><span class="token operator">:</span> <span class="token string">"Backend Architect & System Designer"</span><span class="token punctuation">,</span><br/>  <span class="token property">passion</span><span class="token operator">:</span> <span class="token string">"Building scalable solutions"</span><span class="token punctuation">,</span><br/>  <span class="token property">approach</span><span class="token operator">:</span> <span class="token string">"Clean code meets creative thinking"</span><span class="token punctuation">,</span><br/>  <span class="token property">status</span><span class="token operator">:</span> <span class="token punctuation">{</span><br/>    <span class="token property">available</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span><br/>    <span class="token property">location</span><span class="token operator">:</span> <span class="token string">"Remote"</span><span class="token punctuation">,</span><br/>    <span class="token property">timezone</span><span class="token operator">:</span> <span class="token string">"UTC+3:30"</span><br/>  <span class="token punctuation">}</span><br/><span class="token punctuation">};</span>`;
 
+  // Vanta.js 3D Background Effect
+  useEffect(() => {
+    if (!vantaRef.current || typeof window === "undefined") return;
+
+    // Dynamically import Vanta to avoid SSR issues
+    import("vanta/dist/vanta.net.min").then((VantaNet) => {
+      if (vantaRef.current && !vantaEffect.current) {
+        vantaEffect.current = VantaNet.default({
+          el: vantaRef.current,
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.0,
+          minWidth: 200.0,
+          scale: 1.0,
+          scaleMobile: 1.0,
+          color: 0x6b46c1, // Purple
+          backgroundColor: 0x0d1117,
+          points: 8.0,
+          maxDistance: 20.0,
+          spacing: 15.0,
+          showDots: true,
+        });
+      }
+    });
+
+    return () => {
+      if (vantaEffect.current) {
+        vantaEffect.current.destroy();
+      }
+    };
+  }, []);
+
+  // Typewriter Effect with Compilation
   useEffect(() => {
     let i = 0;
-    // Use the highlighted version for the typewriter effect
     const codeString = highlightedCodeString;
     const interval = setInterval(() => {
-      // If the current character is the start of an HTML tag, jump to the end of it
       if (codeString[i] === "<") {
         const closingTagIndex = codeString.indexOf(">", i);
         i = closingTagIndex + 1;
@@ -36,12 +72,17 @@ const Hero = () => {
       }
 
       if (i >= codeString.length) {
-        setDisplayedCode(codeString); // Ensure the full string is displayed at the end
+        setDisplayedCode(codeString);
         clearInterval(interval);
+        // Show compilation effect
+        setTimeout(() => {
+          setIsCompiling(true);
+          setTimeout(() => setIsCompiling(false), 1500);
+        }, 300);
       } else {
         setDisplayedCode(codeString.substring(0, i));
       }
-    }, 25); // Faster typing speed
+    }, 25);
 
     return () => clearInterval(interval);
   }, [highlightedCodeString]);
@@ -54,13 +95,21 @@ const Hero = () => {
 
   return (
     <section className="w-full min-h-screen flex items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8">
-      {/* Background Glows (Aurora) */}
+      {/* Vanta.js 3D Background */}
+      <div
+        ref={vantaRef}
+        className="absolute inset-0 -z-10"
+        style={{ zIndex: -1 }}
+      />
+      
+      {/* Background Glows (Aurora) - Reduced for 3D background */}
       <div aria-hidden="true" className="absolute inset-0 -z-10">
-        {/* Purple/Magenta Blob */}
-        <div className="absolute left-[-20%] top-[10%] h-[500px] w-[500px] rounded-full bg-purple-600/40 opacity-50 blur-[120px]" />
-        {/* Cyan/Teal Blob */}
-        <div className="absolute right-[-20%] top-[30%] h-[500px] w-[500px] rounded-full bg-cyan-500/40 opacity-50 blur-[120px]" />
+        <div className="absolute left-[-20%] top-[10%] h-[500px] w-[500px] rounded-full bg-purple-600/20 opacity-30 blur-[120px]" />
+        <div className="absolute right-[-20%] top-[30%] h-[500px] w-[500px] rounded-full bg-cyan-500/20 opacity-30 blur-[120px]" />
       </div>
+
+      {/* System Status Panel */}
+      <SystemStatus />
       <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-12 lg:gap-8">
         {/* Left Column */}
         <motion.div

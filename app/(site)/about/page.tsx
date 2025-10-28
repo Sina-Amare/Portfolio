@@ -3,44 +3,68 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { FaServer, FaReact, FaDocker, FaCopy, FaCheck } from "react-icons/fa";
-import { BentoGrid, BentoItem } from "@/components/ui/BentoGrid";
+import { 
+  SiDjango, 
+  SiFastapi, 
+  SiPostgresql, 
+  SiRedis, 
+  SiDocker, 
+  SiPython,
+  SiGit,
+  SiNginx
+} from "react-icons/si";
+import { TerminalWindow } from "@/components/ui/TerminalWindow";
+import { GlassCard } from "@/components/ui/GlassCard";
 import { useScrollAnimation, fadeInUp } from "@/hooks/useScrollAnimation";
-import { useMagneticEffect } from "@/hooks/useMagneticEffect";
 
 export default function AboutPage() {
-  // --- STATE & HOOKS ---
   const [displayedCode, setDisplayedCode] = useState("");
   const [codeTyped, setCodeTyped] = useState(false);
-  const [copied, setCopied] = useState(false);
+  const [importingTech, setImportingTech] = useState<number>(-1);
 
-  const magneticRef = useMagneticEffect(0.2);
-  const { ref: expertiseRef, controls: expertiseControls } = useScrollAnimation(0.2);
+  const { ref: techStackRef, controls: techStackControls } = useScrollAnimation(0.2);
 
-  // --- CODE CONTENT - Biography/Journey Focused ---
-  const plainCodeString = `const myJourney = {
-  started: 2019,
-  background: "Computer Science",
-  evolution: [
-    "Full-stack Development",
-    "Backend Specialization",
-    "System Architecture"
-  ],
-  philosophy: "Simplicity is the ultimate sophistication",
-  focusAreas: [
-    "RESTful API Design",
-    "Database Optimization",
-    "Microservices Architecture"
-  ],
-  currentGoal: "Building systems that scale"
-};`;
+  const journeyCode = `# journey.py
 
-  const highlightedCodeString = `<span class="token keyword">const</span> <span class="token function-variable function">myJourney</span> <span class="token operator">=</span> <span class="token punctuation">{</span><br/>  <span class="token property">started</span><span class="token operator">:</span> <span class="token number">2019</span><span class="token punctuation">,</span><br/>  <span class="token property">background</span><span class="token operator">:</span> <span class="token string">"Computer Science"</span><span class="token punctuation">,</span><br/>  <span class="token property">evolution</span><span class="token operator">:</span> <span class="token punctuation">[</span><br/>    <span class="token string">"Full-stack Development"</span><span class="token punctuation">,</span><br/>    <span class="token string">"Backend Specialization"</span><span class="token punctuation">,</span><br/>    <span class="token string">"System Architecture"</span><br/>  <span class="token punctuation">]</span><span class="token punctuation">,</span><br/>  <span class="token property">philosophy</span><span class="token operator">:</span> <span class="token string">"Simplicity is the ultimate sophistication"</span><span class="token punctuation">,</span><br/>  <span class="token property">focusAreas</span><span class="token operator">:</span> <span class="token punctuation">[</span><br/>    <span class="token string">"RESTful API Design"</span><span class="token punctuation">,</span><br/>    <span class="token string">"Database Optimization"</span><span class="token punctuation">,</span><br/>    <span class="token string">"Microservices Architecture"</span><br/>  <span class="token punctuation">]</span><span class="token punctuation">,</span><br/>  <span class="token property">currentGoal</span><span class="token operator">:</span> <span class="token string">"Building systems that scale"</span><br/><span class="token punctuation">};</span>`;
+class BackendDeveloper:
+    def __init__(self):
+        self.name = "Sina Amareh"
+        self.role = "Backend Architect & System Designer"
+        self.experience_years = 2
+        self.employed_duration = "1 year"
+        self.location = "Remote (UTC+3:30)"
+        
+    def expertise(self):
+        return {
+            "languages": ["Python"],
+            "frameworks": ["Django", "FastAPI", "DRF"],
+            "databases": ["PostgreSQL", "Redis", "MongoDB"],
+            "devops": ["Docker", "CI/CD", "Git", "Nginx"],
+            "focus": [
+                "API Design & Development",
+                "System Architecture",
+                "Database Optimization",
+                "Microservices"
+            ]
+        }
+    
+    def philosophy(self):
+        return "Building systems where clarity meets creativity"
+        
+    @property
+    def status(self):
+        return "Available for interesting projects"
 
-  // --- TYPEWRITER EFFECT - Matching Hero Speed ---
+# Initialize
+developer = BackendDeveloper()
+print(developer.philosophy())`;
+
+  const highlightedCode = `<span class="token comment"># journey.py</span><br/><br/><span class="token keyword">class</span> <span class="token class-name">BackendDeveloper</span><span class="token punctuation">:</span><br/>    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span><br/>        self<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">"Sina Amareh"</span><br/>        self<span class="token punctuation">.</span>role <span class="token operator">=</span> <span class="token string">"Backend Architect & System Designer"</span><br/>        self<span class="token punctuation">.</span>experience_years <span class="token operator">=</span> <span class="token number">2</span><br/>        self<span class="token punctuation">.</span>employed_duration <span class="token operator">=</span> <span class="token string">"1 year"</span><br/>        self<span class="token punctuation">.</span>location <span class="token operator">=</span> <span class="token string">"Remote (UTC+3:30)"</span><br/>        <br/>    <span class="token keyword">def</span> <span class="token function">expertise</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span><br/>        <span class="token keyword">return</span> <span class="token punctuation">{</span><br/>            <span class="token string">"languages"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"Python"</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br/>            <span class="token string">"frameworks"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"Django"</span><span class="token punctuation">,</span> <span class="token string">"FastAPI"</span><span class="token punctuation">,</span> <span class="token string">"DRF"</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br/>            <span class="token string">"databases"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"PostgreSQL"</span><span class="token punctuation">,</span> <span class="token string">"Redis"</span><span class="token punctuation">,</span> <span class="token string">"MongoDB"</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br/>            <span class="token string">"devops"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"Docker"</span><span class="token punctuation">,</span> <span class="token string">"CI/CD"</span><span class="token punctuation">,</span> <span class="token string">"Git"</span><span class="token punctuation">,</span> <span class="token string">"Nginx"</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br/>            <span class="token string">"focus"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><br/>                <span class="token string">"API Design & Development"</span><span class="token punctuation">,</span><br/>                <span class="token string">"System Architecture"</span><span class="token punctuation">,</span><br/>                <span class="token string">"Database Optimization"</span><span class="token punctuation">,</span><br/>                <span class="token string">"Microservices"</span><br/>            <span class="token punctuation">]</span><br/>        <span class="token punctuation">}</span><br/>    <br/>    <span class="token keyword">def</span> <span class="token function">philosophy</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span><br/>        <span class="token keyword">return</span> <span class="token string">"Building systems where clarity meets creativity"</span><br/>        <br/>    <span class="token decorator">@property</span><br/>    <span class="token keyword">def</span> <span class="token function">status</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span><br/>        <span class="token keyword">return</span> <span class="token string">"Available for interesting projects"</span><br/><br/><span class="token comment"># Initialize</span><br/>developer <span class="token operator">=</span> BackendDeveloper<span class="token punctuation">(</span><span class="token punctuation">)</span><br/><span class="token keyword">print</span><span class="token punctuation">(</span>developer<span class="token punctuation">.</span>philosophy<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>`;
+
+  // Typewriter effect for code
   useEffect(() => {
     let i = 0;
-    const codeString = highlightedCodeString;
+    const codeString = highlightedCode;
     const interval = setInterval(() => {
       if (codeString[i] === "<") {
         const closingTagIndex = codeString.indexOf(">", i);
@@ -56,203 +80,286 @@ export default function AboutPage() {
       } else {
         setDisplayedCode(codeString.substring(0, i));
       }
-    }, 25); // Same speed as hero
+    }, 8); // Faster for longer code
 
     return () => clearInterval(interval);
   }, []);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(plainCodeString);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  // --- EXPERTISE DATA ---
-  const expertiseItems = [
-    {
-      icon: <FaServer className="text-4xl text-purple-400" />,
-      title: "Backend Architecture",
-      description: "NestJS, PostgreSQL, Microservices & scalable API design",
-    },
-    {
-      icon: <FaReact className="text-4xl text-cyan-400" />,
-      title: "Modern Frontend",
-      description: "React, Next.js, TypeScript & responsive interfaces",
-    },
-    {
-      icon: <FaDocker className="text-4xl text-blue-400" />,
-      title: "DevOps & Cloud",
-      description: "Docker, CI/CD pipelines & cloud deployment automation",
-    },
+  const techStack = [
+    { name: "Django", icon: <SiDjango className="text-[#092e20]" />, import: "import django" },
+    { name: "FastAPI", icon: <SiFastapi className="text-[#009688]" />, import: "import fastapi" },
+    { name: "PostgreSQL", icon: <SiPostgresql className="text-[#336791]" />, import: "import psycopg2" },
+    { name: "Redis", icon: <SiRedis className="text-[#DC382D]" />, import: "import redis" },
+    { name: "Docker", icon: <SiDocker className="text-[#2496ED]" />, import: "import docker" },
+    { name: "Python", icon: <SiPython className="text-[#3776AB]" />, import: "import python" },
+    { name: "Git", icon: <SiGit className="text-[#F05032]" />, import: "import git" },
+    { name: "Nginx", icon: <SiNginx className="text-[#009639]" />, import: "import nginx" },
   ];
 
+  // Animate tech stack imports
+  useEffect(() => {
+    if (codeTyped) {
+      let currentIndex = 0;
+      const importInterval = setInterval(() => {
+        if (currentIndex < techStack.length) {
+          setImportingTech(currentIndex);
+          currentIndex++;
+        } else {
+          clearInterval(importInterval);
+          setImportingTech(-1);
+        }
+      }, 400);
+
+      return () => clearInterval(importInterval);
+    }
+  }, [codeTyped]);
+
   return (
-    <div className="w-full bg-primary-background">
-      {/* MAIN SECTION */}
-      <section className="w-full flex flex-col items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8 py-20 md:py-24">
+    <div className="w-full bg-primary-background min-h-screen">
+      <section className="w-full flex flex-col items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8 py-20 md:py-32">
         {/* Subtle Background Glows */}
         <div aria-hidden="true" className="absolute inset-0 -z-10">
-          <div className="absolute top-[20%] right-[15%] h-[350px] w-[350px] rounded-full bg-purple-600/[0.06] blur-[80px] animate-pulse-subtle" />
-          <div className="absolute bottom-[20%] left-[10%] h-[350px] w-[350px] rounded-full bg-cyan-500/[0.06] blur-[80px] animate-pulse-subtle" />
+          <div className="absolute top-[10%] right-[15%] h-[400px] w-[400px] rounded-full bg-purple-600/[0.05] blur-[100px] animate-pulse-subtle" />
+          <div className="absolute bottom-[20%] left-[10%] h-[400px] w-[400px] rounded-full bg-cyan-500/[0.05] blur-[100px] animate-pulse-subtle" />
         </div>
 
-        <div className="w-full max-w-[1000px] mx-auto">
-          {/* Professional Section Number */}
+        <div className="w-full max-w-[1200px] mx-auto">
+          {/* Section Number */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="section-number mb-8"
+            className="section-number mb-12"
           >
             // 01. About
           </motion.div>
 
-          {/* Image + Code Grid - 50/50 Balance */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-16">
-            {/* Profile Image - Preserving Built-in Glow Ring */}
+          {/* Developer Profile Card */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+            {/* Profile Image with Terminal Aesthetic */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="flex justify-center items-center"
             >
-              <div className="relative w-full max-w-[400px] aspect-square">
-                {/* Image with Subtle Breathe Animation - Preserving Built-in Glow Ring */}
-                <Image
-                  src="/me.jpg"
-                  alt="Sina Amareh"
-                  width={450}
-                  height={450}
-                  priority
-                  quality={95}
-                  className="w-full h-full object-contain rounded-xl breathe-animation"
-                  style={{
-                    // Inline critical styles to prevent flash
-                    imageRendering: '-webkit-optimize-contrast',
-                  }}
-                />
-              </div>
+              <GlassCard variant="terminal" className="p-6 h-full" glow>
+                <div className="flex items-start gap-2 mb-4 pb-3 border-b border-cyan-500/20">
+                  <span className="text-[#50fa7b] font-mono text-sm">$</span>
+                  <span className="text-gray-400 font-mono text-sm">whoami</span>
+                </div>
+                
+                <div className="flex flex-col items-center">
+                  {/* Profile Image with Scan Lines Effect */}
+                  <div className="relative w-48 h-48 mb-6">
+                    <div className="absolute inset-0 rounded-lg overflow-hidden">
+                      <Image
+                        src="/me.jpg"
+                        alt="Sina Amareh"
+                        width={200}
+                        height={200}
+                        className="w-full h-full object-cover"
+                        priority
+                      />
+                      {/* Scan Lines Overlay */}
+                      <div className="absolute inset-0 pointer-events-none">
+                        <div
+                          className="w-full h-full"
+                          style={{
+                            background: `repeating-linear-gradient(
+                              0deg,
+                              rgba(0, 0, 0, 0.15) 0px,
+                              transparent 1px,
+                              transparent 2px,
+                              rgba(0, 0, 0, 0.15) 3px
+                            )`,
+                            animation: "scan 8s linear infinite",
+                          }}
+                        />
+                      </div>
+                    </div>
+                    <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/30 to-cyan-500/30 rounded-lg blur-md -z-10" />
+                  </div>
+
+                  {/* Terminal Info */}
+                  <div className="w-full space-y-2 font-mono text-sm">
+                    <div className="flex items-start gap-2">
+                      <span className="text-cyan-400">›</span>
+                      <span className="text-gray-300">Sina Amareh</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-cyan-400">›</span>
+                      <span className="text-gray-300">Backend Architect</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-cyan-400">›</span>
+                      <span className="text-gray-300">Experience: <span className="text-[#50fa7b]">2 years</span></span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-cyan-400">›</span>
+                      <span className="text-gray-300">Employment: <span className="text-[#50fa7b]">1 year</span></span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-cyan-400">›</span>
+                      <span className="text-gray-300">Status: <span className="text-[#50fa7b]">Available</span></span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-cyan-400">›</span>
+                      <span className="text-gray-300">Location: Remote (UTC+3:30)</span>
+                    </div>
+                  </div>
+                </div>
+              </GlassCard>
             </motion.div>
 
-            {/* Code Block - Matching Hero Style Exactly */}
+            {/* Journey Code Block */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="flex items-center"
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="flex items-stretch"
             >
-              <div className="w-full">
-                {/* Using exact same class as hero */}
-                <div className="code-block-glow-wrapper p-[1.5px] rounded-lg">
-                  <div className="bg-[#282a36]/80 rounded-[14px] p-4 backdrop-blur-sm">
-                    {/* Window Controls - Matching Hero */}
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 rounded-full bg-[#ff605c]"></div>
-                        <div className="w-3 h-3 rounded-full bg-[#ffbd44]"></div>
-                        <div className="w-3 h-3 rounded-full bg-[#00ca4e]"></div>
-                        <span className="ml-2 text-xs text-gray-400 font-mono">journey.js</span>
-                      </div>
-                      <button
-                        onClick={handleCopy}
-                        className="text-gray-400 hover:text-cyan-300 transition-colors text-sm font-mono flex items-center gap-1.5"
-                        aria-label={copied ? "Copied!" : "Copy"}
-                      >
-                        {copied ? <FaCheck className="text-xs" /> : <FaCopy className="text-xs" />}
-                        <span className="text-xs">{copied ? "Copied!" : "Copy"}</span>
-                      </button>
-                    </div>
-
-                    {/* Code Content - NO SCROLLBAR */}
-                    <pre className="!bg-transparent !border-none !overflow-visible !p-0 whitespace-pre pb-2">
-                      <code
-                        className="language-js !bg-transparent !pb-0.5 !border-none !overflow-visible !block"
-                        style={{
-                          overflow: "visible",
-                          width: "100%",
-                          maxWidth: "100%",
-                          whiteSpace: "pre",
-                          lineHeight: "1.5",
-                          fontSize: "0.875rem",
-                        }}
-                        dangerouslySetInnerHTML={{
-                          __html: displayedCode + (!codeTyped ? '<span class="typing-cursor"></span>' : ""),
-                        }}
-                      ></code>
-                    </pre>
-                  </div>
-                </div>
-              </div>
+              <TerminalWindow title="journey.py" className="w-full">
+                <pre className="!bg-transparent !border-none !overflow-visible !p-0 whitespace-pre text-xs md:text-sm max-h-[500px] overflow-y-auto custom-scrollbar">
+                  <code
+                    className="language-python !bg-transparent !border-none !overflow-visible !block"
+                    style={{
+                      lineHeight: "1.6",
+                    }}
+                    dangerouslySetInnerHTML={{
+                      __html: displayedCode + (!codeTyped ? '<span class="typing-cursor"></span>' : ""),
+                    }}
+                  ></code>
+                </pre>
+              </TerminalWindow>
             </motion.div>
           </div>
 
-          {/* Centered Impactful Statement */}
+          {/* Philosophy Statement */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-center mb-20 max-w-[700px] mx-auto"
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="text-center mb-20 max-w-[800px] mx-auto"
           >
-            <p className="text-gray-300 text-lg leading-relaxed">
-              Transforming complex backend challenges into{" "}
-              <span className="gradient-text font-semibold">elegant, scalable solutions</span> that power modern applications.
-              Specialized in system architecture and API design with a focus on performance and reliability.
+            <p className="text-xl md:text-2xl text-gray-300 leading-relaxed font-mono">
+              <span className="text-[#50fa7b]">"</span>
+              <span className="gradient-text font-semibold">
+                Building systems where clarity meets creativity
+              </span>
+              <span className="text-[#50fa7b]">"</span>
+            </p>
+            <p className="mt-6 text-gray-400 text-base leading-relaxed">
+              Specialized in designing and implementing scalable backend architectures.
+              Passionate about clean code, system optimization, and creating robust APIs
+              that power modern applications.
             </p>
           </motion.div>
 
-          {/* Expertise Section */}
-          <div ref={expertiseRef}>
-            {/* Section Header */}
+          {/* Tech Stack with Animated Imports */}
+          <div ref={techStackRef}>
             <motion.div
               initial="hidden"
-              animate={expertiseControls}
+              animate={techStackControls}
               variants={fadeInUp}
-              className="text-center mb-10"
+              className="mb-10"
             >
-              <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 tracking-tight">
-                Technical Expertise
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 tracking-tight text-center">
+                Tech Stack
               </h2>
-              <p className="text-gray-400 text-base leading-relaxed max-w-[550px] mx-auto">
-                Specializing in{" "}
-                <span className="text-purple-400 font-semibold">backend architecture</span> and{" "}
-                <span className="text-cyan-400 font-semibold">system design</span> with a focus on
-                performance and scalability.
+              <p className="text-gray-400 text-center font-mono text-sm">
+                <span className="text-cyan-400">›</span> Loading modules...
               </p>
             </motion.div>
 
-            {/* Bento Grid */}
-            <BentoGrid>
-              {expertiseItems.map((item, index) => (
-                <BentoItem
-                  key={index}
-                  icon={item.icon}
-                  title={item.title}
-                  description={item.description}
-                  delay={index * 0.1}
-                />
+            {/* Tech Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+              {techStack.map((tech, index) => (
+                <motion.div
+                  key={tech.name}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={
+                    codeTyped
+                      ? { opacity: 1, scale: 1 }
+                      : { opacity: 0, scale: 0.8 }
+                  }
+                  transition={{ duration: 0.3, delay: index * 0.1 + 0.5 }}
+                >
+                  <GlassCard
+                    variant="subtle"
+                    className={`p-6 text-center transition-all duration-300 ${
+                      importingTech === index
+                        ? "border-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.3)]"
+                        : "hover:border-cyan-500/30"
+                    }`}
+                  >
+                    <div className="text-5xl mb-3 flex justify-center">
+                      {tech.icon}
+                    </div>
+                    <div className="font-mono text-sm text-gray-300 mb-2">
+                      {tech.name}
+                    </div>
+                    <div className="font-mono text-xs text-gray-600">
+                      {importingTech === index && (
+                        <motion.span
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          className="text-[#50fa7b]"
+                        >
+                          {tech.import} ✓
+                        </motion.span>
+                      )}
+                    </div>
+                  </GlassCard>
+                </motion.div>
               ))}
-            </BentoGrid>
+            </div>
 
-            {/* CTA with Magnetic Effect */}
+            {/* CTA */}
             <motion.div
               initial="hidden"
-              animate={expertiseControls}
+              animate={techStackControls}
               variants={fadeInUp}
-              className="mt-12 text-center"
+              className="text-center mt-12"
             >
               <Link href="/contact">
-                <button
-                  ref={magneticRef as any}
-                  className="magnetic py-3.5 px-8 rounded-xl text-base font-semibold text-white bg-gradient-to-r from-[#9333EA] to-[#06B6D4] shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 transition-shadow duration-300 relative overflow-hidden group"
+                <motion.button
+                  className="px-8 py-4 rounded-xl text-base font-semibold text-white bg-gradient-to-r from-[#9333EA] to-[#06B6D4] shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 transition-shadow duration-300 relative overflow-hidden group font-mono"
+                  whileHover={{ y: -3, scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  <span className="relative z-10">Let's Build Something Amazing →</span>
+                  <span className="relative z-10">$ connect --mode=collaborate</span>
                   <div className="absolute inset-0 bg-gradient-to-r from-[#06B6D4] to-[#9333EA] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </button>
+                </motion.button>
               </Link>
             </motion.div>
           </div>
         </div>
       </section>
+
+      <style jsx>{`
+        @keyframes scan {
+          0% {
+            transform: translateY(-100%);
+          }
+          100% {
+            transform: translateY(100%);
+          }
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 6px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: 3px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: linear-gradient(to bottom, #9333EA, #06B6D4);
+          border-radius: 3px;
+        }
+      `}</style>
     </div>
   );
 }
