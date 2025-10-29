@@ -79,8 +79,8 @@ const About = () => {
       ref={ref}
       className="w-full min-h-screen flex flex-col justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8 py-24"
     >
-      {/* Background Glows */}
-      <div aria-hidden="true" className="absolute inset-0 -z-10">
+      {/* Background Glows - Fixed Position */}
+      <div aria-hidden="true" className="fixed inset-0 -z-10 pointer-events-none">
         {/* Purple Glow (Behind right column glassmorphic card) */}
         <div className="absolute top-[15%] right-[10%] h-[600px] w-[600px] rounded-full bg-[#9333ea]/[0.15] blur-[120px] animate-pulse-slow" />
         {/* Cyan Glow (Behind left column text) */}

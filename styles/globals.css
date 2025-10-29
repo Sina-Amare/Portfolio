@@ -229,12 +229,16 @@ pre > code {
 @layer components {
   .code-block-glow-wrapper {
     background: linear-gradient(
-      110deg,
-      transparent 20%,
-      theme("colors.cyan.400" / 0.4),
-      transparent 80%
+      135deg,
+      rgba(147, 51, 234, 0.3) 0%,
+      rgba(6, 182, 212, 0.3) 50%,
+      rgba(147, 51, 234, 0.3) 100%
     );
-    box-shadow: 0 0 40px theme("colors.cyan.400" / 0.15);
+    box-shadow:
+      0 0 30px rgba(147, 51, 234, 0.15),
+      0 0 60px rgba(6, 182, 212, 0.1);
+    padding: 1.5px;
+    border-radius: 0.75rem;
   }
 }
 
@@ -551,4 +555,21 @@ pre > code {
   display: inline-block;
   vertical-align: middle;
   margin: 0 0.5rem;
+}
+
+/* Bulletproof Fixed Background for PageBackground Component */
+.page-background-fixed {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+  overflow: hidden !important;
+  isolation: isolate;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
 }

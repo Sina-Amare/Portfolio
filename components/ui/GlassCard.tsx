@@ -32,7 +32,7 @@ export const GlassCard = ({
 
   const variantStyles = {
     default: "bg-white/5 border-white/10",
-    terminal: "bg-[#282a36]/80 border-cyan-500/20",
+    terminal: "bg-[#282a36]/80 border-cyan-500/20 backdrop-blur-xl",
     subtle: "bg-white/[0.02] border-white/5",
   };
 

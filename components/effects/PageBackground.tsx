@@ -98,13 +98,13 @@ export default function PageBackground({ theme }: PageBackgroundProps) {
   if (theme === "home") {
     return (
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        {/* Floating terminal commands - MUCH MORE VISIBLE */}
+        {/* Floating terminal commands - Enhanced visibility */}
         {terminalCommands.map((cmd, i) => (
           <AnimatePresence key={i} mode="wait">
             {visibleElements.includes(i) && (
               <motion.div
                 initial={{ opacity: 0, y: 100, scale: 0.9 }}
-                animate={{ opacity: 0.12, y: -100, scale: 1 }}
+                animate={{ opacity: 0.14, y: -100, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 10, ease: "linear" }}
                 className="absolute font-mono text-sm text-gray-400 whitespace-nowrap"
@@ -120,7 +120,7 @@ export default function PageBackground({ theme }: PageBackgroundProps) {
           </AnimatePresence>
         ))}
 
-        {/* Multiple blinking cursors - MORE VISIBLE */}
+        {/* Multiple blinking cursors - Enhanced visibility */}
         {[0, 1, 2, 3].map((i) => (
           <motion.div
             key={`cursor-${i}`}
@@ -130,7 +130,7 @@ export default function PageBackground({ theme }: PageBackgroundProps) {
               top: `${15 + i * 25}%`,
             }}
             animate={{
-              opacity: [0.12, 0.18, 0.12],
+              opacity: [0.14, 0.2, 0.14],
             }}
             transition={{
               duration: 1.2,
@@ -153,7 +153,7 @@ export default function PageBackground({ theme }: PageBackgroundProps) {
               color: status === "[OK]" ? "#50fa7b" : status === "[READY]" ? "#06B6D4" : "#9333EA",
             }}
             animate={{
-              opacity: [0.1, 0.15, 0.1],
+              opacity: [0.12, 0.17, 0.12],
             }}
             transition={{
               duration: 2,
@@ -178,7 +178,7 @@ export default function PageBackground({ theme }: PageBackgroundProps) {
               key={i}
               className="flex items-start gap-4 mb-10"
               initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 0.15, x: 0 }}
+              animate={{ opacity: 0.17, x: 0 }}
               transition={{ duration: 0.8, delay: i * 0.2 }}
             >
               {/* Branch visualization */}
@@ -263,7 +263,7 @@ export default function PageBackground({ theme }: PageBackgroundProps) {
           {/* Branch label */}
           <motion.div
             className="absolute -top-10 left-0 font-mono text-xs text-purple-500"
-            animate={{ opacity: [0.1, 0.15, 0.1] }}
+            animate={{ opacity: [0.12, 0.17, 0.12] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
             ● main
@@ -275,9 +275,16 @@ export default function PageBackground({ theme }: PageBackgroundProps) {
 
   if (theme === "skills") {
     return (
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+      <div className="page-background-fixed">
         {/* Tech relationship network - VISIBLE GRAPH */}
-        <svg className="absolute inset-0 w-full h-full" style={{ opacity: 0.12 }}>
+        <svg
+          className="absolute inset-0 w-full h-full"
+          style={{
+            opacity: 0.14,
+            transform: "translate3d(0,0,0)",
+            willChange: "transform, opacity",
+          }}
+        >
           {techNodes.map((node, i) =>
             node.connections.map((targetIdx) => {
               const target = techNodes[targetIdx];
@@ -313,7 +320,8 @@ export default function PageBackground({ theme }: PageBackgroundProps) {
             style={{
               left: `${node.x}%`,
               top: `${node.y}%`,
-              transform: "translate(-50%, -50%)",
+              transform: "translate(-50%, -50%) translate3d(0,0,0)",
+              willChange: "transform",
             }}
             animate={{
               scale: visibleElements.includes(i) ? [1, 1.1, 1] : 1,
@@ -328,7 +336,7 @@ export default function PageBackground({ theme }: PageBackgroundProps) {
               className="w-4 h-4 rounded-full"
               style={{
                 background: i % 2 === 0 ? "#9333EA" : "#06B6D4",
-                opacity: 0.15,
+                opacity: 0.17,
                 boxShadow:
                   i % 2 === 0
                     ? "0 0 20px rgba(147, 51, 234, 0.3)"
@@ -346,9 +354,15 @@ export default function PageBackground({ theme }: PageBackgroundProps) {
 
   if (theme === "projects") {
     return (
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+      <div className="page-background-fixed">
         {/* CI/CD Pipeline - ANIMATED FLOW */}
-        <div className="absolute top-1/3 left-10 right-10 hidden lg:block">
+        <div
+          className="fixed top-[33vh] left-10 right-10 hidden lg:block"
+          style={{
+            transform: "translate3d(0,0,0)",
+            willChange: "transform, opacity",
+          }}
+        >
           <div className="flex justify-between items-center relative">
             {["Code", "Test", "Build", "Deploy"].map((stage, i) => (
               <div key={stage} className="relative">
@@ -359,10 +373,10 @@ export default function PageBackground({ theme }: PageBackgroundProps) {
                     borderColor: "rgba(6, 182, 212, 0.2)",
                     background: "rgba(6, 182, 212, 0.05)",
                     color: "#06B6D4",
-                    opacity: 0.15,
+                    opacity: 0.17,
                   }}
                   animate={{
-                    opacity: [0.12, 0.18, 0.12],
+                    opacity: [0.14, 0.2, 0.14],
                     borderColor: [
                       "rgba(6, 182, 212, 0.2)",
                       "rgba(6, 182, 212, 0.4)",
@@ -381,10 +395,10 @@ export default function PageBackground({ theme }: PageBackgroundProps) {
                 {/* Checkmark */}
                 <motion.div
                   className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-xs"
-                  style={{ opacity: 0.15 }}
+                  style={{ opacity: 0.17 }}
                   animate={{
                     scale: [0.9, 1.1, 0.9],
-                    opacity: [0.12, 0.18, 0.12],
+                    opacity: [0.14, 0.2, 0.14],
                   }}
                   transition={{
                     duration: 2,
@@ -403,9 +417,9 @@ export default function PageBackground({ theme }: PageBackgroundProps) {
                   >
                     <motion.div
                       className="h-0.5 w-full bg-cyan-500"
-                      style={{ opacity: 0.15 }}
+                      style={{ opacity: 0.17 }}
                       animate={{
-                        opacity: [0.12, 0.2, 0.12],
+                        opacity: [0.14, 0.22, 0.14],
                       }}
                       transition={{
                         duration: 2,
@@ -415,7 +429,7 @@ export default function PageBackground({ theme }: PageBackgroundProps) {
                     />
                     <motion.div
                       className="w-0 h-0 border-l-4 border-y-4 border-y-transparent border-l-cyan-500"
-                      style={{ opacity: 0.15 }}
+                      style={{ opacity: 0.17 }}
                       animate={{
                         x: [0, 5, 0],
                       }}
@@ -434,9 +448,9 @@ export default function PageBackground({ theme }: PageBackgroundProps) {
           {/* Progress bar */}
           <motion.div
             className="absolute -bottom-10 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 via-cyan-500 to-green-500 rounded-full"
-            style={{ opacity: 0.12 }}
+            style={{ opacity: 0.14 }}
             animate={{
-              opacity: [0.1, 0.15, 0.1],
+              opacity: [0.12, 0.17, 0.12],
             }}
             transition={{
               duration: 3,
@@ -467,7 +481,7 @@ export default function PageBackground({ theme }: PageBackgroundProps) {
               <motion.div
                 initial={{ opacity: 0, y: 100, x: 0 }}
                 animate={{
-                  opacity: [0, 0.12, 0.12, 0],
+                  opacity: [0, 0.14, 0.14, 0],
                   y: [100, -150],
                   x: [0, Math.random() * 30 - 15],
                 }}
@@ -495,7 +509,7 @@ export default function PageBackground({ theme }: PageBackgroundProps) {
               top: `${20 + i * 30}%`,
             }}
             animate={{
-              opacity: [0.08, 0.12, 0.08],
+              opacity: [0.1, 0.14, 0.1],
               scale: [1, 1.05, 1],
             }}
             transition={{

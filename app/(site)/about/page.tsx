@@ -39,32 +39,21 @@ class BackendDeveloper:
         self.employed_duration = "1 year"
         self.location = "Remote (UTC+3:30)"
         
-    def expertise(self):
-        return {
+        self.stack = {
             "languages": ["Python"],
             "frameworks": ["Django", "FastAPI", "DRF"],
-            "databases": ["PostgreSQL", "Redis", "MongoDB"],
-            "devops": ["Docker", "CI/CD", "Git", "Nginx"],
-            "focus": [
-                "API Design & Development",
-                "System Architecture",
-                "Database Optimization",
-                "Microservices"
-            ]
+            "databases": ["PostgreSQL", "Redis"],
+            "devops": ["Docker", "Git", "Nginx"]
         }
     
     def philosophy(self):
         return "Building systems where clarity meets creativity"
-        
-    @property
-    def status(self):
-        return "Available for interesting projects"
 
 # Initialize
 developer = BackendDeveloper()
 print(developer.philosophy())`;
 
-  const highlightedCode = `<span class="token comment"># journey.py</span><br/><br/><span class="token keyword">class</span> <span class="token class-name">BackendDeveloper</span><span class="token punctuation">:</span><br/>    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span><br/>        self<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">"Sina Amareh"</span><br/>        self<span class="token punctuation">.</span>role <span class="token operator">=</span> <span class="token string">"Backend Architect & System Designer"</span><br/>        self<span class="token punctuation">.</span>experience_years <span class="token operator">=</span> <span class="token number">2</span><br/>        self<span class="token punctuation">.</span>employed_duration <span class="token operator">=</span> <span class="token string">"1 year"</span><br/>        self<span class="token punctuation">.</span>location <span class="token operator">=</span> <span class="token string">"Remote (UTC+3:30)"</span><br/>        <br/>    <span class="token keyword">def</span> <span class="token function">expertise</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span><br/>        <span class="token keyword">return</span> <span class="token punctuation">{</span><br/>            <span class="token string">"languages"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"Python"</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br/>            <span class="token string">"frameworks"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"Django"</span><span class="token punctuation">,</span> <span class="token string">"FastAPI"</span><span class="token punctuation">,</span> <span class="token string">"DRF"</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br/>            <span class="token string">"databases"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"PostgreSQL"</span><span class="token punctuation">,</span> <span class="token string">"Redis"</span><span class="token punctuation">,</span> <span class="token string">"MongoDB"</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br/>            <span class="token string">"devops"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"Docker"</span><span class="token punctuation">,</span> <span class="token string">"CI/CD"</span><span class="token punctuation">,</span> <span class="token string">"Git"</span><span class="token punctuation">,</span> <span class="token string">"Nginx"</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br/>            <span class="token string">"focus"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><br/>                <span class="token string">"API Design & Development"</span><span class="token punctuation">,</span><br/>                <span class="token string">"System Architecture"</span><span class="token punctuation">,</span><br/>                <span class="token string">"Database Optimization"</span><span class="token punctuation">,</span><br/>                <span class="token string">"Microservices"</span><br/>            <span class="token punctuation">]</span><br/>        <span class="token punctuation">}</span><br/>    <br/>    <span class="token keyword">def</span> <span class="token function">philosophy</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span><br/>        <span class="token keyword">return</span> <span class="token string">"Building systems where clarity meets creativity"</span><br/>        <br/>    <span class="token decorator">@property</span><br/>    <span class="token keyword">def</span> <span class="token function">status</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span><br/>        <span class="token keyword">return</span> <span class="token string">"Available for interesting projects"</span><br/><br/><span class="token comment"># Initialize</span><br/>developer <span class="token operator">=</span> BackendDeveloper<span class="token punctuation">(</span><span class="token punctuation">)</span><br/><span class="token keyword">print</span><span class="token punctuation">(</span>developer<span class="token punctuation">.</span>philosophy<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>`;
+  const highlightedCode = `<span class="token comment"># journey.py</span><br/><br/><span class="token keyword">class</span> <span class="token class-name">BackendDeveloper</span><span class="token punctuation">:</span><br/>    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span><br/>        self<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">"Sina Amareh"</span><br/>        self<span class="token punctuation">.</span>role <span class="token operator">=</span> <span class="token string">"Backend Architect & System Designer"</span><br/>        self<span class="token punctuation">.</span>experience_years <span class="token operator">=</span> <span class="token number">2</span><br/>        self<span class="token punctuation">.</span>employed_duration <span class="token operator">=</span> <span class="token string">"1 year"</span><br/>        self<span class="token punctuation">.</span>location <span class="token operator">=</span> <span class="token string">"Remote (UTC+3:30)"</span><br/>        <br/>        self<span class="token punctuation">.</span>stack <span class="token operator">=</span> <span class="token punctuation">{</span><br/>            <span class="token string">"languages"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"Python"</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br/>            <span class="token string">"frameworks"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"Django"</span><span class="token punctuation">,</span> <span class="token string">"FastAPI"</span><span class="token punctuation">,</span> <span class="token string">"DRF"</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br/>            <span class="token string">"databases"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"PostgreSQL"</span><span class="token punctuation">,</span> <span class="token string">"Redis"</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br/>            <span class="token string">"devops"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"Docker"</span><span class="token punctuation">,</span> <span class="token string">"Git"</span><span class="token punctuation">,</span> <span class="token string">"Nginx"</span><span class="token punctuation">]</span><br/>        <span class="token punctuation">}</span><br/>    <br/>    <span class="token keyword">def</span> <span class="token function">philosophy</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span><br/>        <span class="token keyword">return</span> <span class="token string">"Building systems where clarity meets creativity"</span><br/><br/><span class="token comment"># Initialize</span><br/>developer <span class="token operator">=</span> BackendDeveloper<span class="token punctuation">(</span><span class="token punctuation">)</span><br/><span class="token keyword">print</span><span class="token punctuation">(</span>developer<span class="token punctuation">.</span>philosophy<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>`;
 
   // Typewriter effect for code
   useEffect(() => {
@@ -130,14 +119,10 @@ print(developer.philosophy())`;
     <div className="w-full bg-primary-background min-h-screen">
       <PageBackground theme="about" />
       <section className="w-full flex flex-col items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8 py-20 md:py-32">
-        {/* Subtle Background Glows with Parallax */}
-        <div aria-hidden="true" className="absolute inset-0 -z-10">
-          <ParallaxLayer speed={0.3}>
-            <div className="absolute top-[10%] right-[15%] h-[400px] w-[400px] rounded-full bg-purple-600/[0.05] blur-[100px] animate-pulse-subtle" />
-          </ParallaxLayer>
-          <ParallaxLayer speed={0.5} direction="down">
-            <div className="absolute bottom-[20%] left-[10%] h-[400px] w-[400px] rounded-full bg-cyan-500/[0.05] blur-[100px] animate-pulse-subtle" />
-          </ParallaxLayer>
+        {/* Subtle Background Glows - Fixed Position */}
+        <div aria-hidden="true" className="fixed inset-0 -z-10 pointer-events-none">
+          <div className="absolute top-[10%] right-[15%] h-[400px] w-[400px] rounded-full bg-purple-600/[0.06] blur-[100px] animate-pulse-subtle" />
+          <div className="absolute bottom-[20%] left-[10%] h-[400px] w-[400px] rounded-full bg-cyan-500/[0.06] blur-[100px] animate-pulse-subtle" />
         </div>
 
         <div className="w-full max-w-[1200px] mx-auto">
@@ -158,10 +143,10 @@ print(developer.philosophy())`;
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="flex flex-col items-center space-y-6"
+              className="flex flex-col items-center space-y-6 h-full"
             >
               {/* Profile Image - Larger and more prominent */}
-              <div className="relative w-[350px] h-[350px]">
+              <div className="relative w-[320px] h-[320px]">
                 <div className="absolute inset-0 rounded-2xl overflow-hidden">
                   <Image
                     src="/me.jpg"
@@ -199,7 +184,7 @@ print(developer.philosophy())`;
               </div>
 
               {/* Info directly below - no container */}
-              <div className="w-full max-w-[350px] space-y-3 font-mono text-sm">
+              <div className="w-full max-w-[320px] space-y-3 font-mono text-sm">
                 <div className="flex items-center gap-3 text-gray-300">
                   <span className="text-cyan-400 text-lg">›</span>
                   <span className="text-lg font-semibold">Sina Amareh</span>
@@ -248,7 +233,7 @@ print(developer.philosophy())`;
               >
                 <pre
                   className="!bg-transparent !border-none !p-0 whitespace-pre text-xs md:text-sm overflow-hidden"
-                  style={{ height: "460px", minHeight: "460px", maxHeight: "460px" }}
+                  style={{ height: "380px", minHeight: "380px", maxHeight: "380px" }}
                 >
                   <code
                     className="language-python !bg-transparent !border-none !block"

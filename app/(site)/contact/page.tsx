@@ -76,10 +76,10 @@ export default function ContactPage() {
     <div className="w-full bg-primary-background min-h-screen">
       <PageBackground theme="contact" />
       <section className="w-full flex flex-col items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8 py-20 md:py-32">
-        {/* Background Effects */}
-        <div aria-hidden="true" className="absolute inset-0 -z-10">
-          <div className="absolute top-[15%] right-[10%] h-[400px] w-[400px] rounded-full bg-purple-600/[0.04] blur-[100px]" />
-          <div className="absolute bottom-[15%] left-[10%] h-[400px] w-[400px] rounded-full bg-cyan-500/[0.04] blur-[100px]" />
+        {/* Background Effects - Fixed Position */}
+        <div aria-hidden="true" className="fixed inset-0 -z-10 pointer-events-none">
+          <div className="absolute top-[15%] right-[10%] h-[400px] w-[400px] rounded-full bg-purple-600/[0.06] blur-[100px] animate-pulse-subtle" />
+          <div className="absolute bottom-[15%] left-[10%] h-[400px] w-[400px] rounded-full bg-cyan-500/[0.06] blur-[100px] animate-pulse-subtle" />
         </div>
 
         <div className="w-full max-w-[1200px] mx-auto">

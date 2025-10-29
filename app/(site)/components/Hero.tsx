@@ -66,10 +66,10 @@ const Hero = () => {
       {/* Page Background - Terminal Theme */}
       <PageBackground theme="home" />
 
-      {/* Background Glows (Aurora) */}
-      <div aria-hidden="true" className="absolute inset-0 -z-10">
-        <div className="absolute left-[-20%] top-[10%] h-[500px] w-[500px] rounded-full bg-purple-600/20 opacity-30 blur-[120px]" />
-        <div className="absolute right-[-20%] top-[30%] h-[500px] w-[500px] rounded-full bg-cyan-500/20 opacity-30 blur-[120px]" />
+      {/* Background Glows (Aurora) - Fixed Position */}
+      <div aria-hidden="true" className="fixed inset-0 -z-10 pointer-events-none">
+        <div className="absolute left-[-20%] top-[10%] h-[500px] w-[500px] rounded-full bg-purple-600/20 opacity-30 blur-[120px] animate-pulse-subtle" />
+        <div className="absolute right-[-20%] top-[30%] h-[500px] w-[500px] rounded-full bg-cyan-500/20 opacity-30 blur-[120px] animate-pulse-subtle" />
       </div>
 
       {/* Status Badge */}

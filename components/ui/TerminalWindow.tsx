@@ -20,14 +20,14 @@ export const TerminalWindow = ({
 }: TerminalWindowProps) => {
   return (
     <motion.div
-      className={`code-block-glow-wrapper p-[1.5px] rounded-lg ${className}`}
+      className={`code-block-glow-wrapper ${className}`}
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="bg-[#282a36]/80 rounded-[14px] backdrop-blur-sm overflow-hidden">
+      <div className="bg-[#282a36]/80 rounded-xl backdrop-blur-xl overflow-hidden h-full">
         {/* Window Chrome */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-700/50">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-cyan-500/20">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-[#ff605c]"></div>
             <div className="w-3 h-3 rounded-full bg-[#ffbd44]"></div>
@@ -38,7 +38,7 @@ export const TerminalWindow = ({
         </div>
 
         {/* Content */}
-        <div className="p-4">{children}</div>
+        <div className="p-6">{children}</div>
       </div>
     </motion.div>
   );
