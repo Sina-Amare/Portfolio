@@ -136,7 +136,11 @@ def send_notification_email(self, user_id, subject, message):
   return (
     <>
       <PageBackground theme="skills" />
-      <div className="w-full bg-primary-background min-h-screen">
+      {/* THE FIX:
+        Added `relative` and `z-10` (or `z-1`) to this div.
+        This creates a new stacking context that is higher than the background's z-index: 0.
+      */}
+      <div className="w-full bg-primary-background min-h-screen relative z-10">
         <section className="w-full flex flex-col items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8 py-20 md:py-32">
           {/* Background Effects - Fixed Position */}
           <div aria-hidden="true" className="fixed inset-0 -z-10 pointer-events-none">

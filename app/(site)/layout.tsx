@@ -22,7 +22,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={montserrat.variable}>
       <head>
         {/* Preload critical images to prevent flash */}
-        <link rel="preload" href="/me.jpg" as="image" type="image/jpeg" />
+        <link rel="preload" href="/assets/images/me.jpg" as="image" type="image/jpeg" />
       </head>
       <body className="bg-primary-background text-text-secondary antialiased min-h-screen flex flex-col relative overflow-x-hidden font-sans">
         <CursorEffect />

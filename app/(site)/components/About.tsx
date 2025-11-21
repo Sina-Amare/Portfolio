@@ -20,7 +20,7 @@ const About = () => {
   // --- CONSTANTS ---
   const titleString = "// 01. About Me";
   const codeString = `<span class="token tag"><img</span> 
-  <span class="token attr-name">src</span><span class="token attr-value">="/me.jpg"</span>
+  <span class="token attr-name">src</span><span class="token attr-value">="/assets/images/me.jpg"</span>
   <span class="token attr-name">alt</span><span class="token attr-value">="Sina Amareh"</span>
 <span class="token tag">></span>`;
 
@@ -165,7 +165,7 @@ const About = () => {
                 {/* Photo with gradient border and immediate fade effect */}
                 <div className="relative overflow-hidden rounded-xl">
                   <img
-                    src="/me.jpg"
+                    src="/assets/images/me.jpg"
                     alt="Sina Amareh"
                     className="w-full h-auto object-cover object-center"
                     style={{

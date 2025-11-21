@@ -149,7 +149,7 @@ print(developer.philosophy())`;
               <div className="relative w-[320px] h-[320px]">
                 <div className="absolute inset-0 rounded-2xl overflow-hidden">
                   <Image
-                    src="/me.jpg"
+                    src="/assets/images/me.jpg"
                     alt="Sina Amareh"
                     width={350}
                     height={350}
