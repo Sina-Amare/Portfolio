@@ -1,3 +1,16 @@
+import "../../styles/globals.css";
+import { Metadata } from "next";
+import { Montserrat } from "next/font/google";
+import Navigation from "./components/Navigation";
+import Footer from "./components/Footer";
+import { CursorEffect } from "@/components/ui/CursorEffect";
+import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+  display: "swap",
+  fallback: ["system-ui", "arial"],
 });
 
 export const metadata: Metadata = {
@@ -15,7 +28,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-primary-background text-text-secondary antialiased min-h-screen flex flex-col relative overflow-x-hidden font-sans">
         <SmoothScrollProvider>
           <CursorEffect />
-          
+
           <header>
             <Navigation />
           </header>
