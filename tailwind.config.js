@@ -64,7 +64,9 @@ module.exports = {
       },
       animation: {
         "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "pulse-subtle": "pulse-subtle 8s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         gradientMove: "gradientMove 15s ease infinite",
+        "gradient-shift": "gradient-shift 20s ease-in-out infinite",
         wave: "wave 1s ease-in-out infinite",
       },
       keyframes: {
@@ -72,6 +74,14 @@ module.exports = {
           "0%": { backgroundPosition: "0% 50%" },
           "50%": { backgroundPosition: "100% 50%" },
           "100%": { backgroundPosition: "0% 50%" },
+        },
+        "gradient-shift": {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+        },
+        "pulse-subtle": {
+          "0%, 100%": { opacity: "0.8" },
+          "50%": { opacity: "1" },
         },
         wave: {
           "0%": { transform: "rotate(0)" },
