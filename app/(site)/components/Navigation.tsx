@@ -8,12 +8,30 @@ import { CommandPalette } from "@/components/ui/CommandPalette";
 export default function Navigation() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [mobileMenuOpen]);
 
   const navLinks = [
     { name: "ABOUT", path: "/about" },
@@ -85,18 +103,120 @@ export default function Navigation() {
           </div>
 
           {/* Mobile menu button */}
-          <button className="lg:hidden text-cyan-400" aria-label="Menu">
+          <button
+            className="lg:hidden text-cyan-400 hover:text-cyan-300 transition-colors"
+            aria-label="Toggle menu"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
+              {mobileMenuOpen ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              )}
             </svg>
           </button>
         </div>
       </motion.nav>
+
+      {/* Mobile Menu Overlay */}
+      {mobileMenuOpen && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 lg:hidden"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+
+          {/* Menu Panel */}
+          <motion.div
+            id="mobile-menu"
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ type: "spring", damping: 30, stiffness: 300 }}
+            className="fixed top-0 right-0 bottom-0 w-[280px] sm:w-[320px] bg-[#0D1117]/95 backdrop-blur-xl border-l border-gray-800/50 z-50 lg:hidden overflow-y-auto"
+          >
+            <div className="flex flex-col h-full">
+              {/* Header */}
+              <div className="flex items-center justify-between p-6 border-b border-gray-800/50">
+                <h2 className="text-lg font-bold bg-gradient-to-r from-[#ff3ea5] via-[#b040ff] to-[#00ffe0] bg-clip-text text-transparent">
+                  MENU
+                </h2>
+                <button
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-gray-400 hover:text-cyan-400 transition-colors"
+                  aria-label="Close menu"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Navigation Links */}
+              <nav className="flex-1 p-6">
+                <ul className="space-y-6">
+                  {navLinks.map((link, index) => (
+                    <motion.li
+                      key={link.path}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1, duration: 0.3 }}
+                    >
+                      <Link
+                        href={link.path}
+                        className={`block text-lg font-semibold tracking-wider transition-all duration-300 ${
+                          pathname === link.path
+                            ? "text-cyan-400"
+                            : "text-gray-400 hover:text-cyan-400 hover:translate-x-2"
+                        }`}
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        {link.name}
+                        {pathname === link.path && (
+                          <div className="h-0.5 w-12 bg-gradient-to-r from-purple-500 to-cyan-400 rounded-full mt-2" />
+                        )}
+                      </Link>
+                    </motion.li>
+                  ))}
+                </ul>
+              </nav>
+
+              {/* Footer with command palette hint */}
+              <div className="p-6 border-t border-gray-800/50">
+                <div className="flex items-center gap-2 text-xs text-gray-500">
+                  <kbd className="px-2 py-1 bg-white/5 rounded border border-white/10 font-mono">
+                    ⌘K
+                  </kbd>
+                  <span>Quick navigation</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </>
+      )}
     </>
   );
 }
