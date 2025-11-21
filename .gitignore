@@ -22,6 +22,7 @@ docs/logs/*.tmp
 
 # IDE and Editor directories
 .cursor/
+.agents/
 .vscode/
 .idea/
 *.swp
