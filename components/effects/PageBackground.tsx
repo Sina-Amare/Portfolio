@@ -1,28 +1,15 @@
 "use client";
-
 import { useEffect, useRef } from "react";
 
+type Theme = "dark" | "light";
+
 interface PageBackgroundProps {
-  theme?: "home" | "about" | "skills" | "projects" | "contact";
+  theme?: Theme;
 }
 
-/**
- * Enhanced background with floating nodes, connections, and subtle grid
- * Replaces old Vanta.js with lightweight CSS + Canvas animations
- */
-export default function PageBackground({ theme = "home" }: PageBackgroundProps) {
+export const PageBackground = ({ theme = "dark" }: PageBackgroundProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  // Theme-specific gradient colors
-  const themeGradients = {
-    home: "from-purple-900/20 via-blue-900/10 to-cyan-900/20",
-    about: "from-cyan-900/20 via-purple-900/10 to-pink-900/20",
-    skills: "from-blue-900/20 via-cyan-900/10 to-purple-900/20",
-    projects: "from-pink-900/20 via-purple-900/10 to-blue-900/20",
-    contact: "from-cyan-900/20 via-blue-900/10 to-purple-900/20",
-  };
-
-  // Floating nodes animation
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -38,77 +25,89 @@ export default function PageBackground({ theme = "home" }: PageBackgroundProps) 
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
-    // Node particles
-    interface Node {
-      x: number;
+    // Aurora configuration
+    const colors = [
+      { r: 147, g: 51, b: 234 }, // Purple
+      { r: 6, g: 182, b: 212 }, // Cyan
+      { r: 236, g: 72, b: 153 }, // Pink
+      { r: 59, g: 130, b: 246 }, // Blue
+    ];
+
+    // Aurora waves
+    interface Wave {
       y: number;
-      vx: number;
-      vy: number;
-      size: number;
+      amplitude: number;
+      frequency: number;
+      speed: number;
+      phase: number;
+      colorIndex: number;
       opacity: number;
     }
 
-    const nodes: Node[] = [];
-    const nodeCount = 40; // Moderate count
+    const waves: Wave[] = [];
+    const waveCount = 5;
 
-    // Create nodes - SUBTLE so cursor stands out
-    for (let i = 0; i < nodeCount; i++) {
-      nodes.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        size: Math.random() * 2 + 1, // Smaller nodes (1-3px)
-        opacity: Math.random() * 0.2 + 0.1, // Subtle opacity (0.1-0.3)
+    for (let i = 0; i < waveCount; i++) {
+      waves.push({
+        y: canvas.height * (0.3 + Math.random() * 0.4),
+        amplitude: 80 + Math.random() * 120,
+        frequency: 0.001 + Math.random() * 0.002,
+        speed: 0.0003 + Math.random() * 0.0005,
+        phase: Math.random() * Math.PI * 2,
+        colorIndex: i % colors.length,
+        opacity: 0.15 + Math.random() * 0.1,
       });
     }
 
-    // Animation loop
     let animationId: number;
+    let time = 0;
+
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw connections - subtle
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const dx = nodes[i].x - nodes[j].x;
-          const dy = nodes[i].y - nodes[j].y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
+      // Draw each aurora wave
+      for (const wave of waves) {
+        const color = colors[wave.colorIndex];
 
-          if (distance < 180) {
-            const opacity = (1 - distance / 180) * 0.12; // More subtle connections
-            ctx.strokeStyle = `rgba(147, 51, 234, ${opacity})`;
-            ctx.lineWidth = 0.5;
-            ctx.beginPath();
-            ctx.moveTo(nodes[i].x, nodes[i].y);
-            ctx.lineTo(nodes[j].x, nodes[j].y);
-            ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(0, canvas.height);
+
+        // Create wave path
+        for (let x = 0; x <= canvas.width; x += 5) {
+          const y =
+            wave.y +
+            Math.sin(x * wave.frequency + time * wave.speed + wave.phase) * wave.amplitude +
+            Math.sin(x * wave.frequency * 2 + time * wave.speed * 1.5) * (wave.amplitude * 0.3);
+
+          if (x === 0) {
+            ctx.moveTo(x, y);
+          } else {
+            ctx.lineTo(x, y);
           }
         }
-      }
 
-      // Draw and update nodes
-      for (const node of nodes) {
-        // Update position
-        node.x += node.vx;
-        node.y += node.vy;
+        // Complete the path to fill
+        ctx.lineTo(canvas.width, 0);
+        ctx.lineTo(0, 0);
+        ctx.closePath();
 
-        // Bounce off edges
-        if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
-        if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
+        // Create gradient fill
+        const gradient = ctx.createLinearGradient(
+          0,
+          wave.y - wave.amplitude,
+          0,
+          wave.y + wave.amplitude * 2
+        );
+        gradient.addColorStop(0, `rgba(${color.r}, ${color.g}, ${color.b}, 0)`);
+        gradient.addColorStop(0.5, `rgba(${color.r}, ${color.g}, ${color.b}, ${wave.opacity})`);
+        gradient.addColorStop(1, `rgba(${color.r}, ${color.g}, ${color.b}, 0)`);
 
-        // Draw node with glow
-        ctx.beginPath();
-        ctx.arc(node.x, node.y, node.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(6, 182, 212, ${node.opacity})`; // Cyan nodes
-        ctx.fill();
-
-        // Add subtle glow
-        ctx.beginPath();
-        ctx.arc(node.x, node.y, node.size * 2, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(147, 51, 234, ${node.opacity * 0.2})`;
+        ctx.fillStyle = gradient;
         ctx.fill();
       }
+
+      // Slowly shift wave positions for organic movement
+      time += 16;
 
       animationId = requestAnimationFrame(animate);
     };
@@ -123,37 +122,32 @@ export default function PageBackground({ theme = "home" }: PageBackgroundProps) 
 
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-      {/* Animated gradient background */}
-      <div
-        className={`absolute inset-0 bg-gradient-to-br ${themeGradients[theme]} animate-gradient-shift`}
-        style={{
-          backgroundSize: "400% 400%",
-        }}
+      {/* Dark base */}
+      <div className="absolute inset-0 bg-[#0a0a0f]" />
+
+      {/* Aurora canvas */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 opacity-60"
+        style={{ filter: "blur(40px)" }}
       />
 
-      {/* Floating nodes canvas - subtle */}
-      <canvas ref={canvasRef} className="absolute inset-0 opacity-50" />
-
-      {/* Subtle grid overlay */}
+      {/* Subtle noise texture overlay */}
       <div
         className="absolute inset-0 opacity-[0.03]"
         style={{
-          backgroundImage: `
-            linear-gradient(rgba(6, 182, 212, 0.15) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(6, 182, 212, 0.15) 1px, transparent 1px)
-          `,
-          backgroundSize: "60px 60px",
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
         }}
       />
 
-      {/* Radial glow effect */}
+      {/* Gradient overlay for depth */}
       <div
-        className="absolute inset-0 animate-pulse-subtle"
+        className="absolute inset-0"
         style={{
-          backgroundImage:
-            "radial-gradient(circle at 30% 20%, rgba(147, 51, 234, 0.08) 0%, transparent 40%), radial-gradient(circle at 70% 80%, rgba(6, 182, 212, 0.06) 0%, transparent 40%)",
+          background:
+            "radial-gradient(ellipse at 50% 0%, transparent 0%, rgba(10, 10, 15, 0.5) 70%, rgba(10, 10, 15, 0.9) 100%)",
         }}
       />
     </div>
   );
-}
+};

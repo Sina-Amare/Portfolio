@@ -1,18 +1,89 @@
 "use client";
-import { useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SkillBar } from "@/components/ui/SkillBar";
 import { GlassCard } from "@/components/ui/GlassCard";
 import Card3D from "@/components/3d/Card3D";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function SkillsSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
+  const headerRef = useRef<HTMLDivElement>(null);
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
   const [activeTab, setActiveTab] = useState("backend");
+
+  // GSAP Scroll Animations
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const ctx = gsap.context(() => {
+      // Header animation
+      gsap.fromTo(
+        headerRef.current,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      // Tabs animation
+      gsap.fromTo(
+        tabsRef.current,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          delay: 0.2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: tabsRef.current,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      // Cards stagger animation
+      gsap.fromTo(
+        ".skill-card",
+        { opacity: 0, y: 60, scale: 0.95 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.7,
+          stagger: 0.15,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: cardsRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   const skillCategories = {
     backend: {
       title: "Backend Core",
+      icon: "⚙️",
+      color: "#9333EA",
       skills: [
         { name: "Django", percentage: 85, experience: "2 years" },
         { name: "FastAPI", percentage: 80, experience: "1.5 years" },
@@ -23,6 +94,8 @@ export default function SkillsSection() {
     },
     databases: {
       title: "Databases & Caching",
+      icon: "🗄️",
+      color: "#06B6D4",
       skills: [
         { name: "PostgreSQL", percentage: 80, experience: "2 years" },
         { name: "Redis", percentage: 70, experience: "1 year" },
@@ -33,6 +106,8 @@ export default function SkillsSection() {
     },
     devops: {
       title: "DevOps & Infrastructure",
+      icon: "🚀",
+      color: "#EC4899",
       skills: [
         { name: "Docker", percentage: 80, experience: "1.5 years" },
         { name: "CI/CD Pipelines", percentage: 75, experience: "1 year" },
@@ -43,6 +118,8 @@ export default function SkillsSection() {
     },
     tools: {
       title: "Tools & Technologies",
+      icon: "🔧",
+      color: "#F59E0B",
       skills: [
         { name: "Celery (Task Queues)", percentage: 75, experience: "1 year" },
         { name: "RabbitMQ / Message Brokers", percentage: 65, experience: "8 months" },
@@ -54,88 +131,108 @@ export default function SkillsSection() {
   };
 
   const tabs = Object.keys(skillCategories);
+  const currentCategory = skillCategories[activeTab as keyof typeof skillCategories];
 
   return (
     <section
       id="skills"
       ref={sectionRef}
-      className="w-full min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8 py-20 md:py-32"
+      className="w-full min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-6 sm:px-8 lg:px-12 py-24"
     >
-      <div className="w-full max-w-[1200px] mx-auto">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="section-number mb-12"
-        >
-          // 03. Skills
-        </motion.div>
+      {/* Floating decorative elements */}
+      <motion.div
+        className="absolute top-20 right-20 w-64 h-64 rounded-full opacity-20 blur-3xl"
+        style={{ background: currentCategory.color }}
+        animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }}
+        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute bottom-20 left-20 w-48 h-48 rounded-full opacity-20 blur-3xl"
+        style={{ background: "#06B6D4" }}
+        animate={{ scale: [1.2, 1, 1.2], rotate: [0, -90, 0] }}
+        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+      />
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            System <span className="gradient-text">Dashboard</span>
+      <div className="w-full max-w-6xl mx-auto relative z-10">
+        {/* Section Header */}
+        <div ref={headerRef} className="mb-12">
+          <span className="text-purple-400 font-mono text-sm tracking-wider uppercase mb-4 block">
+            // 03. Tech Stack
+          </span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+            System
+            <span className="bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
+              {" "}
+              Dashboard
+            </span>
           </h2>
-          <p className="text-gray-400 font-mono text-sm">
+          <p className="text-gray-400 font-mono text-sm mt-4">
             <span className="text-cyan-400">$</span> monitoring --skills --verbose
           </p>
-        </motion.div>
+        </div>
 
-        {/* Terminal-Style Tabs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mb-8"
-        >
-          <GlassCard variant="terminal" className="p-2">
-            <div className="flex flex-wrap gap-2">
-              {tabs.map((tab) => (
+        {/* Enhanced Tabs */}
+        <div ref={tabsRef} className="mb-10">
+          <div className="flex flex-wrap gap-3">
+            {tabs.map((tab) => {
+              const category = skillCategories[tab as keyof typeof skillCategories];
+              return (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`px-4 py-2 rounded-lg font-mono text-sm transition-all duration-300 ${
+                  className={`px-5 py-3 rounded-xl font-mono text-sm transition-all duration-300 flex items-center gap-2 ${
                     activeTab === tab
-                      ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/50"
-                      : "text-gray-500 hover:text-gray-300 hover:bg-white/5"
+                      ? "text-white border-2"
+                      : "text-gray-500 hover:text-gray-300 bg-white/5 border-2 border-transparent hover:border-white/10"
                   }`}
+                  style={{
+                    borderColor: activeTab === tab ? category.color : undefined,
+                    background: activeTab === tab ? `${category.color}20` : undefined,
+                    boxShadow: activeTab === tab ? `0 0 20px ${category.color}30` : undefined,
+                  }}
                 >
-                  <span className={activeTab === tab ? "text-[#50fa7b]" : "text-gray-600"}>
-                    {activeTab === tab ? "▸" : "▹"}
-                  </span>{" "}
-                  {skillCategories[tab as keyof typeof skillCategories].title}
+                  <span>{category.icon}</span>
+                  <span>{category.title}</span>
                 </button>
-              ))}
-            </div>
-          </GlassCard>
-        </motion.div>
+              );
+            })}
+          </div>
+        </div>
 
         {/* Skills Display */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Skill Bars */}
-          <motion.div
-            key={`bars-${activeTab}`}
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Card3D intensity={6}>
-              <GlassCard variant="terminal" className="p-6 h-full" glow interactive>
-                <div className="flex items-center gap-2 mb-6 pb-3 border-b border-cyan-500/20">
-                  <div className="w-2 h-2 rounded-full bg-[#50fa7b] animate-pulse"></div>
-                  <span className="text-sm font-mono text-gray-400 uppercase tracking-wider">
-                    Proficiency Metrics
-                  </span>
-                </div>
+        <div ref={cardsRef} className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Skill Bars Card */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`bars-${activeTab}`}
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 30 }}
+              transition={{ duration: 0.4 }}
+              className="skill-card"
+            >
+              <Card3D intensity={6}>
+                <GlassCard variant="terminal" className="p-6 h-full" glow interactive>
+                  {/* Card header */}
+                  <div className="flex items-center gap-3 mb-6 pb-4 border-b border-white/10">
+                    <div
+                      className="w-10 h-10 rounded-xl flex items-center justify-center text-xl"
+                      style={{ background: `${currentCategory.color}20` }}
+                    >
+                      {currentCategory.icon}
+                    </div>
+                    <div>
+                      <h3 className="text-white font-semibold">{currentCategory.title}</h3>
+                      <p className="text-gray-500 text-xs font-mono">Proficiency Metrics</p>
+                    </div>
+                    <div className="ml-auto">
+                      <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                    </div>
+                  </div>
 
-                <div className="space-y-6">
-                  {skillCategories[activeTab as keyof typeof skillCategories].skills.map(
-                    (skill, index) => (
+                  {/* Skills list */}
+                  <div className="space-y-5">
+                    {currentCategory.skills.map((skill, index) => (
                       <SkillBar
                         key={skill.name}
                         skill={skill.name}
@@ -143,68 +240,97 @@ export default function SkillsSection() {
                         experience={skill.experience}
                         delay={index * 0.1}
                       />
-                    )
-                  )}
-                </div>
+                    ))}
+                  </div>
 
-                {/* Summary Stats */}
-                <div className="mt-6 pt-4 border-t border-cyan-500/20 grid grid-cols-3 gap-4 text-center">
-                  <div>
-                    <div className="text-2xl font-bold font-mono text-cyan-400">
-                      {skillCategories[activeTab as keyof typeof skillCategories].skills.length}
+                  {/* Summary Stats */}
+                  <div className="mt-6 pt-4 border-t border-white/10 grid grid-cols-3 gap-4 text-center">
+                    <div className="group">
+                      <div
+                        className="text-2xl font-bold font-mono transition-transform group-hover:scale-110"
+                        style={{ color: currentCategory.color }}
+                      >
+                        {currentCategory.skills.length}
+                      </div>
+                      <div className="text-xs font-mono text-gray-500 mt-1">Skills</div>
                     </div>
-                    <div className="text-xs font-mono text-gray-500 mt-1">Skills</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold font-mono text-purple-400">
-                      {Math.round(
-                        skillCategories[activeTab as keyof typeof skillCategories].skills.reduce(
-                          (acc, s) => acc + s.percentage,
-                          0
-                        ) / skillCategories[activeTab as keyof typeof skillCategories].skills.length
-                      )}
-                      %
+                    <div className="group">
+                      <div className="text-2xl font-bold font-mono text-purple-400 transition-transform group-hover:scale-110">
+                        {Math.round(
+                          currentCategory.skills.reduce((acc, s) => acc + s.percentage, 0) /
+                            currentCategory.skills.length
+                        )}
+                        %
+                      </div>
+                      <div className="text-xs font-mono text-gray-500 mt-1">Avg Level</div>
                     </div>
-                    <div className="text-xs font-mono text-gray-500 mt-1">Avg Level</div>
+                    <div className="group">
+                      <div className="text-2xl font-bold font-mono text-green-400 transition-transform group-hover:scale-110">
+                        2y
+                      </div>
+                      <div className="text-xs font-mono text-gray-500 mt-1">Experience</div>
+                    </div>
                   </div>
-                  <div>
-                    <div className="text-2xl font-bold font-mono text-[#50fa7b]">2y</div>
-                    <div className="text-xs font-mono text-gray-500 mt-1">Experience</div>
-                  </div>
-                </div>
-              </GlassCard>
-            </Card3D>
-          </motion.div>
+                </GlassCard>
+              </Card3D>
+            </motion.div>
+          </AnimatePresence>
 
-          {/* Experience Summary */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            <GlassCard variant="subtle" className="p-8 h-full flex flex-col justify-center">
-              <h3 className="text-xl font-bold text-white mb-4 font-mono">
+          {/* Experience Summary Card */}
+          <motion.div className="skill-card">
+            <GlassCard
+              variant="subtle"
+              className="p-8 h-full flex flex-col justify-center relative overflow-hidden"
+            >
+              {/* Decorative gradient */}
+              <div
+                className="absolute top-0 right-0 w-32 h-32 rounded-full blur-3xl opacity-20"
+                style={{ background: currentCategory.color }}
+              />
+
+              <h3 className="text-xl font-bold text-white mb-6 font-mono relative">
                 <span className="text-cyan-400">$</span> summary --experience
               </h3>
-              <p className="text-gray-300 mb-6 leading-relaxed">
+              <p className="text-gray-300 mb-6 leading-relaxed text-lg relative">
                 2 years of hands-on backend development experience with{" "}
                 <span className="text-purple-400 font-semibold">Python</span>,{" "}
                 <span className="text-cyan-400 font-semibold">Django</span>, and{" "}
-                <span className="text-[#50fa7b] font-semibold">FastAPI</span>. Specialized in
+                <span className="text-green-400 font-semibold">FastAPI</span>. Specialized in
                 building scalable APIs, optimizing database performance, and implementing robust
                 system architectures.
               </p>
-              <div className="flex flex-wrap gap-3">
-                {["Python", "Django", "FastAPI", "PostgreSQL", "Docker", "REST APIs"].map(
-                  (tech) => (
-                    <span
-                      key={tech}
-                      className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs font-mono text-gray-400 hover:border-cyan-500/30 hover:text-cyan-400 transition-colors"
-                    >
-                      {tech}
-                    </span>
-                  )
-                )}
+
+              {/* Tech tags */}
+              <div className="flex flex-wrap gap-2 relative">
+                {[
+                  "Python",
+                  "Django",
+                  "FastAPI",
+                  "PostgreSQL",
+                  "Docker",
+                  "REST APIs",
+                  "Redis",
+                  "CI/CD",
+                ].map((tech, i) => (
+                  <motion.span
+                    key={tech}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: i * 0.05 }}
+                    className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-sm font-mono text-gray-400 hover:border-purple-500/50 hover:text-purple-400 hover:bg-purple-500/10 transition-all cursor-default"
+                  >
+                    {tech}
+                  </motion.span>
+                ))}
+              </div>
+
+              {/* Status indicator */}
+              <div className="mt-8 pt-4 border-t border-white/10">
+                <div className="flex items-center gap-2 text-sm font-mono">
+                  <span className="text-green-400">●</span>
+                  <span className="text-gray-500">Currently learning:</span>
+                  <span className="text-cyan-400">Kubernetes, AWS, System Design</span>
+                </div>
               </div>
             </GlassCard>
           </motion.div>

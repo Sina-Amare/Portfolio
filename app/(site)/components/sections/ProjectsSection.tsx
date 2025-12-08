@@ -1,198 +1,362 @@
 "use client";
-import { useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
-import { GlassCard } from "@/components/ui/GlassCard";
-import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
-import { SiDjango, SiFastapi, SiPostgresql, SiRedis, SiDocker, SiGraphql } from "react-icons/si";
+import { useRef, useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { FaGithub, FaExternalLinkAlt, FaPlay, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+
+gsap.registerPlugin(ScrollTrigger);
+
+interface ProjectMedia {
+  type: "image" | "video";
+  src: string;
+  thumbnail?: string;
+}
 
 interface Project {
   id: string;
   title: string;
+  subtitle: string;
   description: string;
   tech: string[];
-  icon: React.ReactNode;
+  media: ProjectMedia[];
   features: string[];
+  links: {
+    github?: string;
+    live?: string;
+  };
+  color: string;
 }
+
+// Mock projects with demo video/slideshow data
+const projects: Project[] = [
+  {
+    id: "1",
+    title: "E-Commerce Platform",
+    subtitle: "Full-Stack Solution",
+    description:
+      "A scalable microservices architecture for e-commerce with real-time inventory management, payment processing, and admin dashboard.",
+    tech: ["Django", "PostgreSQL", "Redis", "Docker", "React"],
+    media: [
+      { type: "image", src: "/assets/projects/ecommerce-1.jpg" },
+      { type: "image", src: "/assets/projects/ecommerce-2.jpg" },
+      { type: "image", src: "/assets/projects/ecommerce-3.jpg" },
+    ],
+    features: ["Real-time Inventory", "Payment Gateway", "Admin Dashboard", "Analytics"],
+    links: { github: "#", live: "#" },
+    color: "#9333EA",
+  },
+  {
+    id: "2",
+    title: "Analytics Dashboard",
+    subtitle: "Real-time Data Visualization",
+    description:
+      "FastAPI-based analytics platform with WebSocket support for live data streaming and interactive dashboards.",
+    tech: ["FastAPI", "WebSocket", "InfluxDB", "React", "D3.js"],
+    media: [
+      {
+        type: "video",
+        src: "/assets/projects/analytics-demo.mp4",
+        thumbnail: "/assets/projects/analytics-thumb.jpg",
+      },
+      { type: "image", src: "/assets/projects/analytics-1.jpg" },
+    ],
+    features: ["Live Streaming", "Custom Charts", "Alerting System", "Export Reports"],
+    links: { github: "#", live: "#" },
+    color: "#06B6D4",
+  },
+  {
+    id: "3",
+    title: "SaaS Platform",
+    subtitle: "Multi-tenant Architecture",
+    description:
+      "Enterprise-grade SaaS platform with multi-tenancy, role-based access control, and subscription billing.",
+    tech: ["Django", "PostgreSQL", "Stripe", "Next.js", "Tailwind"],
+    media: [
+      { type: "image", src: "/assets/projects/saas-1.jpg" },
+      { type: "image", src: "/assets/projects/saas-2.jpg" },
+    ],
+    features: ["Multi-tenancy", "RBAC", "Stripe Billing", "API Rate Limiting"],
+    links: { github: "#" },
+    color: "#EC4899",
+  },
+];
+
+// Mock placeholder for demo - generates gradient placeholder
+const PlaceholderMedia = ({ color, index }: { color: string; index: number }) => (
+  <div
+    className="w-full h-full flex items-center justify-center"
+    style={{
+      background: `linear-gradient(135deg, ${color}20 0%, ${color}40 50%, ${color}20 100%)`,
+    }}
+  >
+    <div className="text-center">
+      <div
+        className="w-20 h-20 rounded-2xl mx-auto mb-4 flex items-center justify-center"
+        style={{ background: `${color}30`, border: `2px solid ${color}50` }}
+      >
+        <FaPlay className="text-2xl" style={{ color }} />
+      </div>
+      <p className="text-white/60 text-sm">Demo {index + 1}</p>
+    </div>
+  </div>
+);
 
 export default function ProjectsSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
-  const [expandedProject, setExpandedProject] = useState<string | null>(null);
+  const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [activeProject, setActiveProject] = useState(0);
+  const [activeSlide, setActiveSlide] = useState<{ [key: string]: number }>({});
 
-  const projects: Project[] = [
-    {
-      id: "1",
-      title: "E-commerce Backend API",
-      description:
-        "Scalable microservices architecture for e-commerce platform with Django & PostgreSQL",
-      tech: ["Django", "DRF", "PostgreSQL", "Redis", "Celery", "Docker"],
-      features: ["JWT Auth", "Product Catalog", "Order Processing", "Redis Caching"],
-      icon: <SiDjango className="text-3xl text-[#092e20]" />,
-    },
-    {
-      id: "2",
-      title: "Real-time Analytics API",
-      description:
-        "FastAPI-based analytics platform with WebSocket support for live data streaming",
-      tech: ["FastAPI", "WebSocket", "InfluxDB", "Redis", "Docker"],
-      features: ["Live Streaming", "Time-series Data", "Custom Dashboards", "Alerting"],
-      icon: <SiFastapi className="text-3xl text-[#009688]" />,
-    },
-    {
-      id: "3",
-      title: "Multi-tenant SaaS Backend",
-      description: "Django-powered SaaS platform with PostgreSQL schema isolation and JWT auth",
-      tech: ["Django", "PostgreSQL", "JWT", "Stripe", "Docker"],
-      features: ["Multi-tenancy", "RBAC", "Subscription Billing", "API Rate Limiting"],
-      icon: <SiPostgresql className="text-3xl text-[#336791]" />,
-    },
-    {
-      id: "4",
-      title: "GraphQL API Gateway",
-      description: "Unified GraphQL gateway aggregating multiple microservices with FastAPI",
-      tech: ["FastAPI", "GraphQL", "Strawberry", "Redis", "Docker"],
-      features: ["Schema Federation", "Query Caching", "Real-time Subscriptions"],
-      icon: <SiGraphql className="text-3xl text-[#E10098]" />,
-    },
-    {
-      id: "5",
-      title: "CI/CD Pipeline Automation",
-      description:
-        "Automated deployment pipeline with Docker, GitHub Actions, and zero-downtime deploys",
-      tech: ["Docker", "GitHub Actions", "Nginx", "PostgreSQL"],
-      features: ["Blue-green Deploy", "Automated Testing", "Rollback System"],
-      icon: <SiDocker className="text-3xl text-[#2496ED]" />,
-    },
-    {
-      id: "6",
-      title: "Database Performance Optimization",
-      description: "Query optimization project improving PostgreSQL performance by 400%",
-      tech: ["PostgreSQL", "Django ORM", "Redis", "Monitoring"],
-      features: ["Query Analysis", "Indexing Strategy", "Connection Pooling"],
-      icon: <SiRedis className="text-3xl text-[#DC382D]" />,
-    },
-  ];
+  // GSAP scroll animations
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const ctx = gsap.context(() => {
+      // Animate each project card
+      projectRefs.current.forEach((ref, index) => {
+        if (!ref) return;
+
+        gsap.fromTo(
+          ref,
+          {
+            opacity: 0,
+            y: 100,
+            scale: 0.95,
+          },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: ref,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  const nextSlide = (projectId: string, mediaLength: number) => {
+    setActiveSlide((prev) => ({
+      ...prev,
+      [projectId]: ((prev[projectId] || 0) + 1) % mediaLength,
+    }));
+  };
+
+  const prevSlide = (projectId: string, mediaLength: number) => {
+    setActiveSlide((prev) => ({
+      ...prev,
+      [projectId]: ((prev[projectId] || 0) - 1 + mediaLength) % mediaLength,
+    }));
+  };
 
   return (
     <section
       id="projects"
       ref={sectionRef}
-      className="w-full min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8 py-20 md:py-32"
+      className="w-full min-h-screen flex flex-col items-center relative overflow-hidden px-6 sm:px-8 lg:px-12 py-24"
     >
-      <div className="w-full max-w-[1400px] mx-auto">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="section-number mb-12"
-        >
-          // 02. Projects
-        </motion.div>
+      {/* Section Header */}
+      <motion.div
+        className="max-w-6xl mx-auto w-full mb-16"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      >
+        <span className="text-cyan-400 font-mono text-sm tracking-wider uppercase mb-4 block">
+          // 02. Featured Work
+        </span>
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+          Projects That
+          <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+            {" "}
+            Showcase
+          </span>
+        </h2>
+        <p className="text-gray-400 mt-4 text-lg max-w-2xl">
+          Interactive demos and real-world solutions I've built
+        </p>
+      </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Featured <span className="gradient-text">Projects</span>
-          </h2>
-          <p className="text-gray-400 font-mono text-sm">
-            <span className="text-cyan-400">$</span> curl -X GET /api/v1/projects
-          </p>
-        </motion.div>
+      {/* Projects */}
+      <div className="max-w-6xl mx-auto w-full space-y-24">
+        {projects.map((project, index) => (
+          <div
+            key={project.id}
+            ref={(el) => {
+              projectRefs.current[index] = el;
+            }}
+            className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center ${
+              index % 2 === 1 ? "lg:grid-flow-dense" : ""
+            }`}
+          >
+            {/* Media Showcase */}
+            <div className={`relative ${index % 2 === 1 ? "lg:col-start-2" : ""}`}>
+              {/* Glow effect */}
+              <div
+                className="absolute -inset-4 rounded-3xl opacity-30 blur-2xl"
+                style={{ background: project.color }}
+              />
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              onMouseEnter={() => setExpandedProject(project.id)}
-              onMouseLeave={() => setExpandedProject(null)}
-            >
-              <GlassCard
-                variant="terminal"
-                className="p-6 h-full flex flex-col transition-all duration-300 hover:border-cyan-500/50"
-                glow={expandedProject === project.id}
-              >
-                {/* Header */}
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    {project.icon}
-                    <span className="px-2 py-1 rounded border border-[#50fa7b] text-[#50fa7b] font-mono text-xs font-bold">
-                      200
-                    </span>
+              {/* Media container */}
+              <div className="relative bg-[#0d1117] rounded-2xl overflow-hidden border border-white/10 aspect-video group">
+                {/* Slideshow */}
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeSlide[project.id] || 0}
+                    initial={{ opacity: 0, scale: 1.1 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.5 }}
+                    className="w-full h-full"
+                  >
+                    <PlaceholderMedia color={project.color} index={activeSlide[project.id] || 0} />
+                  </motion.div>
+                </AnimatePresence>
+
+                {/* Navigation arrows */}
+                {project.media.length > 1 && (
+                  <>
+                    <button
+                      onClick={() => prevSlide(project.id, project.media.length)}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/70"
+                    >
+                      <FaChevronLeft />
+                    </button>
+                    <button
+                      onClick={() => nextSlide(project.id, project.media.length)}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/70"
+                    >
+                      <FaChevronRight />
+                    </button>
+                  </>
+                )}
+
+                {/* Slide indicators */}
+                {project.media.length > 1 && (
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                    {project.media.map((_, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setActiveSlide((prev) => ({ ...prev, [project.id]: i }))}
+                        className={`w-2 h-2 rounded-full transition-all ${
+                          (activeSlide[project.id] || 0) === i
+                            ? "bg-white w-6"
+                            : "bg-white/40 hover:bg-white/60"
+                        }`}
+                      />
+                    ))}
                   </div>
-                </div>
+                )}
 
-                {/* Title & Description */}
-                <h3 className="text-lg font-bold text-white mb-2 font-mono">{project.title}</h3>
-                <p className="text-sm text-gray-400 mb-4 flex-grow">{project.description}</p>
-
-                {/* Features (show on hover) */}
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={
-                    expandedProject === project.id
-                      ? { height: "auto", opacity: 1 }
-                      : { height: 0, opacity: 0 }
-                  }
-                  transition={{ duration: 0.3 }}
-                  className="overflow-hidden"
-                >
-                  <div className="py-2 border-t border-cyan-500/20 mb-3">
-                    <div className="text-xs font-mono text-gray-500 mb-2">Key Features:</div>
-                    <div className="flex flex-wrap gap-2">
-                      {project.features.map((feature, i) => (
-                        <span key={i} className="text-xs text-cyan-400 font-mono">
-                          › {feature}
-                        </span>
-                      ))}
+                {/* Play overlay for video */}
+                {project.media[activeSlide[project.id] || 0]?.type === "video" && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+                    <div
+                      className="w-16 h-16 rounded-full flex items-center justify-center"
+                      style={{ background: `${project.color}90` }}
+                    >
+                      <FaPlay className="text-white text-xl ml-1" />
                     </div>
                   </div>
-                </motion.div>
+                )}
+              </div>
+            </div>
 
-                {/* Tech Stack */}
-                <div className="flex flex-wrap gap-2 pt-3 border-t border-cyan-500/20">
-                  {project.tech.slice(0, 4).map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-2 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-gray-400"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                  {project.tech.length > 4 && (
-                    <span className="px-2 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-gray-400">
-                      +{project.tech.length - 4}
-                    </span>
-                  )}
-                </div>
-              </GlassCard>
-            </motion.div>
-          ))}
-        </div>
+            {/* Content */}
+            <div className={`space-y-6 ${index % 2 === 1 ? "lg:col-start-1 lg:row-start-1" : ""}`}>
+              {/* Subtitle */}
+              <span
+                className="text-sm font-mono tracking-wider uppercase"
+                style={{ color: project.color }}
+              >
+                {project.subtitle}
+              </span>
 
-        {/* Summary */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-12"
-        >
-          <GlassCard variant="subtle" className="p-6 text-center">
-            <p className="text-gray-400 font-mono text-sm">
-              <span className="text-[#50fa7b]">✓</span> {projects.length} projects loaded •{" "}
-              <span className="text-cyan-400">Status: 200 OK</span>
-            </p>
-          </GlassCard>
-        </motion.div>
+              {/* Title */}
+              <h3 className="text-3xl md:text-4xl font-bold text-white">{project.title}</h3>
+
+              {/* Description */}
+              <p className="text-gray-400 text-lg leading-relaxed">{project.description}</p>
+
+              {/* Features */}
+              <div className="flex flex-wrap gap-3">
+                {project.features.map((feature) => (
+                  <span
+                    key={feature}
+                    className="px-3 py-1 rounded-full text-sm font-medium border"
+                    style={{
+                      borderColor: `${project.color}40`,
+                      color: project.color,
+                      background: `${project.color}10`,
+                    }}
+                  >
+                    {feature}
+                  </span>
+                ))}
+              </div>
+
+              {/* Tech stack */}
+              <div className="flex flex-wrap gap-2 pt-4 border-t border-white/10">
+                {project.tech.map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-sm text-gray-400 font-mono"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              {/* Links */}
+              <div className="flex gap-4 pt-4">
+                {project.links.github && (
+                  <a
+                    href={project.links.github}
+                    className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors group"
+                  >
+                    <FaGithub className="text-xl" />
+                    <span className="text-sm font-medium group-hover:underline">View Code</span>
+                  </a>
+                )}
+                {project.links.live && (
+                  <a
+                    href={project.links.live}
+                    className="flex items-center gap-2 hover:text-white transition-colors group"
+                    style={{ color: project.color }}
+                  >
+                    <FaExternalLinkAlt className="text-lg" />
+                    <span className="text-sm font-medium group-hover:underline">Live Demo</span>
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
+
+      {/* More projects hint */}
+      <motion.div
+        className="mt-20 text-center"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.5 }}
+      >
+        <p className="text-gray-500 font-mono text-sm">
+          <span className="text-cyan-400">$</span> git log --oneline | wc -l
+          <br />
+          <span className="text-purple-400">→</span> 50+ projects in the archive
+        </p>
+      </motion.div>
     </section>
   );
 }

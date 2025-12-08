@@ -5,7 +5,7 @@ import { FaGithub, FaLinkedin, FaFacebook, FaTwitter } from "react-icons/fa";
 import { useState, useEffect, useRef } from "react";
 import { StatusBadge } from "./StatusBadge";
 import MagneticEffect from "@/components/effects/MagneticEffect";
-import PageBackground from "@/components/effects/PageBackground";
+import { PageBackground } from "@/components/effects/PageBackground";
 import { CopyButton } from "@/components/ui/CopyButton";
 
 const Hero = () => {
@@ -67,7 +67,7 @@ const Hero = () => {
       className="w-full min-h-screen flex items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8"
     >
       {/* Page Background - Terminal Theme */}
-      <PageBackground theme="home" />
+      <PageBackground theme="dark" />
 
       {/* Background Glows (Aurora) - Fixed Position */}
       <div aria-hidden="true" className="fixed inset-0 -z-10 pointer-events-none">
