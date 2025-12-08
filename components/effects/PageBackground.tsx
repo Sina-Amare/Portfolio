@@ -49,17 +49,17 @@ export default function PageBackground({ theme = "home" }: PageBackgroundProps) 
     }
 
     const nodes: Node[] = [];
-    const nodeCount = 30; // Light on performance
+    const nodeCount = 50; // More nodes for denser effect
 
     // Create nodes
     for (let i = 0; i < nodeCount; i++) {
       nodes.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        size: Math.random() * 2 + 1,
-        opacity: Math.random() * 0.4 + 0.1,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        size: Math.random() * 3 + 2, // Larger nodes (2-5px)
+        opacity: Math.random() * 0.5 + 0.3, // Higher opacity (0.3-0.8)
       });
     }
 
@@ -68,17 +68,17 @@ export default function PageBackground({ theme = "home" }: PageBackgroundProps) 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw connections
-      ctx.strokeStyle = "rgba(6, 182, 212, 0.05)";
-      ctx.lineWidth = 0.5;
-
+      // Draw connections - MUCH more visible
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
           const dx = nodes[i].x - nodes[j].x;
           const dy = nodes[i].y - nodes[j].y;
           const distance = Math.sqrt(dx * dx + dy * dy);
 
-          if (distance < 150) {
+          if (distance < 200) {
+            const opacity = (1 - distance / 200) * 0.3; // Gradient opacity based on distance
+            ctx.strokeStyle = `rgba(147, 51, 234, ${opacity})`; // Purple connections
+            ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(nodes[i].x, nodes[i].y);
             ctx.lineTo(nodes[j].x, nodes[j].y);
@@ -97,10 +97,16 @@ export default function PageBackground({ theme = "home" }: PageBackgroundProps) 
         if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
         if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
 
-        // Draw node
+        // Draw node with glow
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(147, 51, 234, ${node.opacity})`;
+        ctx.fillStyle = `rgba(6, 182, 212, ${node.opacity})`; // Cyan nodes
+        ctx.fill();
+
+        // Add subtle glow
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.size * 2, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(147, 51, 234, ${node.opacity * 0.2})`;
         ctx.fill();
       }
 
@@ -125,8 +131,8 @@ export default function PageBackground({ theme = "home" }: PageBackgroundProps) 
         }}
       />
 
-      {/* Floating nodes canvas */}
-      <canvas ref={canvasRef} className="absolute inset-0 opacity-60" />
+      {/* Floating nodes canvas - higher opacity */}
+      <canvas ref={canvasRef} className="absolute inset-0 opacity-80" />
 
       {/* Subtle grid overlay */}
       <div
