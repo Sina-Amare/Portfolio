@@ -15,6 +15,8 @@ export const SkillBar = ({ skill, percentage, experience, delay = 0 }: SkillBarP
     threshold: 0.1,
   });
 
+  const filledBlocks = Math.floor(percentage / 10);
+
   return (
     <motion.div
       ref={ref}
@@ -31,51 +33,61 @@ export const SkillBar = ({ skill, percentage, experience, delay = 0 }: SkillBarP
         </div>
       </div>
 
-      {/* Progress Bar - Modern with glow */}
-      <div className="relative w-full h-2.5 bg-gray-800/80 rounded-full overflow-hidden border border-white/5">
+      {/* Unified Progress Bar with ASCII blocks INSIDE */}
+      <div className="relative w-full h-6 bg-gray-900/60 rounded-lg overflow-hidden border border-white/10">
+        {/* Gradient fill background */}
         <motion.div
-          className="h-full rounded-full relative"
+          className="absolute inset-y-0 left-0 rounded-lg"
           style={{
-            background: "linear-gradient(90deg, #14B8A6 0%, #06B6D4 50%, #22D3EE 100%)",
+            background:
+              "linear-gradient(90deg, rgba(20,184,166,0.15) 0%, rgba(6,182,212,0.2) 100%)",
           }}
           initial={{ width: 0 }}
           animate={inView ? { width: `${percentage}%` } : {}}
-          transition={{ duration: 1.2, delay: delay + 0.2, ease: "easeOut" }}
-        >
-          {/* Shine effect */}
-          <div
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-            style={{ transform: "skewX(-20deg)" }}
-          />
-        </motion.div>
-
-        {/* Glow effect */}
-        <motion.div
-          className="absolute top-0 h-full rounded-full blur-sm opacity-50"
-          style={{
-            background: "linear-gradient(90deg, #14B8A6, #06B6D4)",
-          }}
-          initial={{ width: 0 }}
-          animate={inView ? { width: `${percentage}%` } : {}}
-          transition={{ duration: 1.2, delay: delay + 0.2, ease: "easeOut" }}
+          transition={{ duration: 1, delay: delay + 0.1, ease: "easeOut" }}
         />
-      </div>
 
-      {/* ASCII-style blocks - modern teal color */}
-      <div className="mt-2 font-mono text-[10px] text-gray-600 flex gap-[2px]">
-        {Array.from({ length: 10 }).map((_, i) => (
-          <motion.span
-            key={i}
-            className={`transition-colors duration-200 ${
-              inView && i < Math.floor(percentage / 10) ? "text-teal-500/60" : "text-gray-700"
-            }`}
-            initial={{ opacity: 0.3 }}
-            animate={inView && i < Math.floor(percentage / 10) ? { opacity: 1 } : {}}
-            transition={{ duration: 0.15, delay: delay + 0.3 + i * 0.08 }}
-          >
-            ▓
-          </motion.span>
-        ))}
+        {/* ASCII blocks - unified inside the bar */}
+        <div className="absolute inset-0 flex items-center px-2 gap-1">
+          {Array.from({ length: 10 }).map((_, i) => (
+            <motion.div
+              key={i}
+              className="flex-1 h-3 rounded-sm transition-all duration-300"
+              style={{
+                background:
+                  i < filledBlocks
+                    ? `linear-gradient(90deg, #14B8A6 ${i * 10}%, #06B6D4 ${(i + 1) * 10}%)`
+                    : "rgba(255,255,255,0.03)",
+                boxShadow: i < filledBlocks ? "0 0 8px rgba(6,182,212,0.3)" : "none",
+              }}
+              initial={{ opacity: 0, scaleX: 0 }}
+              animate={
+                inView
+                  ? {
+                      opacity: i < filledBlocks ? 1 : 0.3,
+                      scaleX: 1,
+                    }
+                  : {}
+              }
+              transition={{
+                duration: 0.3,
+                delay: delay + 0.2 + i * 0.05,
+                ease: "easeOut",
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Subtle edge glow on filled portion */}
+        <motion.div
+          className="absolute inset-y-0 left-0 pointer-events-none"
+          style={{
+            background: "linear-gradient(90deg, transparent 90%, rgba(6,182,212,0.4) 100%)",
+          }}
+          initial={{ width: 0 }}
+          animate={inView ? { width: `${percentage}%` } : {}}
+          transition={{ duration: 1, delay: delay + 0.1, ease: "easeOut" }}
+        />
       </div>
     </motion.div>
   );

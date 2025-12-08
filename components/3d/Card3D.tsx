@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 interface Card3DProps {
@@ -8,20 +8,30 @@ interface Card3DProps {
   intensity?: number;
 }
 
-export default function Card3D({ children, className = "", intensity = 15 }: Card3DProps) {
+export default function Card3D({ children, className = "", intensity = 8 }: Card3DProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(true);
+
+  useEffect(() => {
+    // Disable 3D effect on mobile/tablet for performance
+    setIsMobile(window.innerWidth < 1024);
+    const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 });
-  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 });
+  const mouseXSpring = useSpring(x, { stiffness: 200, damping: 40 });
+  const mouseYSpring = useSpring(y, { stiffness: 200, damping: 40 });
 
+  // Reduced intensity for subtler effect
   const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], [`${intensity}deg`, `-${intensity}deg`]);
   const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], [`-${intensity}deg`, `${intensity}deg`]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
+    if (isMobile || !ref.current) return;
 
     const rect = ref.current.getBoundingClientRect();
     const width = rect.width;
@@ -41,6 +51,11 @@ export default function Card3D({ children, className = "", intensity = 15 }: Car
     y.set(0);
   };
 
+  // On mobile, just render children without 3D effect
+  if (isMobile) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
     <motion.div
       ref={ref}
@@ -53,7 +68,7 @@ export default function Card3D({ children, className = "", intensity = 15 }: Car
       }}
       className={`relative ${className}`}
     >
-      <div style={{ transform: "translateZ(50px)" }}>{children}</div>
+      <div style={{ transform: "translateZ(20px)" }}>{children}</div>
     </motion.div>
   );
 }

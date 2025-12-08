@@ -71,7 +71,10 @@ export const PageBackground = () => {
 
     const initParticles = () => {
       particles = [];
-      const count = Math.min(60, Math.floor((canvas.width * canvas.height) / 25000));
+      // Fewer particles on mobile for performance
+      const isMobile = canvas.width < 1024;
+      const maxCount = isMobile ? 25 : 50;
+      const count = Math.min(maxCount, Math.floor((canvas.width * canvas.height) / 30000));
 
       for (let i = 0; i < count; i++) {
         const colors = [
@@ -131,11 +134,11 @@ export const PageBackground = () => {
         ctx.fillStyle = p.color;
         ctx.fill();
 
-        // Draw connections
+        // Draw connections - reduced distance for performance
         particles.slice(i + 1).forEach((p2) => {
           const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-          if (dist < 200) {
-            const opacity = (1 - dist / 200) * 0.15;
+          if (dist < 150) {
+            const opacity = (1 - dist / 150) * 0.12;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
@@ -237,10 +240,10 @@ export const PageBackground = () => {
         />
       </div>
 
-      {/* GIT GRAPH - extends fully to footer */}
+      {/* GIT GRAPH - desktop only, hidden on mobile/tablet */}
       <div
-        className="absolute left-2 md:left-4 top-0 w-[140px] pointer-events-none z-[1]"
-        style={{ height: "700vh" }}
+        className="hidden lg:block absolute left-2 md:left-4 top-0 w-[140px] pointer-events-none z-[1]"
+        style={{ height: "550vh" }}
       >
         {/* Main branch line */}
         <motion.div
@@ -257,7 +260,7 @@ export const PageBackground = () => {
 
         {/* Commit nodes */}
         {commits.map((commit, index) => {
-          const nodeY = 100 + index * 160; // Tighter spacing for 26 nodes
+          const nodeY = 100 + index * 165; // Spacing for 26 nodes across 550vh
 
           return (
             <motion.div

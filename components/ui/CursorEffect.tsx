@@ -88,11 +88,11 @@ export const CursorEffect = () => {
         <motion.div
           className="rounded-full"
           animate={{
-            width: isHovering ? 40 : isClicking ? 8 : 12,
-            height: isHovering ? 40 : isClicking ? 8 : 12,
-            backgroundColor: isHovering ? "rgba(147, 51, 234, 0.15)" : "rgba(147, 51, 234, 1)",
-            borderWidth: isHovering ? 2 : 0,
-            borderColor: isHovering ? "rgba(147, 51, 234, 0.6)" : "transparent",
+            width: isHovering ? 24 : isClicking ? 8 : 12,
+            height: isHovering ? 24 : isClicking ? 8 : 12,
+            backgroundColor: isHovering ? "rgba(147, 51, 234, 0.2)" : "rgba(147, 51, 234, 1)",
+            borderWidth: isHovering ? 1.5 : 0,
+            borderColor: isHovering ? "rgba(147, 51, 234, 0.5)" : "transparent",
           }}
           transition={{ type: "spring", stiffness: 400, damping: 25 }}
           style={{
