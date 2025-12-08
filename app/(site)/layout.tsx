@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import { CursorEffect } from "@/components/ui/CursorEffect";
 import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
 import ScrollProgress from "@/components/ui/ScrollProgress";
+import { ScrollToTop } from "@/components/ui/ScrollToTop";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -30,6 +31,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         <SmoothScrollProvider>
           <ScrollProgress />
           <CursorEffect />
+          <ScrollToTop />
 
           <header>
             <Navigation />
