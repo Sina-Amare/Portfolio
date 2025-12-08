@@ -19,20 +19,22 @@ export default function EnhancedButton({
   href,
   ...props
 }: EnhancedButtonProps) {
+  // Refined, modern gradients - more subtle and sophisticated
   const variants = {
     primary: {
-      base: "bg-gradient-to-r from-[#9333EA] to-[#06B6D4] text-white",
-      shadow: "shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40",
+      // Sleek blue→teal gradient with soft glow
+      base: "bg-gradient-to-r from-[#0EA5E9] via-[#14B8A6] to-[#06B6D4] text-white",
+      shadow: "shadow-lg shadow-cyan-500/25 hover:shadow-cyan-400/40",
     },
     secondary: {
-      base: "bg-transparent text-white",
-      shadow: "shadow-[0_0_15px_rgba(147,51,234,0.3)]",
-      border:
-        "border-2 border-transparent bg-gradient-to-r from-[#9333EA] to-[#06B6D4] bg-clip-padding",
+      // Subtle glass effect with cyan accent
+      base: "bg-white/5 backdrop-blur-sm text-white border border-cyan-500/30 hover:border-cyan-400/60 hover:bg-white/10",
+      shadow: "shadow-[0_0_20px_rgba(6,182,212,0.15)] hover:shadow-[0_0_25px_rgba(6,182,212,0.25)]",
     },
     outline: {
-      base: "bg-transparent text-white border-2 border-cyan-400/50",
-      shadow: "",
+      // Clean outline with glow on hover
+      base: "bg-transparent text-cyan-400 border-2 border-cyan-500/40 hover:border-cyan-400 hover:bg-cyan-400/5",
+      shadow: "hover:shadow-[0_0_20px_rgba(6,182,212,0.2)]",
     },
   };
 
@@ -51,16 +53,16 @@ export default function EnhancedButton({
         ${className}
       `}
       whileHover={{
-        y: -3,
-        scale: 1.02,
+        y: -2,
+        scale: 1.01,
       }}
       whileTap={{ scale: 0.98 }}
       {...props}
     >
-      {/* Shimmer effect */}
-      <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+      {/* Shimmer effect - more subtle */}
+      <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
 
-      {/* Ripple effect container */}
+      {/* Content */}
       <span className="relative z-10">{children}</span>
     </Component>
   );
