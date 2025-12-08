@@ -82,24 +82,18 @@ const projects: Project[] = [
   },
 ];
 
-// Mock placeholder for demo - generates gradient placeholder
-const PlaceholderMedia = ({ color, index }: { color: string; index: number }) => (
+// Clean placeholder for demo - just gradient background with subtle indicator
+const PlaceholderMedia = ({ color }: { color: string; index: number }) => (
   <div
-    className="w-full h-full flex items-center justify-center"
+    className="w-full h-full flex items-center justify-center relative"
     style={{
-      background: `linear-gradient(135deg, ${color}20 0%, ${color}40 50%, ${color}20 100%)`,
+      background: `linear-gradient(135deg, ${color}15 0%, ${color}30 50%, ${color}15 100%)`,
     }}
   >
-    <div className="text-center">
-      <div
-        className="w-16 h-16 rounded-2xl mx-auto mb-3 flex items-center justify-center"
-        style={{ background: `${color}20`, border: `2px dashed ${color}40` }}
-      >
-        <span className="text-2xl" style={{ color }}>
-          📷
-        </span>
-      </div>
-      <p className="text-white/40 text-xs font-mono">Preview {index + 1}</p>
+    {/* Subtle project preview indicator */}
+    <div className="absolute bottom-4 left-4 flex items-center gap-2 opacity-40">
+      <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: color }} />
+      <span className="text-xs font-mono text-white/60">Media Preview</span>
     </div>
   </div>
 );
@@ -256,18 +250,6 @@ export default function ProjectsSection() {
                         }`}
                       />
                     ))}
-                  </div>
-                )}
-
-                {/* Play overlay for video */}
-                {project.media[activeSlide[project.id] || 0]?.type === "video" && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
-                    <div
-                      className="w-16 h-16 rounded-full flex items-center justify-center"
-                      style={{ background: `${project.color}90` }}
-                    >
-                      <FaPlay className="text-white text-xl ml-1" />
-                    </div>
                   </div>
                 )}
               </div>

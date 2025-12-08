@@ -135,7 +135,7 @@ export default function AboutSection() {
           </motion.div>
         </div>
 
-        {/* Tech Stack Grid */}
+        {/* Core Tools Grid */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -143,10 +143,10 @@ export default function AboutSection() {
           className="text-center mb-10"
         >
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 tracking-tight">
-            Tech Stack
+            Core Tools
           </h2>
           <p className="text-gray-400 font-mono text-sm">
-            <span className="text-cyan-400">›</span> Core technologies I work with
+            <span className="text-cyan-400">›</span> Technologies I use daily
           </p>
         </motion.div>
 
