@@ -86,10 +86,10 @@ export default function Navigation() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className={`sticky top-0 left-0 right-0 flex justify-center z-40 h-16 md:h-20 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 flex justify-center z-40 h-16 md:h-20 transition-all duration-300 ${
           scrolled
-            ? "bg-[#0D1117]/80 backdrop-blur-xl border-b border-gray-800/50"
-            : "bg-transparent border-b border-transparent"
+            ? "bg-[#0D1117]/80 backdrop-blur-xl border-b border-gray-800/50 shadow-lg shadow-black/20"
+            : "bg-[#0D1117]/40 backdrop-blur-sm border-b border-transparent"
         }`}
       >
         <div className="max-w-screen-xl w-full mx-auto px-6 md:px-8 flex justify-between items-center h-full">

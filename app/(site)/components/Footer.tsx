@@ -19,11 +19,20 @@ export default function Footer() {
   ];
 
   const navLinks = [
-    { name: "About", path: "/about" },
-    { name: "Projects", path: "/projects" },
-    { name: "Skills", path: "/skills" },
-    { name: "Contact", path: "/contact" },
+    { name: "About", path: "#about" },
+    { name: "Projects", path: "#projects" },
+    { name: "Skills", path: "#skills" },
+    { name: "Contact", path: "#contact" },
   ];
+
+  // Smooth scroll to section
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    e.preventDefault();
+    const section = document.querySelector(path);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <footer className="w-full border-t border-white/5 bg-[#0D1117]/50 backdrop-blur-sm">
@@ -51,15 +60,15 @@ export default function Footer() {
             <ul className="space-y-2">
               {navLinks.map((link) => (
                 <li key={link.path}>
-                  <Link href={link.path}>
+                  <a href={link.path} onClick={(e) => scrollToSection(e, link.path)}>
                     <motion.span
-                      className="text-sm text-gray-500 hover:text-cyan-400 transition-colors font-mono flex items-center gap-2"
+                      className="text-sm text-gray-500 hover:text-cyan-400 transition-colors font-mono flex items-center gap-2 cursor-pointer"
                       whileHover={{ x: 5 }}
                     >
                       <span className="text-cyan-500/50">›</span>
                       {link.name}
                     </motion.span>
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
