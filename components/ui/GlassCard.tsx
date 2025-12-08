@@ -62,15 +62,7 @@ export const GlassCard = ({
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={
-        interactive
-          ? {
-              rotateX,
-              rotateY,
-              transformStyle: "preserve-3d",
-            }
-          : {}
-      }
+      style={{}} // Removed 3D rotation - causes blur with backdrop-blur
       className={`
         backdrop-blur-xl rounded-xl border relative overflow-hidden
         ${variantStyles[variant]}
@@ -92,7 +84,7 @@ export const GlassCard = ({
           }}
         />
       )}
-      <div style={interactive ? { transform: "translateZ(20px)" } : {}}>{children}</div>
+      <div>{children}</div>
     </motion.div>
   );
 };

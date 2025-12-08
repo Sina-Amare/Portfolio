@@ -2,7 +2,7 @@
 import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 
-// Extended commit data - 26 nodes to reach Contact section
+// Extended commit data - 34 nodes to reach Contact section
 const commits = [
   { hash: "a7f3b2e", msg: "init: hello world" },
   { hash: "c4d8e1a", msg: "feat: python basics" },
@@ -27,9 +27,17 @@ const commits = [
   { hash: "c4d5e6f", msg: "fix: auth edge case" },
   { hash: "d5e6f7a", msg: "feat: celery tasks" },
   { hash: "e6f7a8b", msg: "docs: api swagger" },
-  { hash: "f7a8b9c", msg: "style: ui polish" },
-  { hash: "a8b9c0d", msg: "deploy: production" },
-  { hash: "HEAD", msg: "wip: let's connect" },
+  { hash: "f7a8b9c", msg: "security: audit" },
+  { hash: "a8b9c0d", msg: "feat: nginx config" },
+  { hash: "b9c0d1e", msg: "perf: caching layer" },
+  { hash: "c0d1e2f", msg: "role: tech lead" },
+  { hash: "d1e2f3a", msg: "feat: automation" },
+  { hash: "e2f3a4b", msg: "test: e2e coverage" },
+  { hash: "f3a4b5c", msg: "refactor: clean arch" },
+  { hash: "a4b5c6d", msg: "feat: portfolio v1" },
+  { hash: "b5c6d7e", msg: "style: ui polish" },
+  { hash: "c6d7e8f", msg: "deploy: production" },
+  { hash: "HEAD", msg: "next: let's connect" },
 ];
 
 export const PageBackground = () => {
@@ -243,7 +251,7 @@ export const PageBackground = () => {
       {/* GIT GRAPH - desktop only, hidden on mobile/tablet */}
       <div
         className="hidden lg:block absolute left-2 md:left-4 top-0 w-[140px] pointer-events-none z-[1]"
-        style={{ height: "550vh" }}
+        style={{ height: "750vh" }}
       >
         {/* Main branch line */}
         <motion.div
@@ -260,7 +268,7 @@ export const PageBackground = () => {
 
         {/* Commit nodes */}
         {commits.map((commit, index) => {
-          const nodeY = 100 + index * 165; // Spacing for 26 nodes across 550vh
+          const nodeY = 100 + index * 140; // Spacing for 34 nodes across 750vh
 
           return (
             <motion.div

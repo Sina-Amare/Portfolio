@@ -249,15 +249,28 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
           className="w-full max-w-2xl mx-auto z-10 float-slow px-2 sm:px-0"
         >
-          {/* Glowing Border Wrapper */}
-          <div className="code-block-glow-wrapper p-[1.5px] rounded-lg">
-            <div className="bg-[#282a36] rounded-[14px] p-3 sm:p-4 overflow-hidden">
-              <div className="flex items-center justify-between gap-2 mb-3 sm:mb-4">
+          {/* Glowing Border Wrapper - Modern gradient */}
+          <div
+            className="p-[1px] rounded-xl"
+            style={{
+              background:
+                "linear-gradient(135deg, rgba(147,51,234,0.5) 0%, rgba(6,182,212,0.5) 50%, rgba(20,184,166,0.5) 100%)",
+            }}
+          >
+            <div
+              className="rounded-xl p-4 sm:p-5 overflow-hidden"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(15,23,42,0.98) 0%, rgba(10,14,20,0.98) 100%)",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05), 0 0 40px rgba(6,182,212,0.1)",
+              }}
+            >
+              <div className="flex items-center justify-between gap-2 mb-4">
                 <div className="flex items-center gap-1.5 sm:gap-2">
                   <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#ff605c]"></div>
                   <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#ffbd44]"></div>
                   <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#00ca4e]"></div>
-                  <span className="ml-1.5 sm:ml-2 text-[10px] sm:text-xs text-gray-400 font-mono">
+                  <span className="ml-2 text-[10px] sm:text-xs text-gray-500 font-mono">
                     welcome.js
                   </span>
                 </div>
@@ -269,7 +282,7 @@ const Hero = () => {
                     className="language-js !bg-transparent !border-none !block text-[11px] sm:text-xs md:text-sm"
                     style={{
                       whiteSpace: "pre",
-                      lineHeight: "1.5",
+                      lineHeight: "1.6",
                     }}
                     dangerouslySetInnerHTML={{
                       __html: displayedCode + '<span class="typing-cursor"></span>',
