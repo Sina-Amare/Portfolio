@@ -4,6 +4,9 @@ import { Montserrat } from "next/font/google";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import { CursorEffect } from "@/components/ui/CursorEffect";
+import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
+import ScrollProgress from "@/components/ui/ScrollProgress";
+import { ScrollToTop } from "@/components/ui/ScrollToTop";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -25,15 +28,19 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         <link rel="preload" href="/assets/images/me.jpg" as="image" type="image/jpeg" />
       </head>
       <body className="bg-primary-background text-text-secondary antialiased min-h-screen flex flex-col relative overflow-x-hidden font-sans">
-        <CursorEffect />
-        
-        <header>
-          <Navigation />
-        </header>
+        <SmoothScrollProvider>
+          <ScrollProgress />
+          <CursorEffect />
+          <ScrollToTop />
 
-        <main className="flex-1 relative z-10">{children}</main>
+          <header>
+            <Navigation />
+          </header>
 
-        <Footer />
+          <main className="flex-1 relative z-10 pt-16 md:pt-20">{children}</main>
+
+          <Footer />
+        </SmoothScrollProvider>
       </body>
     </html>
   );
