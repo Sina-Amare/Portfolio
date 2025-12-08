@@ -92,12 +92,14 @@ const PlaceholderMedia = ({ color, index }: { color: string; index: number }) =>
   >
     <div className="text-center">
       <div
-        className="w-20 h-20 rounded-2xl mx-auto mb-4 flex items-center justify-center"
-        style={{ background: `${color}30`, border: `2px solid ${color}50` }}
+        className="w-16 h-16 rounded-2xl mx-auto mb-3 flex items-center justify-center"
+        style={{ background: `${color}20`, border: `2px dashed ${color}40` }}
       >
-        <FaPlay className="text-2xl" style={{ color }} />
+        <span className="text-2xl" style={{ color }}>
+          📷
+        </span>
       </div>
-      <p className="text-white/60 text-sm">Demo {index + 1}</p>
+      <p className="text-white/40 text-xs font-mono">Preview {index + 1}</p>
     </div>
   </div>
 );
@@ -321,20 +323,20 @@ export default function ProjectsSection() {
                 {project.links.github && (
                   <a
                     href={project.links.github}
-                    className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors group"
+                    className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
                   >
                     <FaGithub className="text-xl" />
-                    <span className="text-sm font-medium group-hover:underline">View Code</span>
+                    <span className="text-sm font-medium">View Code</span>
                   </a>
                 )}
                 {project.links.live && (
                   <a
                     href={project.links.live}
-                    className="flex items-center gap-2 hover:text-white transition-colors group"
+                    className="flex items-center gap-2 hover:text-white transition-colors"
                     style={{ color: project.color }}
                   >
                     <FaExternalLinkAlt className="text-lg" />
-                    <span className="text-sm font-medium group-hover:underline">Live Demo</span>
+                    <span className="text-sm font-medium">Live Demo</span>
                   </a>
                 )}
               </div>

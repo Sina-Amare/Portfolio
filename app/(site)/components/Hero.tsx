@@ -66,15 +66,6 @@ const Hero = () => {
       id="home"
       className="w-full min-h-screen flex items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8"
     >
-      {/* Page Background - Terminal Theme */}
-      <PageBackground theme="dark" />
-
-      {/* Background Glows (Aurora) - Fixed Position */}
-      <div aria-hidden="true" className="fixed inset-0 -z-10 pointer-events-none">
-        <div className="absolute left-[-20%] top-[10%] h-[500px] w-[500px] rounded-full bg-purple-600/20 opacity-30 blur-[120px] animate-pulse-subtle" />
-        <div className="absolute right-[-20%] top-[30%] h-[500px] w-[500px] rounded-full bg-cyan-500/20 opacity-30 blur-[120px] animate-pulse-subtle" />
-      </div>
-
       {/* Status Badge */}
       <StatusBadge />
       <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-12 lg:gap-8">

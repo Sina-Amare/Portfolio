@@ -138,14 +138,6 @@ export default function Navigation() {
                       }`}
                     >
                       {link.name}
-                      {activeSection === link.path && (
-                        <motion.div
-                          className="absolute -bottom-1.5 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500 to-cyan-400 rounded-full"
-                          layoutId="navUnderline"
-                          initial={false}
-                          transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                        />
-                      )}
                     </motion.span>
                   </a>
                 </li>

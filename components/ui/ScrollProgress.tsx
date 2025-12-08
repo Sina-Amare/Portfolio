@@ -29,9 +29,9 @@ export default function ScrollProgress({
 
   return (
     <>
-      {/* Progress Bar */}
+      {/* Progress Bar - positioned BELOW navbar */}
       <motion.div
-        className="fixed top-0 left-0 right-0 z-50 origin-left"
+        className="fixed top-16 md:top-20 left-0 right-0 z-50 origin-left"
         style={{
           scaleX,
           height,
