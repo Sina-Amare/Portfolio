@@ -35,3 +35,6 @@ docs/logs/*.tmp
 .vercel/
 .tmp/
 temp/
+
+# Files
+AGENTS.md

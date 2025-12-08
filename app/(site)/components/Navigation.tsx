@@ -34,11 +34,49 @@ export default function Navigation() {
   }, [mobileMenuOpen]);
 
   const navLinks = [
-    { name: "ABOUT", path: "/about" },
-    { name: "PROJECTS", path: "/projects" },
-    { name: "SKILLS", path: "/skills" },
-    { name: "CONTACT", path: "/contact" },
+    { name: "ABOUT", path: "#about" },
+    { name: "PROJECTS", path: "#projects" },
+    { name: "SKILLS", path: "#skills" },
+    { name: "CONTACT", path: "#contact" },
   ];
+
+  // Track active section based on scroll position
+  const [activeSection, setActiveSection] = useState("");
+
+  useEffect(() => {
+    const handleSectionScroll = () => {
+      const sections = ["about", "projects", "skills", "contact"];
+      const scrollPosition = window.scrollY + 200;
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(`#${section}`);
+            return;
+          }
+        }
+      }
+      // If at top of page, no section is active
+      if (window.scrollY < 200) {
+        setActiveSection("");
+      }
+    };
+
+    window.addEventListener("scroll", handleSectionScroll);
+    return () => window.removeEventListener("scroll", handleSectionScroll);
+  }, []);
+
+  // Smooth scroll to section
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    e.preventDefault();
+    const section = document.querySelector(path);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+      setMobileMenuOpen(false);
+    }
+  };
 
   return (
     <>
@@ -69,16 +107,16 @@ export default function Navigation() {
             <ul className="hidden lg:flex space-x-6 xl:space-x-8 text-sm">
               {navLinks.map((link) => (
                 <li key={link.path} className="nav-link relative">
-                  <Link href={link.path}>
+                  <a href={link.path} onClick={(e) => scrollToSection(e, link.path)}>
                     <motion.span
                       className={`font-semibold tracking-wider transition-all duration-300 relative ${
-                        pathname === link.path
+                        activeSection === link.path
                           ? "text-cyan-400"
                           : "text-gray-400 hover:text-cyan-400"
                       }`}
                     >
                       {link.name}
-                      {pathname === link.path && (
+                      {activeSection === link.path && (
                         <motion.div
                           className="absolute -bottom-1.5 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500 to-cyan-400 rounded-full"
                           layoutId="navUnderline"
@@ -87,7 +125,7 @@ export default function Navigation() {
                         />
                       )}
                     </motion.span>
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -185,20 +223,20 @@ export default function Navigation() {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.1, duration: 0.3 }}
                     >
-                      <Link
+                      <a
                         href={link.path}
                         className={`block text-lg font-semibold tracking-wider transition-all duration-300 ${
-                          pathname === link.path
+                          activeSection === link.path
                             ? "text-cyan-400"
                             : "text-gray-400 hover:text-cyan-400 hover:translate-x-2"
                         }`}
-                        onClick={() => setMobileMenuOpen(false)}
+                        onClick={(e) => scrollToSection(e, link.path)}
                       >
                         {link.name}
-                        {pathname === link.path && (
+                        {activeSection === link.path && (
                           <div className="h-0.5 w-12 bg-gradient-to-r from-purple-500 to-cyan-400 rounded-full mt-2" />
                         )}
-                      </Link>
+                      </a>
                     </motion.li>
                   ))}
                 </ul>
