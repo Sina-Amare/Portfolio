@@ -154,20 +154,20 @@ export default function SkillsSection() {
       />
 
       <div className="w-full max-w-6xl mx-auto relative z-10">
-        {/* Section Header */}
+        {/* Section Header - RENAMED from Tech Stack to Expertise */}
         <div ref={headerRef} className="mb-12">
           <span className="text-purple-400 font-mono text-sm tracking-wider uppercase mb-4 block">
-            // 03. Tech Stack
+            // 03. Expertise
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
-            System
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
+            Technical
             <span className="bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
               {" "}
-              Dashboard
+              Proficiency
             </span>
           </h2>
-          <p className="text-gray-400 font-mono text-sm mt-4">
-            <span className="text-cyan-400">$</span> monitoring --skills --verbose
+          <p className="text-gray-400 text-lg max-w-2xl">
+            Core technologies I work with and continue to master
           </p>
         </div>
 

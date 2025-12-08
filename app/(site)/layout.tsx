@@ -8,6 +8,7 @@ import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
 import ScrollProgress from "@/components/ui/ScrollProgress";
 import { ScrollToTop } from "@/components/ui/ScrollToTop";
 import { PageBackground } from "@/components/effects/PageBackground";
+import { LoadingScreen } from "@/components/ui/LoadingScreen";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -29,8 +30,11 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         <link rel="preload" href="/assets/images/me.jpg" as="image" type="image/jpeg" />
       </head>
       <body className="bg-primary-background text-text-secondary antialiased min-h-screen flex flex-col relative overflow-x-hidden font-sans">
+        {/* Loading Screen - shows on initial page load */}
+        <LoadingScreen />
+
         <SmoothScrollProvider>
-          {/* Global Aurora Background */}
+          {/* Global Git Graph Background */}
           <PageBackground />
 
           <ScrollProgress />
