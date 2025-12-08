@@ -41,11 +41,11 @@ export function ScrollReveal({
         to: { opacity: 1, y: 0 },
       },
       fadeLeft: {
-        from: { opacity: 0, x: -60 },
+        from: { opacity: 0, x: -80 },
         to: { opacity: 1, x: 0 },
       },
       fadeRight: {
-        from: { opacity: 0, x: 60 },
+        from: { opacity: 0, x: 80 },
         to: { opacity: 1, x: 0 },
       },
       scaleUp: {

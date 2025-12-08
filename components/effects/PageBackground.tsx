@@ -49,17 +49,17 @@ export default function PageBackground({ theme = "home" }: PageBackgroundProps) 
     }
 
     const nodes: Node[] = [];
-    const nodeCount = 50; // More nodes for denser effect
+    const nodeCount = 40; // Moderate count
 
-    // Create nodes
+    // Create nodes - SUBTLE so cursor stands out
     for (let i = 0; i < nodeCount; i++) {
       nodes.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        size: Math.random() * 3 + 2, // Larger nodes (2-5px)
-        opacity: Math.random() * 0.5 + 0.3, // Higher opacity (0.3-0.8)
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        size: Math.random() * 2 + 1, // Smaller nodes (1-3px)
+        opacity: Math.random() * 0.2 + 0.1, // Subtle opacity (0.1-0.3)
       });
     }
 
@@ -68,17 +68,17 @@ export default function PageBackground({ theme = "home" }: PageBackgroundProps) 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw connections - MUCH more visible
+      // Draw connections - subtle
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
           const dx = nodes[i].x - nodes[j].x;
           const dy = nodes[i].y - nodes[j].y;
           const distance = Math.sqrt(dx * dx + dy * dy);
 
-          if (distance < 200) {
-            const opacity = (1 - distance / 200) * 0.3; // Gradient opacity based on distance
-            ctx.strokeStyle = `rgba(147, 51, 234, ${opacity})`; // Purple connections
-            ctx.lineWidth = 1;
+          if (distance < 180) {
+            const opacity = (1 - distance / 180) * 0.12; // More subtle connections
+            ctx.strokeStyle = `rgba(147, 51, 234, ${opacity})`;
+            ctx.lineWidth = 0.5;
             ctx.beginPath();
             ctx.moveTo(nodes[i].x, nodes[i].y);
             ctx.lineTo(nodes[j].x, nodes[j].y);
@@ -131,8 +131,8 @@ export default function PageBackground({ theme = "home" }: PageBackgroundProps) 
         }}
       />
 
-      {/* Floating nodes canvas - higher opacity */}
-      <canvas ref={canvasRef} className="absolute inset-0 opacity-80" />
+      {/* Floating nodes canvas - subtle */}
+      <canvas ref={canvasRef} className="absolute inset-0 opacity-50" />
 
       {/* Subtle grid overlay */}
       <div

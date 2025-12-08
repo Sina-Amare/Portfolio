@@ -22,14 +22,14 @@ export default function SmoothScrollProvider({ children }: SmoothScrollProviderP
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
-    // Initialize Lenis with enhanced smooth scroll config
+    // Initialize Lenis with FASTER smooth scroll config
     lenisRef.current = new Lenis({
-      duration: 1.5, // Slower, more noticeable smooth scroll
-      easing: (t) => 1 - Math.pow(1 - t, 4), // easeOutQuart - more pronounced
+      duration: 0.9, // Faster, snappier scroll
+      easing: (t) => 1 - Math.pow(1 - t, 3), // easeOutCubic - quick response
       orientation: "vertical",
       smoothWheel: true,
-      wheelMultiplier: 0.8, // Slightly slower wheel to emphasize smoothness
-      touchMultiplier: 1.5,
+      wheelMultiplier: 1.2, // Faster wheel response
+      touchMultiplier: 2,
       infinite: false,
     });
 

@@ -88,16 +88,38 @@ export default function Navigation() {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 flex justify-center z-40 h-16 md:h-20 transition-all duration-300 ${
           scrolled
-            ? "bg-[#0D1117]/80 backdrop-blur-xl border-b border-gray-800/50 shadow-lg shadow-black/20"
-            : "bg-[#0D1117]/40 backdrop-blur-sm border-b border-transparent"
+            ? "bg-[#0D1117]/90 backdrop-blur-xl shadow-lg shadow-purple-900/10"
+            : "bg-[#0D1117]/60 backdrop-blur-md"
         }`}
       >
+        {/* Animated gradient bottom border */}
+        <div
+          className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-purple-500/60 to-transparent"
+          style={{
+            backgroundSize: "200% 100%",
+            animation: scrolled ? "gradient-shift 3s ease infinite" : "none",
+            opacity: scrolled ? 1 : 0.3,
+          }}
+        />
         <div className="max-w-screen-xl w-full mx-auto px-6 md:px-8 flex justify-between items-center h-full">
           <Link href="/">
             <motion.h1
-              className="text-xl font-bold font-display tracking-tight bg-gradient-to-r from-[#ff3ea5] via-[#b040ff] to-[#00ffe0] bg-clip-text text-transparent"
-              whileHover={{ scale: 1.05 }}
+              className="text-xl font-bold font-display tracking-tight bg-clip-text text-transparent relative"
+              style={{
+                backgroundImage:
+                  "linear-gradient(90deg, #ff3ea5, #b040ff, #00ffe0, #b040ff, #ff3ea5)",
+                backgroundSize: "200% 100%",
+                animation: "gradient-shift 4s ease infinite",
+              }}
+              whileHover={{
+                scale: 1.08,
+                textShadow: "0 0 30px rgba(176, 64, 255, 0.5)",
+              }}
               whileTap={{ scale: 0.95 }}
+              animate={{ y: [0, -2, 0] }}
+              transition={{
+                y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+              }}
             >
               SINA AMAREH
             </motion.h1>
