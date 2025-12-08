@@ -276,12 +276,7 @@ export default function ProjectsSection() {
                 {project.features.map((feature) => (
                   <span
                     key={feature}
-                    className="px-3 py-1 rounded-full text-sm font-medium border"
-                    style={{
-                      borderColor: `${project.color}40`,
-                      color: project.color,
-                      background: `${project.color}10`,
-                    }}
+                    className="px-4 py-1.5 rounded-full text-sm font-medium bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border border-cyan-500/30 text-cyan-300 hover:border-cyan-400/50 transition-all"
                   >
                     {feature}
                   </span>
@@ -293,7 +288,7 @@ export default function ProjectsSection() {
                 {project.tech.map((tech) => (
                   <span
                     key={tech}
-                    className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-sm text-gray-400 font-mono"
+                    className="px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/20 hover:border-cyan-500/40 rounded-lg text-sm text-gray-300 font-mono transition-all cursor-default"
                   >
                     {tech}
                   </span>
