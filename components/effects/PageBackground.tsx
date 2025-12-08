@@ -2,23 +2,34 @@
 import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 
-// Extended commit data - more nodes to reach Contact section
+// Extended commit data - 26 nodes to reach Contact section
 const commits = [
   { hash: "a7f3b2e", msg: "init: hello world" },
-  { hash: "c4d8e1a", msg: "feat: python" },
-  { hash: "b2e9f4c", msg: "feat: CLI tools" },
-  { hash: "e8a2c7d", msg: "setup: django" },
-  { hash: "f1b5d3e", msg: "feat: REST APIs" },
-  { hash: "d9c4a8f", msg: "perf: database" },
-  { hash: "a3e7b9c", msg: "feat: docker" },
-  { hash: "c7f2e4a", msg: "feat: fastapi" },
-  { hash: "b8d1c5e", msg: "arch: design" },
-  { hash: "e4a9f2b", msg: "role: architect" },
-  { hash: "f3c8a1d", msg: "feat: portfolio" },
-  { hash: "a1b2c3d", msg: "style: polish" },
-  { hash: "d4e5f6a", msg: "test: coverage" },
-  { hash: "b7c8d9e", msg: "docs: readme" },
-  { hash: "HEAD", msg: "wip: connecting..." },
+  { hash: "c4d8e1a", msg: "feat: python basics" },
+  { hash: "b2e9f4c", msg: "feat: first CLI tool" },
+  { hash: "e8a2c7d", msg: "setup: django project" },
+  { hash: "f1b5d3e", msg: "feat: REST API design" },
+  { hash: "d9c4a8f", msg: "fix: db migrations" },
+  { hash: "a3e7b9c", msg: "feat: postgresql" },
+  { hash: "c7f2e4a", msg: "feat: redis caching" },
+  { hash: "b8d1c5e", msg: "feat: docker compose" },
+  { hash: "e4a9f2b", msg: "feat: fastapi async" },
+  { hash: "f3c8a1d", msg: "fix: race condition" },
+  { hash: "a1b2c3d", msg: "feat: jwt auth" },
+  { hash: "d4e5f6a", msg: "test: pytest 90%" },
+  { hash: "b7c8d9e", msg: "feat: websockets" },
+  { hash: "c9e0f1a", msg: "fix: memory leak" },
+  { hash: "d0a1b2c", msg: "feat: graphql api" },
+  { hash: "e1b2c3d", msg: "ci: github actions" },
+  { hash: "f2c3d4e", msg: "feat: kubernetes" },
+  { hash: "a2b3c4d", msg: "perf: query optimize" },
+  { hash: "b3c4d5e", msg: "feat: monitoring" },
+  { hash: "c4d5e6f", msg: "fix: auth edge case" },
+  { hash: "d5e6f7a", msg: "feat: celery tasks" },
+  { hash: "e6f7a8b", msg: "docs: api swagger" },
+  { hash: "f7a8b9c", msg: "style: ui polish" },
+  { hash: "a8b9c0d", msg: "deploy: production" },
+  { hash: "HEAD", msg: "wip: let's connect" },
 ];
 
 export const PageBackground = () => {
@@ -229,7 +240,7 @@ export const PageBackground = () => {
       {/* GIT GRAPH - extends fully to footer */}
       <div
         className="absolute left-2 md:left-4 top-0 w-[140px] pointer-events-none z-[1]"
-        style={{ height: "520vh" }}
+        style={{ height: "700vh" }}
       >
         {/* Main branch line */}
         <motion.div
@@ -246,7 +257,7 @@ export const PageBackground = () => {
 
         {/* Commit nodes */}
         {commits.map((commit, index) => {
-          const nodeY = 120 + index * 240; // Tighter spacing for more nodes
+          const nodeY = 100 + index * 160; // Tighter spacing for 26 nodes
 
           return (
             <motion.div

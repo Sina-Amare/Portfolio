@@ -265,7 +265,7 @@ export default function ContactSection() {
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-4 bg-gradient-to-r from-[#9333EA] to-[#06B6D4] rounded-lg font-mono text-sm font-semibold text-white shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full py-4 rounded-xl font-mono text-sm font-semibold text-white transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed bg-[linear-gradient(135deg,#8B5CF6_0%,#06B6D4_50%,#14B8A6_100%)] shadow-[0_0_30px_rgba(139,92,246,0.3),0_0_60px_rgba(6,182,212,0.15)] hover:shadow-[0_0_40px_rgba(139,92,246,0.4),0_0_80px_rgba(6,182,212,0.25)]"
                   whileHover={!isSubmitting ? { y: -2 } : {}}
                   whileTap={!isSubmitting ? { scale: 0.98 } : {}}
                 >

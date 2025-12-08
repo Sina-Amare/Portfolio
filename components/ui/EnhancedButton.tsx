@@ -19,22 +19,25 @@ export default function EnhancedButton({
   href,
   ...props
 }: EnhancedButtonProps) {
-  // Refined, modern gradients - more subtle and sophisticated
+  // Creative aurora gradient - harmonious blend of purple/cyan/teal
   const variants = {
     primary: {
-      // Sleek blue→teal gradient with soft glow
-      base: "bg-gradient-to-r from-[#0EA5E9] via-[#14B8A6] to-[#06B6D4] text-white",
-      shadow: "shadow-lg shadow-cyan-500/25 hover:shadow-cyan-400/40",
+      // Aurora gradient - purple to teal blend that looks premium
+      gradient: "bg-[linear-gradient(135deg,#8B5CF6_0%,#06B6D4_50%,#14B8A6_100%)]",
+      shadow: "shadow-[0_0_30px_rgba(139,92,246,0.3),0_0_60px_rgba(6,182,212,0.15)]",
+      hover: "hover:shadow-[0_0_40px_rgba(139,92,246,0.4),0_0_80px_rgba(6,182,212,0.25)]",
     },
     secondary: {
-      // Subtle glass effect with cyan accent
-      base: "bg-white/5 backdrop-blur-sm text-white border border-cyan-500/30 hover:border-cyan-400/60 hover:bg-white/10",
-      shadow: "shadow-[0_0_20px_rgba(6,182,212,0.15)] hover:shadow-[0_0_25px_rgba(6,182,212,0.25)]",
+      gradient:
+        "bg-white/5 backdrop-blur-md border border-white/15 hover:border-purple-500/50 hover:bg-white/10",
+      shadow: "",
+      hover: "hover:shadow-[0_0_30px_rgba(139,92,246,0.15)]",
     },
     outline: {
-      // Clean outline with glow on hover
-      base: "bg-transparent text-cyan-400 border-2 border-cyan-500/40 hover:border-cyan-400 hover:bg-cyan-400/5",
-      shadow: "hover:shadow-[0_0_20px_rgba(6,182,212,0.2)]",
+      gradient:
+        "bg-transparent border border-purple-500/40 hover:border-purple-400 hover:bg-purple-500/5",
+      shadow: "",
+      hover: "hover:shadow-[0_0_25px_rgba(139,92,246,0.2)]",
     },
   };
 
@@ -45,25 +48,35 @@ export default function EnhancedButton({
       href={href}
       onClick={onClick}
       className={`
-        relative inline-flex items-center justify-center
-        px-8 py-4 rounded-xl text-base font-semibold
-        transition-all duration-300 overflow-hidden group
-        ${variants[variant].base}
+        group relative inline-flex items-center justify-center
+        px-8 py-3.5 rounded-xl text-sm font-semibold tracking-wide text-white
+        transition-all duration-500 overflow-hidden
+        ${variants[variant].gradient}
         ${variants[variant].shadow}
+        ${variants[variant].hover}
         ${className}
       `}
       whileHover={{
         y: -2,
-        scale: 1.01,
+        scale: 1.02,
       }}
       whileTap={{ scale: 0.98 }}
       {...props}
     >
-      {/* Shimmer effect - more subtle */}
-      <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+      {/* Animated gradient overlay on hover */}
+      <span
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{
+          background:
+            "linear-gradient(135deg, rgba(139,92,246,0.2) 0%, transparent 50%, rgba(6,182,212,0.2) 100%)",
+        }}
+      />
+
+      {/* Shimmer effect */}
+      <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/15 to-transparent" />
 
       {/* Content */}
-      <span className="relative z-10">{children}</span>
+      <span className="relative z-10 flex items-center gap-2">{children}</span>
     </Component>
   );
 }
