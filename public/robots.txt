@@ -1,0 +1,12 @@
+# Robots.txt for Sina Amareh Portfolio
+# https://sina-amareh.dev
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://sina-amareh.dev/sitemap.xml
+
+# Block development/build directories
+Disallow: /_next/
+Disallow: /api/

@@ -110,16 +110,14 @@ const About = () => {
       <div className="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         {/* Left - Creative Image Container */}
         <div ref={imageRef} className="relative">
-          {/* Floating decorative elements */}
-          <motion.div
-            className="absolute -top-8 -left-8 w-24 h-24 border border-purple-500/30 rounded-2xl"
-            animate={{ rotate: [0, 5, 0], y: [0, -10, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          {/* Animated decorative elements - CSS @keyframes, GPU accelerated */}
+          <div
+            className="absolute -top-8 -left-8 w-24 h-24 border border-purple-500/30 rounded-2xl animate-float-slow"
+            style={{ transform: "translateZ(0)" }}
           />
-          <motion.div
-            className="absolute -bottom-6 -right-6 w-32 h-32 border border-cyan-500/30 rounded-full"
-            animate={{ rotate: [0, -5, 0], y: [0, 10, 0] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          <div
+            className="absolute -bottom-6 -right-6 w-32 h-32 border border-cyan-500/30 rounded-full animate-float-medium"
+            style={{ transform: "translateZ(0)" }}
           />
 
           {/* Main image container */}

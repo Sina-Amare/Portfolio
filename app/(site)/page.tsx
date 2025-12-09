@@ -5,6 +5,7 @@ import {
   SkillsSection,
   ContactSection,
 } from "./components/sections";
+import HowIWork from "./components/sections/HowIWork";
 import { SectionDivider } from "@/components/ui/SectionDivider";
 
 export default function HomePage() {
@@ -30,6 +31,9 @@ export default function HomePage() {
 
       {/* Skills Section */}
       <SkillsSection />
+
+      {/* How I Work - Methodology */}
+      <HowIWork />
 
       {/* Divider */}
       <SectionDivider variant="gradient" />

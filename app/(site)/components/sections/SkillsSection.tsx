@@ -139,18 +139,14 @@ export default function SkillsSection() {
       ref={sectionRef}
       className="w-full min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-6 sm:px-8 lg:px-12 py-24"
     >
-      {/* Floating decorative elements */}
-      <motion.div
-        className="absolute top-20 right-20 w-64 h-64 rounded-full opacity-20 blur-3xl"
-        style={{ background: currentCategory.color }}
-        animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }}
-        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+      {/* Animated decorative glows - CSS @keyframes, GPU accelerated */}
+      <div
+        className="absolute top-20 right-20 w-64 h-64 rounded-full opacity-20 blur-3xl pointer-events-none animate-pulse-slow"
+        style={{ background: currentCategory.color, transform: "translateZ(0)" }}
       />
-      <motion.div
-        className="absolute bottom-20 left-20 w-48 h-48 rounded-full opacity-20 blur-3xl"
-        style={{ background: "#06B6D4" }}
-        animate={{ scale: [1.2, 1, 1.2], rotate: [0, -90, 0] }}
-        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+      <div
+        className="absolute bottom-20 left-20 w-48 h-48 rounded-full opacity-20 blur-3xl pointer-events-none animate-pulse-slow-reverse"
+        style={{ background: "#06B6D4", transform: "translateZ(0)" }}
       />
 
       <div className="w-full max-w-6xl mx-auto relative z-10">

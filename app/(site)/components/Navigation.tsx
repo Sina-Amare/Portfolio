@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { CommandPalette } from "@/components/ui/CommandPalette";
 
 export default function Navigation() {
@@ -109,17 +110,12 @@ export default function Navigation() {
                 backgroundImage:
                   "linear-gradient(90deg, #ff3ea5, #b040ff, #00ffe0, #b040ff, #ff3ea5)",
                 backgroundSize: "200% 100%",
-                animation: "gradient-shift 4s ease infinite",
               }}
               whileHover={{
-                scale: 1.08,
-                textShadow: "0 0 30px rgba(176, 64, 255, 0.5)",
+                scale: 1.05,
+                textShadow: "0 0 20px rgba(176, 64, 255, 0.4)",
               }}
               whileTap={{ scale: 0.95 }}
-              animate={{ y: [0, -2, 0] }}
-              transition={{
-                y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
-              }}
             >
               SINA AMAREH
             </motion.h1>
@@ -144,14 +140,37 @@ export default function Navigation() {
               ))}
             </ul>
 
-            {/* Command Palette Hint */}
-            <motion.kbd
-              className="hidden lg:flex items-center gap-1 px-2 py-1 text-xs font-mono bg-white/5 text-gray-500 rounded border border-white/10"
-              whileHover={{ scale: 1.05, borderColor: "rgba(6, 182, 212, 0.3)" }}
-            >
-              <span>⌘</span>
-              <span>K</span>
-            </motion.kbd>
+            {/* Social Links */}
+            <div className="hidden lg:flex items-center gap-3">
+              <Link
+                href="https://github.com/sina-amareh"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+              >
+                <motion.div
+                  className="text-gray-500 hover:text-cyan-400 transition-colors"
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <FaGithub className="w-4 h-4" />
+                </motion.div>
+              </Link>
+              <Link
+                href="https://linkedin.com/in/sina-amareh"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+              >
+                <motion.div
+                  className="text-gray-500 hover:text-cyan-400 transition-colors"
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <FaLinkedin className="w-4 h-4" />
+                </motion.div>
+              </Link>
+            </div>
           </div>
 
           {/* Mobile menu button */}

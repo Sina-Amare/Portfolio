@@ -598,3 +598,363 @@ pre > code {
   will-change: transform;
   transform: translate3d(0, 0, 0);
 }
+
+/* Skeleton shimmer animation for loading states */
+.skeleton-shimmer {
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* ============================================
+   GPU-ACCELERATED ANIMATIONS
+   Using transform & opacity only (compositor-only)
+   ============================================ */
+
+/* Floating particles - different speeds */
+.animate-float-slow {
+  animation: floatSlow 12s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-float-medium {
+  animation: floatMedium 8s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-float-fast {
+  animation: floatFast 5s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes floatSlow {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0) translateZ(0);
+    opacity: 0.4;
+  }
+  25% {
+    transform: translateY(-15px) translateX(8px) translateZ(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-5px) translateX(-5px) translateZ(0);
+    opacity: 0.3;
+  }
+  75% {
+    transform: translateY(-20px) translateX(3px) translateZ(0);
+    opacity: 0.5;
+  }
+}
+
+@keyframes floatMedium {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0) translateZ(0);
+    opacity: 0.3;
+  }
+  33% {
+    transform: translateY(-12px) translateX(-8px) translateZ(0);
+    opacity: 0.5;
+  }
+  66% {
+    transform: translateY(-8px) translateX(10px) translateZ(0);
+    opacity: 0.4;
+  }
+}
+
+@keyframes floatFast {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0) translateZ(0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(-10px) translateX(5px) translateZ(0);
+    opacity: 0.6;
+  }
+}
+
+/* Ambient glow pulsing */
+.animate-pulse-slow {
+  animation: pulseSlow 8s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.animate-pulse-slow-reverse {
+  animation: pulseSlowReverse 10s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.animate-pulse-slower {
+  animation: pulseSlower 15s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes pulseSlow {
+  0%,
+  100% {
+    transform: scale(1) translateZ(0);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.1) translateZ(0);
+    opacity: 0.5;
+  }
+}
+
+@keyframes pulseSlowReverse {
+  0%,
+  100% {
+    transform: scale(1.05) translateZ(0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(0.95) translateZ(0);
+    opacity: 0.25;
+  }
+}
+
+@keyframes pulseSlower {
+  0%,
+  100% {
+    transform: scale(1) translate(-50%, -50%) translateZ(0);
+    opacity: 0.2;
+  }
+  50% {
+    transform: scale(1.15) translate(-50%, -50%) translateZ(0);
+    opacity: 0.35;
+  }
+}
+
+/* Connection line animations */
+.animate-line-pulse {
+  animation: linePulse 4s ease-in-out infinite;
+  will-change: opacity;
+}
+
+.animate-line-pulse-delayed {
+  animation: linePulse 4s ease-in-out infinite 2s;
+  will-change: opacity;
+}
+
+@keyframes linePulse {
+  0%,
+  100% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+/* Reduce animations on mobile for performance */
+@media (max-width: 768px) {
+  .animate-float-slow,
+  .animate-float-medium,
+  .animate-float-fast {
+    animation-duration: 20s; /* Slower = less CPU */
+  }
+
+  .animate-pulse-slow,
+  .animate-pulse-slow-reverse,
+  .animate-pulse-slower {
+    animation: none; /* Disable on mobile */
+    opacity: 0.2;
+  }
+}
+
+/* Respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-slow,
+  .animate-float-medium,
+  .animate-float-fast,
+  .animate-pulse-slow,
+  .animate-pulse-slow-reverse,
+  .animate-pulse-slower,
+  .animate-line-pulse,
+  .animate-line-pulse-delayed,
+  .animate-aurora-1,
+  .animate-aurora-2,
+  .animate-aurora-3,
+  .animate-aurora-4 {
+    animation: none;
+  }
+}
+
+/* ============================================
+   AURORA BLOB ANIMATIONS
+   Slow, dreamy movement - GPU accelerated
+   ============================================ */
+
+.animate-aurora-1 {
+  animation: aurora1 25s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-aurora-2 {
+  animation: aurora2 30s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-aurora-3 {
+  animation: aurora3 35s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-aurora-4 {
+  animation: aurora4 20s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes aurora1 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1) translateZ(0);
+  }
+  25% {
+    transform: translate(50px, 30px) scale(1.05) translateZ(0);
+  }
+  50% {
+    transform: translate(20px, -40px) scale(0.95) translateZ(0);
+  }
+  75% {
+    transform: translate(-30px, 20px) scale(1.02) translateZ(0);
+  }
+}
+
+@keyframes aurora2 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1) translateZ(0);
+  }
+  33% {
+    transform: translate(-60px, 40px) scale(1.08) translateZ(0);
+  }
+  66% {
+    transform: translate(40px, -30px) scale(0.92) translateZ(0);
+  }
+}
+
+@keyframes aurora3 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1) translateZ(0);
+  }
+  20% {
+    transform: translate(30px, -50px) scale(1.1) translateZ(0);
+  }
+  40% {
+    transform: translate(-40px, -20px) scale(0.95) translateZ(0);
+  }
+  60% {
+    transform: translate(20px, 40px) scale(1.05) translateZ(0);
+  }
+  80% {
+    transform: translate(-20px, 10px) scale(0.98) translateZ(0);
+  }
+}
+
+@keyframes aurora4 {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1) translateZ(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.15) translateZ(0);
+    opacity: 0.8;
+  }
+}
+
+/* Mobile: Disable aurora blobs for performance */
+@media (max-width: 768px) {
+  .animate-aurora-1,
+  .animate-aurora-2,
+  .animate-aurora-3,
+  .animate-aurora-4 {
+    animation: none;
+    opacity: 0.5;
+  }
+}
+
+/* ============================================
+   TEXT ANIMATIONS
+   Staggered reveal, emphasis effects
+   ============================================ */
+
+/* Staggered letter animation container */
+.animate-stagger-container > * {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: staggerReveal 0.5s ease-out forwards;
+}
+
+@keyframes staggerReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animated underline for emphasis */
+.animate-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.animate-underline::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #06b6d4, #a855f7);
+  animation: drawUnderline 1s ease-out 0.5s forwards;
+}
+
+@keyframes drawUnderline {
+  to {
+    width: 100%;
+  }
+}
+
+/* Gradient text shimmer */
+.animate-gradient-text {
+  background-size: 200% 200%;
+  animation: gradientShift 4s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Typewriter cursor blink */
+.animate-cursor {
+  animation: cursorBlink 1s step-end infinite;
+}
+
+@keyframes cursorBlink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}

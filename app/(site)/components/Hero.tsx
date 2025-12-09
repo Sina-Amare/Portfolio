@@ -86,26 +86,66 @@ const Hero = () => {
             // 00. Home
           </motion.div>
 
+          {/* Hero Heading with Staggered Animation */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-[4rem] font-bold leading-[1.1] tracking-tight text-gray-50 z-10 font-montserrat"
+            transition={{ duration: 0.6, delay: 0.25 }}
+            className="text-[3.5rem] md:text-[4rem] font-bold leading-[1.1] tracking-tight text-gray-50 z-10 font-montserrat"
           >
-            Hello <span className="inline-block animate-wave">👋</span> <br /> I'm{" "}
-            <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-400 bg-clip-text text-transparent">
-              Sina Amareh
+            Hello <span className="inline-block animate-wave">👋</span> <br />
+            <span className="text-gray-100">I'm </span>
+            {/* Staggered letter animation for name */}
+            <span className="inline-flex overflow-hidden">
+              {"Sina Amareh".split("").map((char, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ y: 40, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{
+                    duration: 0.4,
+                    delay: 0.5 + i * 0.04,
+                    ease: [0.25, 0.46, 0.45, 0.94],
+                  }}
+                  className={`bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-400 bg-clip-text text-transparent animate-gradient-text ${
+                    char === " " ? "w-4" : ""
+                  }`}
+                  style={{ backgroundSize: "200% 200%" }}
+                >
+                  {char}
+                </motion.span>
+              ))}
             </span>
           </motion.h1>
+
+          {/* Tagline with animated emphasis */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
             className="mt-6 text-gray-300 text-[1rem] max-w-[48ch] z-10"
           >
-            Engineering intelligent systems where <span className="text-link-blue">clarity</span>{" "}
-            meets <span className="text-link-pink">imagination</span>.
+            Engineering intelligent systems where{" "}
+            <span className="text-cyan-400 animate-underline">clarity</span> meets{" "}
+            <span className="text-pink-400 animate-underline">imagination</span>.
           </motion.p>
+
+          {/* Consolidated Credentials */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 1 }}
+            className="flex flex-wrap items-center gap-3 mt-6"
+          >
+            <span className="text-sm font-mono text-gray-500">2+ Years</span>
+            <span className="text-gray-600">·</span>
+            <span className="text-sm font-mono text-gray-500">Backend Specialist</span>
+            <span className="text-gray-600">·</span>
+            <span className="text-sm font-mono text-green-400 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
+              Available
+            </span>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
