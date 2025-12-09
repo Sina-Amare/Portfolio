@@ -32,9 +32,13 @@ export default function InteractiveTerminal({
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.key === "Enter" && userInput.trim()) {
-        const cmd = userInput.toLowerCase().trim();
-        if (secretCommands[cmd]) {
-          setEasterEggOutput(secretCommands[cmd]);
+        const cmd = userInput.trim();
+        // Case-insensitive command matching
+        const matchingKey = Object.keys(secretCommands).find(
+          (key) => key.toLowerCase() === cmd.toLowerCase()
+        );
+        if (matchingKey) {
+          setEasterEggOutput(secretCommands[matchingKey]);
           setShowHint(false);
         } else {
           setEasterEggOutput(
@@ -62,7 +66,7 @@ export default function InteractiveTerminal({
 
   return (
     <div
-      className="rounded-xl overflow-hidden border border-cyan-500/20 cursor-text"
+      className="rounded-xl overflow-hidden border border-cyan-500/20"
       style={{
         background: "linear-gradient(180deg, rgba(15,23,42,0.98) 0%, rgba(10,14,20,0.98) 100%)",
         boxShadow: "0 0 40px rgba(6,182,212,0.08)",

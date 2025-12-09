@@ -245,14 +245,14 @@ export function BootSequence({ onComplete }: { onComplete?: () => void }) {
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
           className={
-            line.startsWith("[OK]")
+            line && line.startsWith("[OK]")
               ? "text-[#50fa7b]"
-              : line.startsWith(">>>")
+              : line && line.startsWith(">>>")
                 ? "text-[#ff79c6] font-bold"
                 : "text-gray-500"
           }
         >
-          {line}
+          {line || "\u00A0"}
         </motion.div>
       ))}
     </div>

@@ -175,8 +175,8 @@ export default function AboutSection() {
                   <div className="font-mono text-cyan-400 text-sm">/home/sina/portfolio/about</div>
                 ),
                 help: (
-                  <div className="space-y-1 font-mono text-sm">
-                    <div className="text-gray-400 mb-2">Try these commands:</div>
+                  <div className="space-y-2 font-mono text-sm">
+                    <div className="text-gray-400 mb-2">🖥️ Available commands:</div>
                     <div className="text-cyan-400">
                       {" "}
                       cat secrets.txt <span className="text-gray-500">- 🔮 Matrix reveal</span>
@@ -192,6 +192,9 @@ export default function AboutSection() {
                     <div className="text-cyan-400">
                       {" "}
                       pwd <span className="text-gray-500">- 📍 Current location</span>
+                    </div>
+                    <div className="text-gray-500 text-xs mt-3 border-t border-gray-700 pt-2">
+                      💡 More secrets await in Skills and Contact terminals!
                     </div>
                   </div>
                 ),

@@ -127,7 +127,7 @@ export default function ContactSection() {
             <InteractiveTerminal
               title="terminal — contact"
               command="ssh contact@sina-amareh.dev"
-              hintCommand="nmap"
+              hintCommand="help"
               secretCommands={{
                 nmap: <HackAnimation target="sina-amareh.dev" />,
                 curl: (
@@ -165,8 +165,8 @@ export default function ContactSection() {
                   </div>
                 ),
                 help: (
-                  <div className="space-y-1 font-mono text-sm">
-                    <div className="text-gray-400 mb-2">Network commands:</div>
+                  <div className="space-y-2 font-mono text-sm">
+                    <div className="text-gray-400 mb-2">📡 Available commands:</div>
                     <div className="text-cyan-400">
                       {" "}
                       nmap <span className="text-gray-500">- 🔓 Scan for openings</span>
@@ -182,6 +182,10 @@ export default function ContactSection() {
                     <div className="text-cyan-400">
                       {" "}
                       uptime <span className="text-gray-500">- ⏰ System uptime</span>
+                    </div>
+                    <div className="text-gray-500 text-xs mt-3 border-t border-gray-700 pt-2">
+                      💡 Each terminal has unique secrets. Try &quot;help&quot; in About and Skills
+                      too!
                     </div>
                   </div>
                 ),
@@ -366,7 +370,7 @@ export default function ContactSection() {
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-4 rounded-xl font-mono text-sm font-semibold text-white transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed bg-[linear-gradient(135deg,#8B5CF6_0%,#06B6D4_50%,#14B8A6_100%)] shadow-[0_0_30px_rgba(139,92,246,0.3),0_0_60px_rgba(6,182,212,0.15)] hover:shadow-[0_0_40px_rgba(139,92,246,0.4),0_0_80px_rgba(6,182,212,0.25)]"
+                  className="w-full py-4 rounded-xl font-mono text-sm font-semibold text-white transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed bg-gradient-to-r from-[#06B6D4] via-[#22D3EE] to-[#50fa7b] shadow-[0_0_30px_rgba(6,182,212,0.3)] hover:shadow-[0_0_40px_rgba(6,182,212,0.4),0_0_60px_rgba(80,250,123,0.2)]"
                   whileHover={!isSubmitting ? { y: -2 } : {}}
                   whileTap={!isSubmitting ? { scale: 0.98 } : {}}
                 >

@@ -319,23 +319,26 @@ export default function SkillsSection() {
                   </div>
                 ),
                 help: (
-                  <div className="space-y-1 font-mono text-sm">
-                    <div className="text-gray-400 mb-2">Available commands:</div>
+                  <div className="space-y-2 font-mono text-sm">
+                    <div className="text-gray-400 mb-2">⚡ Available commands:</div>
                     <div className="text-cyan-400">
                       {" "}
-                      neofetch <span className="text-gray-500">- System info</span>
+                      neofetch <span className="text-gray-500">- 🖥️ System info</span>
                     </div>
                     <div className="text-cyan-400">
                       {" "}
-                      npm run hire <span className="text-gray-500">- Install developer</span>
+                      npm run hire <span className="text-gray-500">- 📦 Install developer</span>
                     </div>
                     <div className="text-cyan-400">
                       {" "}
-                      git status <span className="text-gray-500">- Check availability</span>
+                      git status <span className="text-gray-500">- 🚀 Check availability</span>
                     </div>
                     <div className="text-cyan-400">
                       {" "}
-                      ls <span className="text-gray-500">- List skills</span>
+                      ls <span className="text-gray-500">- 📂 List skills</span>
+                    </div>
+                    <div className="text-gray-500 text-xs mt-3 border-t border-gray-700 pt-2">
+                      💡 More secrets await in About and Contact terminals!
                     </div>
                   </div>
                 ),
