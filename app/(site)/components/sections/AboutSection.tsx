@@ -78,82 +78,58 @@ export default function AboutSection() {
               <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/30 to-cyan-500/30 rounded-2xl blur-xl -z-10 animate-pulse-subtle" />
             </div>
 
-            {/* Terminal-style Summary Command */}
-            <motion.div
-              className="w-full max-w-[360px] bg-[#0d1117] border border-gray-800 rounded-lg overflow-hidden"
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              {/* Terminal header */}
-              <div className="flex items-center gap-2 px-3 py-2 bg-[#161b22] border-b border-gray-800">
-                <div className="w-2 h-2 rounded-full bg-red-500/80" />
-                <div className="w-2 h-2 rounded-full bg-yellow-500/80" />
-                <div className="w-2 h-2 rounded-full bg-green-500/80" />
-                <span className="ml-2 text-[10px] text-gray-500 font-mono">summary</span>
-              </div>
-
-              {/* Command output */}
-              <div className="p-4 font-mono text-xs space-y-1.5">
-                <div className="text-gray-500 mb-3">
-                  <span className="text-green-400">$</span> summary --experience
-                </div>
-
-                <motion.div
-                  className="text-gray-300 flex items-center gap-2"
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.4, delay: 0.6 }}
-                >
-                  <span className="text-cyan-400">›</span>
-                  <span className="font-semibold">Sina Amareh</span>
-                </motion.div>
-
-                <motion.div
-                  className="text-gray-400 flex items-center gap-2"
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.4, delay: 0.7 }}
-                >
-                  <span className="text-purple-400">›</span>
-                  <span>Backend Architect & System Designer</span>
-                </motion.div>
-
-                <motion.div
-                  className="text-gray-400 flex items-center gap-2"
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.4, delay: 0.8 }}
-                >
-                  <span className="text-cyan-400">›</span>
-                  <span>
-                    Experience: <span className="text-[#50fa7b]">2 years</span>
-                  </span>
-                </motion.div>
-
-                <motion.div
-                  className="text-gray-400 flex items-center gap-2"
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.4, delay: 0.9 }}
-                >
-                  <span className="text-green-400">›</span>
-                  <span>
-                    Status: <span className="text-[#50fa7b] font-semibold">Available for Work</span>
-                  </span>
-                </motion.div>
-
-                <motion.div
-                  className="text-gray-400 flex items-center gap-2"
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.4, delay: 1.0 }}
-                >
-                  <span className="text-purple-400">›</span>
-                  <span>Location: Remote (UTC+3:30)</span>
-                </motion.div>
-              </div>
-            </motion.div>
+            {/* Info Section - Simple bullets with creative reveal */}
+            <div className="w-full max-w-[320px] space-y-3 font-mono text-sm">
+              <motion.div
+                className="flex items-center gap-3 text-gray-300"
+                initial={{ opacity: 0, y: 15, scale: 0.95 }}
+                animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+                transition={{ duration: 0.5, delay: 0.5, ease: "easeOut" }}
+              >
+                <span className="text-cyan-400 text-lg">›</span>
+                <span className="text-lg font-semibold">Sina Amareh</span>
+              </motion.div>
+              <motion.div
+                className="flex items-center gap-3 text-gray-400"
+                initial={{ opacity: 0, y: 15, scale: 0.95 }}
+                animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+                transition={{ duration: 0.5, delay: 0.6, ease: "easeOut" }}
+              >
+                <span className="text-purple-500">›</span>
+                <span>Backend Architect & System Designer</span>
+              </motion.div>
+              <motion.div
+                className="flex items-center gap-3 text-gray-400"
+                initial={{ opacity: 0, y: 15, scale: 0.95 }}
+                animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+                transition={{ duration: 0.5, delay: 0.7, ease: "easeOut" }}
+              >
+                <span className="text-cyan-400">›</span>
+                <span>
+                  Experience: <span className="text-[#50fa7b]">2 years</span>
+                </span>
+              </motion.div>
+              <motion.div
+                className="flex items-center gap-3 text-gray-400"
+                initial={{ opacity: 0, y: 15, scale: 0.95 }}
+                animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+                transition={{ duration: 0.5, delay: 0.8, ease: "easeOut" }}
+              >
+                <span className="text-green-500">›</span>
+                <span>
+                  Status: <span className="text-[#50fa7b] font-semibold">Available for Work</span>
+                </span>
+              </motion.div>
+              <motion.div
+                className="flex items-center gap-3 text-gray-400"
+                initial={{ opacity: 0, y: 15, scale: 0.95 }}
+                animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+                transition={{ duration: 0.5, delay: 0.9, ease: "easeOut" }}
+              >
+                <span className="text-purple-500">›</span>
+                <span>Location: Remote (UTC+3:30)</span>
+              </motion.div>
+            </div>
           </motion.div>
 
           {/* Philosophy & Bio - Terminal Style */}

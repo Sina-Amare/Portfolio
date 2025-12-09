@@ -50,7 +50,7 @@ const Hero = () => {
         setCommandTyped(command.substring(0, i + 1));
         i++;
       }
-    }, 25);
+    }, 50);
     return () => clearInterval(interval);
   }, []);
 
@@ -67,7 +67,7 @@ const Hero = () => {
         setVisibleLines(currentLine);
         currentLine++;
       }
-    }, 80);
+    }, 120);
   };
 
   // Get line color based on type
