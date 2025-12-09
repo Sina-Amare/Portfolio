@@ -1,7 +1,7 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { FaGithub, FaLinkedin, FaFacebook, FaTwitter } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaFacebook, FaTwitter, FaPlay } from "react-icons/fa";
 import { useState, useEffect, useRef } from "react";
 import { StatusBadge } from "./StatusBadge";
 import MagneticEffect from "@/components/effects/MagneticEffect";
@@ -12,20 +12,24 @@ const Hero = () => {
   const [copied, setCopied] = useState("Copy");
   const [displayedCode, setDisplayedCode] = useState("");
   const [isCompiling, setIsCompiling] = useState(false);
+  const [showOutput, setShowOutput] = useState(false);
+  const [outputText, setOutputText] = useState("");
 
-  const plainCodeString = `const welcomeMessage = {
-  greeting: "Hello World! 👋",
-  role: "Backend Architect & System Designer",
-  passion: "Building scalable solutions",
-  approach: "Clean code meets creative thinking",
-  status: {
-    available: true,
-    location: "Remote",
-    timezone: "UTC+3:30"
-  }
-};`;
+  // More impressive Python-style code
+  const plainCodeString = `class Developer:
+    def __init__(self):
+        self.name = "Sina Amareh"
+        self.role = "Backend Architect"
+        self.skills = ["Python", "Django", "FastAPI"]
+        self.available = True
+    
+    def hello(self):
+        return "Let's build something great!"
 
-  const highlightedCodeString = `<span class="token keyword">const</span> <span class="token function-variable function">welcomeMessage</span> <span class="token operator">=</span> <span class="token punctuation">{</span><br/>  <span class="token property">greeting</span><span class="token operator">:</span> <span class="token string">"Hello World! 👋"</span><span class="token punctuation">,</span><br/>  <span class="token property">role</span><span class="token operator">:</span> <span class="token string">"Backend Architect & System Designer"</span><span class="token punctuation">,</span><br/>  <span class="token property">passion</span><span class="token operator">:</span> <span class="token string">"Building scalable solutions"</span><span class="token punctuation">,</span><br/>  <span class="token property">approach</span><span class="token operator">:</span> <span class="token string">"Clean code meets creative thinking"</span><span class="token punctuation">,</span><br/>  <span class="token property">status</span><span class="token operator">:</span> <span class="token punctuation">{</span><br/>    <span class="token property">available</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span><br/>    <span class="token property">location</span><span class="token operator">:</span> <span class="token string">"Remote"</span><span class="token punctuation">,</span><br/>    <span class="token property">timezone</span><span class="token operator">:</span> <span class="token string">"UTC+3:30"</span><br/>  <span class="token punctuation">}</span><br/><span class="token punctuation">};</span>`;
+dev = Developer()
+print(dev.hello())`;
+
+  const highlightedCodeString = `<span class="token keyword">class</span> <span class="token class-name">Developer</span><span class="token punctuation">:</span><br/>    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span><span class="token builtin">self</span><span class="token punctuation">)</span><span class="token punctuation">:</span><br/>        <span class="token builtin">self</span><span class="token punctuation">.</span><span class="token property">name</span> <span class="token operator">=</span> <span class="token string">"Sina Amareh"</span><br/>        <span class="token builtin">self</span><span class="token punctuation">.</span><span class="token property">role</span> <span class="token operator">=</span> <span class="token string">"Backend Architect"</span><br/>        <span class="token builtin">self</span><span class="token punctuation">.</span><span class="token property">skills</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"Python"</span><span class="token punctuation">,</span> <span class="token string">"Django"</span><span class="token punctuation">,</span> <span class="token string">"FastAPI"</span><span class="token punctuation">]</span><br/>        <span class="token builtin">self</span><span class="token punctuation">.</span><span class="token property">available</span> <span class="token operator">=</span> <span class="token boolean">True</span><br/>    <br/>    <span class="token keyword">def</span> <span class="token function">hello</span><span class="token punctuation">(</span><span class="token builtin">self</span><span class="token punctuation">)</span><span class="token punctuation">:</span><br/>        <span class="token keyword">return</span> <span class="token string">"Let's build something great!"</span><br/><br/><span class="token variable">dev</span> <span class="token operator">=</span> <span class="token class-name">Developer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><br/><span class="token function">print</span><span class="token punctuation">(</span><span class="token variable">dev</span><span class="token punctuation">.</span><span class="token function">hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>`;
 
   // Typewriter Effect with Compilation
   useEffect(() => {
@@ -42,18 +46,39 @@ const Hero = () => {
       if (i >= codeString.length) {
         setDisplayedCode(codeString);
         clearInterval(interval);
-        // Show compilation effect
-        setTimeout(() => {
-          setIsCompiling(true);
-          setTimeout(() => setIsCompiling(false), 1500);
-        }, 300);
       } else {
         setDisplayedCode(codeString.substring(0, i));
       }
-    }, 15);
+    }, 12);
 
     return () => clearInterval(interval);
   }, [highlightedCodeString]);
+
+  const handleRun = () => {
+    setShowOutput(true);
+    setOutputText("");
+    // Simulate terminal output with typing effect
+    const output = `$ python main.py
+>>> Initializing Developer instance...
+>>> name: Sina Amareh
+>>> role: Backend Architect  
+>>> skills: ['Python', 'Django', 'FastAPI']
+>>> available: True
+
+"Let's build something great!"
+
+Process finished with exit code 0 ✓`;
+
+    let idx = 0;
+    const typeInterval = setInterval(() => {
+      if (idx < output.length) {
+        setOutputText(output.substring(0, idx + 1));
+        idx++;
+      } else {
+        clearInterval(typeInterval);
+      }
+    }, 15);
+  };
 
   const handleCopy = () => {
     navigator.clipboard.writeText(plainCodeString);
@@ -305,24 +330,40 @@ const Hero = () => {
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05), 0 0 40px rgba(6,182,212,0.1)",
               }}
             >
+              {/* Window Controls */}
               <div className="flex items-center justify-between gap-2 mb-4">
                 <div className="flex items-center gap-1.5 sm:gap-2">
                   <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#ff605c]"></div>
                   <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#ffbd44]"></div>
                   <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#00ca4e]"></div>
                   <span className="ml-2 text-[10px] sm:text-xs text-gray-500 font-mono">
-                    welcome.js
+                    main.py
                   </span>
                 </div>
-                <CopyButton textToCopy={plainCodeString} />
+                <div className="flex items-center gap-2">
+                  {/* Run Button */}
+                  <motion.button
+                    onClick={handleRun}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-green-500/20 border border-green-500/30 text-green-400 text-[10px] sm:text-xs font-mono hover:bg-green-500/30 transition-colors"
+                    aria-label="Run code"
+                  >
+                    <FaPlay className="w-2 h-2" />
+                    <span>Run</span>
+                  </motion.button>
+                  <CopyButton textToCopy={plainCodeString} />
+                </div>
               </div>
+
+              {/* Code Display */}
               <div className="overflow-x-auto custom-scrollbar">
                 <pre className="!bg-transparent !border-none !p-0 pb-2">
                   <code
-                    className="language-js !bg-transparent !border-none !block text-[11px] sm:text-xs md:text-sm"
+                    className="language-python !bg-transparent !border-none !block text-[11px] sm:text-xs md:text-sm"
                     style={{
                       whiteSpace: "pre",
-                      lineHeight: "1.6",
+                      lineHeight: "1.5",
                     }}
                     dangerouslySetInnerHTML={{
                       __html: displayedCode + '<span class="typing-cursor"></span>',
@@ -330,6 +371,28 @@ const Hero = () => {
                   ></code>
                 </pre>
               </div>
+
+              {/* Terminal Output */}
+              <AnimatePresence>
+                {showOutput && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="mt-4 pt-4 border-t border-gray-700/50 overflow-hidden"
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-[10px] text-gray-500 font-mono uppercase">Output</span>
+                      <div className="flex-1 h-[1px] bg-gray-700/30" />
+                    </div>
+                    <pre className="text-[10px] sm:text-xs text-green-400 font-mono whitespace-pre-wrap leading-relaxed">
+                      {outputText}
+                      <span className="animate-cursor">▌</span>
+                    </pre>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         </motion.div>

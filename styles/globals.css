@@ -908,23 +908,25 @@ pre > code {
 /* Animated underline for emphasis */
 .animate-underline {
   position: relative;
-  display: inline-block;
+  display: inline;
 }
 
 .animate-underline::after {
   content: "";
   position: absolute;
-  bottom: -2px;
+  bottom: -4px;
   left: 0;
-  width: 0;
+  width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, #06b6d4, #a855f7);
-  animation: drawUnderline 1s ease-out 0.5s forwards;
+  background: linear-gradient(90deg, currentColor, currentColor);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: drawUnderline 0.8s ease-out 1s forwards;
 }
 
 @keyframes drawUnderline {
   to {
-    width: 100%;
+    transform: scaleX(1);
   }
 }
 
@@ -956,5 +958,15 @@ pre > code {
   }
   50% {
     opacity: 0;
+  }
+}
+
+/* Scanline animation for terminal effect */
+@keyframes scanlines {
+  0% {
+    transform: translateY(0) translateZ(0);
+  }
+  100% {
+    transform: translateY(4px) translateZ(0);
   }
 }
