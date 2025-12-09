@@ -11,10 +11,17 @@ import {
 } from "react-icons/fa";
 import { GlassCard } from "@/components/ui/GlassCard";
 
+interface FormData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
 export default function ContactSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     subject: "",
@@ -22,18 +29,25 @@ export default function ContactSection() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  // Store submitted data for persistent terminal output
+  const [submittedData, setSubmittedData] = useState<FormData | null>(null);
+  const [ticketId, setTicketId] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setSubmitStatus("idle");
+
+    // Store form data before clearing (for terminal output)
+    const dataToSend = { ...formData };
 
     // Simulate API call
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitStatus("success");
+      setSubmittedData(dataToSend);
+      setTicketId(Math.random().toString(36).substring(2, 8).toUpperCase());
       setFormData({ name: "", email: "", subject: "", message: "" });
-      setTimeout(() => setSubmitStatus("idle"), 5000);
+      // NO auto-hide - output persists until refresh or new submission
     }, 2000);
   };
 
@@ -279,36 +293,58 @@ export default function ContactSection() {
                   )}
                 </motion.button>
 
-                {submitStatus === "success" && (
+                {submitStatus === "success" && submittedData && (
                   <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="p-4 bg-[#0a0f14] border border-[#50fa7b]/30 rounded-lg font-mono text-xs"
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    className="mt-4 bg-[#0d1117] border border-[#50fa7b]/30 rounded-lg overflow-hidden"
                   >
-                    <div className="text-gray-500 mb-2">// Response</div>
-                    <div className="space-y-1">
-                      <div className="text-[#50fa7b]">→ POST /api/v1/contact/message</div>
+                    {/* Terminal header */}
+                    <div className="flex items-center gap-2 px-3 py-2 bg-[#161b22] border-b border-gray-800">
+                      <div className="w-2 h-2 rounded-full bg-green-500" />
+                      <span className="text-[10px] text-gray-500 font-mono">
+                        POST /api/v1/contact
+                      </span>
+                    </div>
+
+                    {/* Terminal content */}
+                    <div className="p-4 font-mono text-xs space-y-2">
+                      {/* Request */}
                       <div className="text-gray-500">
-                        → Headers: &#123; "Content-Type": "application/json" &#125;
+                        <span className="text-green-400">$</span> submit_request \
                       </div>
-                      <div className="text-gray-400 py-2 border-t border-gray-700/30 mt-2">
-                        &#123;
-                        <br />
-                        &nbsp;&nbsp;"status": <span className="text-[#50fa7b]">200</span>,<br />
-                        &nbsp;&nbsp;"message":{" "}
-                        <span className="text-cyan-400">"Request received successfully"</span>,
-                        <br />
-                        &nbsp;&nbsp;"eta_response": <span className="text-purple-400">"24h"</span>,
-                        <br />
-                        &nbsp;&nbsp;"ticket_id":{" "}
-                        <span className="text-yellow-400">
-                          "#{Math.random().toString(36).substring(2, 8).toUpperCase()}"
-                        </span>
-                        <br />
-                        &#125;
+                      <div className="text-gray-400 pl-4">
+                        --from "{submittedData.name} &lt;{submittedData.email}&gt;" \
                       </div>
-                      <div className="text-[#50fa7b] pt-2 border-t border-gray-700/30">
-                        ✓ 200 OK — I'll get back to you soon!
+                      <div className="text-gray-400 pl-4">
+                        --subject "{submittedData.subject}" \
+                      </div>
+                      <div className="text-gray-400 pl-4">
+                        --message "{submittedData.message.substring(0, 50)}..."
+                      </div>
+
+                      {/* Response */}
+                      <div className="mt-3 pt-3 border-t border-gray-800 space-y-1">
+                        <div className="text-[#50fa7b]">HTTP/1.1 200 OK</div>
+                        <div className="text-gray-500">Content-Type: application/json</div>
+                        <div className="mt-2 text-purple-400">
+                          {"{"}
+                          <br />
+                          &nbsp;&nbsp;"status": <span className="text-[#50fa7b]">"success"</span>,
+                          <br />
+                          &nbsp;&nbsp;"ticket_id":{" "}
+                          <span className="text-yellow-400">"{ticketId}"</span>,<br />
+                          &nbsp;&nbsp;"from":{" "}
+                          <span className="text-cyan-400">"{submittedData.name}"</span>,<br />
+                          &nbsp;&nbsp;"eta_response": <span className="text-purple-400">"24h"</span>
+                          <br />
+                          {"}"}
+                        </div>
+                      </div>
+
+                      {/* Success footer */}
+                      <div className="mt-3 pt-3 border-t border-gray-800 text-[#50fa7b]">
+                        ✓ Request delivered — I'll respond within 24 hours!
                       </div>
                     </div>
                   </motion.div>

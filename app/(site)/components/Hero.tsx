@@ -8,89 +8,84 @@ import MagneticEffect from "@/components/effects/MagneticEffect";
 import { PageBackground } from "@/components/effects/PageBackground";
 import { CopyButton } from "@/components/ui/CopyButton";
 
-// Progress bar component matching methodology style
-function ProgressBar({
-  progress,
-  delay,
-  active,
-}: {
-  progress: number;
-  delay: number;
-  active: boolean;
-}) {
-  const [width, setWidth] = useState(0);
-
-  useEffect(() => {
-    if (!active) return;
-    const timer = setTimeout(() => setWidth(progress), delay);
-    return () => clearTimeout(timer);
-  }, [progress, delay, active]);
-
-  const filledBlocks = Math.floor((active ? width : 0) / 10);
-  const blocks = Array.from({ length: 10 }, (_, i) => i < filledBlocks);
-
-  return (
-    <span className="font-mono text-xs sm:text-sm">
-      {blocks.map((filled, i) => (
-        <span key={i} className={filled ? "text-cyan-400" : "text-gray-700"}>
-          {filled ? "▓" : "░"}
-        </span>
-      ))}
-      <span className="text-gray-500 ml-2">{active ? width : 0}%</span>
-    </span>
-  );
-}
-
-// Profile data for terminal display
-const profileData = [
+// Terminal output lines for real HTTP request feel
+const terminalOutput = [
   {
-    key: "Backend",
-    value: 95,
-    details: ["Python specialist", "Django & FastAPI", "RESTful APIs"],
+    type: "command" as const,
+    text: "$ curl -s https://api.sina.dev/profile -H 'Accept: application/json'",
   },
-  {
-    key: "Database",
-    value: 90,
-    details: ["PostgreSQL", "Redis caching", "Query optimization"],
-  },
-  {
-    key: "DevOps",
-    value: 80,
-    details: ["Docker", "CI/CD pipelines", "Cloud deployment"],
-  },
-  {
-    key: "Available",
-    value: 100,
-    details: ["Remote work", "Freelance & Full-time", "24h response"],
-  },
+  { type: "blank" as const, text: "" },
+  { type: "status" as const, text: "HTTP/1.1 200 OK" },
+  { type: "header" as const, text: "Content-Type: application/json; charset=utf-8" },
+  { type: "header" as const, text: "X-Response-Time: 42ms" },
+  { type: "blank" as const, text: "" },
+  { type: "json" as const, text: "{" },
+  { type: "json" as const, text: '  "name": "Sina Amareh",' },
+  { type: "json" as const, text: '  "role": "Backend Architect",' },
+  { type: "json" as const, text: '  "focus": "Building scalable systems",' },
+  { type: "json" as const, text: '  "experience": "2+ years",' },
+  { type: "json" as const, text: '  "stack": ["Python", "Django", "FastAPI", "PostgreSQL"],' },
+  { type: "json" as const, text: '  "status": "available_for_hire",' },
+  { type: "json" as const, text: '  "contact": "#contact"' },
+  { type: "json" as const, text: "}" },
+  { type: "blank" as const, text: "" },
+  { type: "success" as const, text: "✓ Request completed successfully" },
 ];
 
 const Hero = () => {
   const [showOutput, setShowOutput] = useState(false);
-  const [isTyping, setIsTyping] = useState(true);
-  const [commandText, setCommandText] = useState("");
+  const [visibleLines, setVisibleLines] = useState(0);
+  const [commandTyped, setCommandTyped] = useState("");
 
-  const command = "$ sina --profile";
+  const command = terminalOutput[0].text;
 
   // Typewriter effect for command
   useEffect(() => {
     let i = 0;
     const interval = setInterval(() => {
       if (i >= command.length) {
-        setCommandText(command);
-        setIsTyping(false);
+        setCommandTyped(command);
         clearInterval(interval);
       } else {
-        setCommandText(command.substring(0, i + 1));
+        setCommandTyped(command.substring(0, i + 1));
         i++;
       }
-    }, 60);
+    }, 25);
     return () => clearInterval(interval);
   }, []);
 
   const handleRun = () => {
     if (showOutput) return;
     setShowOutput(true);
+
+    // Animate output lines one by one (skip command line)
+    let currentLine = 1;
+    const interval = setInterval(() => {
+      if (currentLine >= terminalOutput.length) {
+        clearInterval(interval);
+      } else {
+        setVisibleLines(currentLine);
+        currentLine++;
+      }
+    }, 80);
+  };
+
+  // Get line color based on type
+  const getLineColor = (type: string) => {
+    switch (type) {
+      case "command":
+        return "text-green-400";
+      case "status":
+        return "text-[#50fa7b]";
+      case "header":
+        return "text-gray-500";
+      case "json":
+        return "text-purple-400";
+      case "success":
+        return "text-[#50fa7b]";
+      default:
+        return "text-gray-400";
+    }
   };
 
   return (
@@ -150,7 +145,7 @@ const Hero = () => {
             </span>
           </motion.h1>
 
-          {/* Tagline with animated emphasis */}
+          {/* Tagline */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -158,8 +153,8 @@ const Hero = () => {
             className="mt-6 text-gray-300 text-[1rem] max-w-[48ch] z-10"
           >
             Engineering intelligent systems where{" "}
-            <span className="text-cyan-400 animate-underline">clarity</span> meets{" "}
-            <span className="text-pink-400 animate-underline">imagination</span>.
+            <span className="text-cyan-400 font-medium">clarity</span> meets{" "}
+            <span className="text-pink-400 font-medium">imagination</span>.
           </motion.p>
 
           {/* Consolidated Credentials - Staggered Animation */}
@@ -381,77 +376,28 @@ const Hero = () => {
             </div>
 
             {/* Terminal content */}
-            <div className="p-5 space-y-4">
-              {/* Command input */}
-              <div className="font-mono text-sm">
-                <span className="text-green-400">$</span>{" "}
-                <span className="text-gray-300">{commandText}</span>
-                {isTyping && <span className="text-cyan-400 animate-cursor">_</span>}
+            <div className="p-4 sm:p-5 font-mono text-xs sm:text-sm">
+              {/* Command line with typewriter effect */}
+              <div className="text-green-400 break-all">
+                {commandTyped}
+                {commandTyped.length < command.length && (
+                  <span className="animate-cursor text-cyan-400">_</span>
+                )}
               </div>
 
-              {/* Output - Profile data with progress bars */}
-              <AnimatePresence>
-                {showOutput && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    transition={{ duration: 0.4 }}
-                    className="space-y-5 pt-2"
-                  >
-                    {profileData.map((item, index) => (
-                      <motion.div
-                        key={item.key}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.4, delay: index * 0.15 }}
-                        className="space-y-2"
-                      >
-                        {/* Progress row */}
-                        <div className="flex items-center gap-3">
-                          <span className="text-gray-500 font-mono text-xs w-8">
-                            [{index + 1}/4]
-                          </span>
-                          <span className="text-white font-mono text-sm font-semibold min-w-[80px]">
-                            {item.key}
-                          </span>
-                          <ProgressBar
-                            progress={item.value}
-                            delay={(index + 1) * 200}
-                            active={showOutput}
-                          />
-                        </div>
-                        {/* Details */}
-                        <div className="pl-12 space-y-1">
-                          {item.details.map((detail, i) => (
-                            <motion.div
-                              key={i}
-                              initial={{ opacity: 0 }}
-                              animate={{ opacity: 1 }}
-                              transition={{ duration: 0.3, delay: index * 0.15 + 0.3 + i * 0.1 }}
-                              className="text-gray-500 font-mono text-xs"
-                            >
-                              <span className="text-cyan-400">→</span> {detail}
-                            </motion.div>
-                          ))}
-                        </div>
-                      </motion.div>
-                    ))}
-
-                    {/* Success message */}
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.4, delay: 1 }}
-                      className="pt-4 border-t border-gray-800"
-                    >
-                      <div className="font-mono text-xs text-green-400 flex items-center gap-2">
-                        <span>✓</span>
-                        <span>Ready to collaborate - scroll down to connect!</span>
-                      </div>
-                    </motion.div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              {/* HTTP Response Output */}
+              {showOutput && (
+                <div className="mt-3 space-y-0.5">
+                  {terminalOutput.slice(1, visibleLines + 1).map((line, i) => (
+                    <div key={i} className={getLineColor(line.type)}>
+                      {line.text || "\u00A0"}
+                    </div>
+                  ))}
+                  {visibleLines < terminalOutput.length - 1 && (
+                    <span className="animate-cursor text-green-400">_</span>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </motion.div>
