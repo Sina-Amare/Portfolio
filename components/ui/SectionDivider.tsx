@@ -1,69 +1,77 @@
 "use client";
 
 interface SectionDividerProps {
-  variant?: "gradient" | "dots" | "wave";
+  variant?: "terminal" | "code" | "merge" | "minimal";
+  label?: string;
   className?: string;
 }
 
 /**
- * SectionDivider - Clean, minimal visual separators
+ * SectionDivider - Creative visual separators with terminal aesthetic
  * GPU-accelerated CSS animations
  */
-export function SectionDivider({ variant = "gradient", className = "" }: SectionDividerProps) {
-  if (variant === "gradient") {
+export function SectionDivider({
+  variant = "terminal",
+  label,
+  className = "",
+}: SectionDividerProps) {
+  if (variant === "terminal") {
     return (
-      <div className={`relative h-20 w-full overflow-hidden ${className}`}>
-        {/* Main gradient line */}
-        <div className="absolute inset-x-0 top-1/2 h-[1px] bg-gradient-to-r from-transparent via-purple-500/50 to-transparent" />
+      <div className={`relative h-16 w-full flex items-center justify-center ${className}`}>
+        {/* Left line */}
+        <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-gray-700/50 to-gray-700/50" />
 
-        {/* Subtle center glow - animated */}
-        <div
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 rounded-full animate-pulse-slower"
-          style={{
-            background: "radial-gradient(circle, rgba(147,51,234,0.1) 0%, transparent 70%)",
-            filter: "blur(20px)",
-            transform: "translate(-50%, -50%) translateZ(0)",
-          }}
-        />
+        {/* Terminal comment */}
+        <span className="px-4 text-xs font-mono text-gray-600 whitespace-nowrap">
+          {label ? `// ${label}` : "// ─────"}
+        </span>
+
+        {/* Right line */}
+        <div className="flex-1 h-[1px] bg-gradient-to-l from-transparent via-gray-700/50 to-gray-700/50" />
       </div>
     );
   }
 
-  if (variant === "dots") {
+  if (variant === "code") {
+    return (
+      <div className={`relative h-16 w-full flex items-center justify-center ${className}`}>
+        <span className="text-xs font-mono text-gray-700">
+          {"/* "}
+          <span className="text-gray-600">{"─".repeat(30)}</span>
+          {" */"}
+        </span>
+      </div>
+    );
+  }
+
+  if (variant === "merge") {
+    return (
+      <div className={`relative h-16 w-full flex items-center justify-center ${className}`}>
+        {/* Left line */}
+        <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent to-cyan-500/30" />
+
+        {/* Diamond node */}
+        <div className="relative w-3 h-3 mx-4">
+          <div
+            className="absolute inset-0 bg-cyan-500/20 rotate-45 border border-cyan-500/40"
+            style={{ transform: "rotate(45deg)" }}
+          />
+          <div
+            className="absolute inset-[3px] bg-cyan-400/60 rotate-45"
+            style={{ transform: "rotate(45deg)" }}
+          />
+        </div>
+
+        {/* Right line */}
+        <div className="flex-1 h-[1px] bg-gradient-to-l from-transparent to-cyan-500/30" />
+      </div>
+    );
+  }
+
+  if (variant === "minimal") {
     return (
       <div className={`relative h-12 w-full flex items-center justify-center ${className}`}>
-        {/* Simple gradient line with glow */}
-        <div className="w-48 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/40 to-transparent" />
-      </div>
-    );
-  }
-
-  if (variant === "wave") {
-    return (
-      <div className={`relative h-16 w-full overflow-hidden ${className}`}>
-        {/* Elegant wave SVG */}
-        <svg
-          className="absolute inset-0 w-full h-full opacity-40"
-          viewBox="0 0 1200 100"
-          preserveAspectRatio="none"
-          style={{ transform: "translateZ(0)" }}
-        >
-          <path
-            d="M0,50 Q300,30 600,50 T1200,50"
-            fill="none"
-            stroke="url(#waveGradient)"
-            strokeWidth="1.5"
-          />
-          <defs>
-            <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="transparent" />
-              <stop offset="30%" stopColor="rgba(147, 51, 234, 0.5)" />
-              <stop offset="50%" stopColor="rgba(6, 182, 212, 0.5)" />
-              <stop offset="70%" stopColor="rgba(147, 51, 234, 0.5)" />
-              <stop offset="100%" stopColor="transparent" />
-            </linearGradient>
-          </defs>
-        </svg>
+        <div className="w-32 h-[1px] bg-gradient-to-r from-transparent via-gray-700/60 to-transparent" />
       </div>
     );
   }
@@ -72,7 +80,7 @@ export function SectionDivider({ variant = "gradient", className = "" }: Section
 }
 
 /**
- * GlowingBorder - Gradient border effect
+ * GlowingBorder - Gradient border effect wrapper
  */
 export function GlowingBorder({
   children,
@@ -84,7 +92,7 @@ export function GlowingBorder({
   return (
     <div className={`relative ${className}`}>
       <div
-        className="absolute -inset-[1px] bg-gradient-to-r from-purple-500 via-cyan-500 to-purple-500 rounded-lg opacity-40 blur-sm"
+        className="absolute -inset-[1px] bg-gradient-to-r from-purple-500 via-cyan-500 to-purple-500 rounded-lg opacity-30 blur-sm"
         style={{ transform: "translateZ(0)" }}
       />
       <div className="relative bg-[#0D1117] rounded-lg">{children}</div>

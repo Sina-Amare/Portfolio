@@ -15,19 +15,19 @@ export default function HomePage() {
       <Hero />
 
       {/* Divider */}
-      <SectionDivider variant="gradient" />
+      <SectionDivider variant="terminal" label="about" />
 
       {/* About Section */}
       <AboutSection />
 
       {/* Divider */}
-      <SectionDivider variant="dots" />
+      <SectionDivider variant="merge" />
 
       {/* Projects Section */}
       <ProjectsSection />
 
       {/* Divider */}
-      <SectionDivider variant="wave" />
+      <SectionDivider variant="terminal" label="expertise" />
 
       {/* Skills Section */}
       <SkillsSection />
@@ -36,7 +36,7 @@ export default function HomePage() {
       <HowIWork />
 
       {/* Divider */}
-      <SectionDivider variant="gradient" />
+      <SectionDivider variant="terminal" label="connect" />
 
       {/* Contact Section */}
       <ContactSection />
