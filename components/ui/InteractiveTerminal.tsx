@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface InteractiveTerminalProps {
@@ -20,6 +20,7 @@ export default function InteractiveTerminal({
   const [userInput, setUserInput] = useState("");
   const [easterEggOutput, setEasterEggOutput] = useState<React.ReactNode | null>(null);
   const [showHint, setShowHint] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Show hint after 10 seconds
@@ -28,22 +29,32 @@ export default function InteractiveTerminal({
     return () => clearTimeout(timer);
   }, []);
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && userInput.trim()) {
-      const cmd = userInput.toLowerCase().trim();
-      if (secretCommands[cmd]) {
-        setEasterEggOutput(secretCommands[cmd]);
-        setShowHint(false);
-      } else {
-        setEasterEggOutput(
-          <div className="text-red-400 font-mono text-sm">bash: {userInput}: command not found</div>
-        );
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === "Enter" && userInput.trim()) {
+        const cmd = userInput.toLowerCase().trim();
+        if (secretCommands[cmd]) {
+          setEasterEggOutput(secretCommands[cmd]);
+          setShowHint(false);
+        } else {
+          setEasterEggOutput(
+            <motion.div
+              className="text-red-400 font-mono text-sm"
+              initial={{ x: -10 }}
+              animate={{ x: [0, -5, 5, -3, 3, 0] }}
+              transition={{ duration: 0.4 }}
+            >
+              bash: {userInput}: command not found
+            </motion.div>
+          );
+        }
+        setUserInput("");
+        // Clear output after 8 seconds
+        setTimeout(() => setEasterEggOutput(null), 8000);
       }
-      setUserInput("");
-      // Clear output after 5 seconds
-      setTimeout(() => setEasterEggOutput(null), 5000);
-    }
-  };
+    },
+    [userInput, secretCommands]
+  );
 
   const focusInput = () => {
     inputRef.current?.focus();
@@ -73,14 +84,14 @@ export default function InteractiveTerminal({
               initial={{ opacity: 0, x: 10 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 10 }}
-              className="text-[10px] font-mono text-gray-600 cursor-pointer"
+              className="text-[10px] font-mono text-cyan-500/50 cursor-pointer hover:text-cyan-400 transition-colors"
               onClick={(e) => {
                 e.stopPropagation();
                 setUserInput(hintCommand);
                 focusInput();
               }}
             >
-              try: {hintCommand}
+              💡 try: {hintCommand}
             </motion.span>
           )}
         </AnimatePresence>
@@ -96,35 +107,58 @@ export default function InteractiveTerminal({
         {/* Output */}
         <div className="space-y-4 text-gray-300">{children}</div>
 
-        {/* Easter egg output */}
+        {/* Easter egg output with WOW animation */}
         <AnimatePresence>
           {easterEggOutput && (
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              className="mt-4 p-4 rounded-lg bg-cyan-500/5 border border-cyan-500/20"
+              initial={{ opacity: 0, scale: 0.8, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: -10 }}
+              transition={{ type: "spring", damping: 15, stiffness: 200 }}
+              className="mt-6 p-5 rounded-xl relative overflow-hidden"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(6,182,212,0.1) 0%, rgba(147,51,234,0.1) 100%)",
+                border: "1px solid rgba(6,182,212,0.3)",
+                boxShadow: "0 0 30px rgba(6,182,212,0.15), inset 0 1px 0 rgba(255,255,255,0.05)",
+              }}
             >
-              {easterEggOutput}
+              {/* Animated glow effect */}
+              <motion.div
+                className="absolute inset-0 pointer-events-none"
+                animate={{
+                  background: [
+                    "radial-gradient(circle at 20% 50%, rgba(6,182,212,0.15) 0%, transparent 50%)",
+                    "radial-gradient(circle at 80% 50%, rgba(147,51,234,0.15) 0%, transparent 50%)",
+                    "radial-gradient(circle at 20% 50%, rgba(6,182,212,0.15) 0%, transparent 50%)",
+                  ],
+                }}
+                transition={{ duration: 3, repeat: Infinity }}
+              />
+              <div className="relative z-10">{easterEggOutput}</div>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Interactive input line */}
+        {/* Interactive input line - cursor RIGHT AFTER $ */}
         <div className="mt-4 text-gray-400 flex items-center">
           <span className="text-cyan-400">$</span>
+          <span className="ml-1">
+            {!userInput && !isTyping && <span className="animate-cursor text-cyan-400">▌</span>}
+          </span>
           <input
             ref={inputRef}
             type="text"
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="flex-1 ml-2 bg-transparent outline-none text-cyan-300 font-mono placeholder:text-gray-600 caret-cyan-400"
-            placeholder={showHint ? `Try: ${hintCommand || "help"}` : ""}
+            onFocus={() => setIsTyping(true)}
+            onBlur={() => setIsTyping(false)}
+            className="flex-1 bg-transparent outline-none text-cyan-300 font-mono placeholder:text-gray-600 caret-cyan-400"
+            placeholder={showHint && !userInput ? `type "${hintCommand}" and press Enter` : ""}
             spellCheck={false}
             autoComplete="off"
           />
-          {!userInput && <span className="animate-cursor text-cyan-400">▌</span>}
         </div>
       </div>
     </div>

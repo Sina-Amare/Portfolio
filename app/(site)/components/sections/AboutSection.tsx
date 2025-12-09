@@ -14,6 +14,7 @@ import {
 } from "react-icons/si";
 import { GlassCard } from "@/components/ui/GlassCard";
 import Card3D from "@/components/3d/Card3D";
+import InteractiveTerminal from "@/components/ui/InteractiveTerminal";
 
 export default function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -139,61 +140,80 @@ export default function AboutSection() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="flex flex-col justify-center"
           >
-            {/* Terminal Window */}
-            <div
-              className="rounded-xl overflow-hidden border border-cyan-500/20"
-              style={{
-                background:
-                  "linear-gradient(180deg, rgba(15,23,42,0.98) 0%, rgba(10,14,20,0.98) 100%)",
-                boxShadow: "0 0 40px rgba(6,182,212,0.08)",
+            {/* Terminal Window - Interactive */}
+            <InteractiveTerminal
+              title="terminal — about.md"
+              command="cat about.md"
+              hintCommand="whoami"
+              secretCommands={{
+                whoami: (
+                  <div className="space-y-3">
+                    <div className="text-2xl">👨‍💻</div>
+                    <div className="text-[#8be9fd] font-semibold">Sina Amareh</div>
+                    <div className="text-gray-400 text-sm">
+                      A developer who turns ☕ into {"<code />"} and bugs into features.
+                    </div>
+                    <div className="text-[#50fa7b] text-xs font-mono">
+                      status: ready_to_build_something_amazing
+                    </div>
+                  </div>
+                ),
+                story: (
+                  <div className="space-y-3">
+                    <div className="text-[#ffbd44] font-semibold">📖 My Journey</div>
+                    <div className="text-gray-400 text-sm leading-relaxed">
+                      Started coding with curiosity, fell in love with backend systems. Now I
+                      architect solutions that scale and code that speaks.
+                    </div>
+                    <div className="flex gap-2 text-xs font-mono">
+                      <span className="text-[#ff79c6]">2022</span>
+                      <span className="text-gray-600">→</span>
+                      <span className="text-[#8be9fd]">First API</span>
+                      <span className="text-gray-600">→</span>
+                      <span className="text-[#50fa7b]">Production Ready</span>
+                    </div>
+                  </div>
+                ),
+                why: (
+                  <div className="space-y-2">
+                    <div className="text-[#ff79c6] font-semibold">💡 Why Backend?</div>
+                    <div className="text-gray-400 text-sm">
+                      Because the real magic happens where users don&apos;t see. I love building the
+                      engine, not just the dashboard.
+                    </div>
+                  </div>
+                ),
+                help: (
+                  <div className="space-y-1 text-sm">
+                    <div className="text-gray-400">Discover more about me:</div>
+                    <div className="text-cyan-400"> whoami - 👤 Who is Sina?</div>
+                    <div className="text-cyan-400"> story - 📖 My coding journey</div>
+                    <div className="text-cyan-400"> why - 💡 Why I love backend</div>
+                  </div>
+                ),
               }}
             >
-              {/* Terminal Chrome */}
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-cyan-500/10">
-                <div className="w-2.5 h-2.5 rounded-full bg-[#ff605c]" />
-                <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd44]" />
-                <div className="w-2.5 h-2.5 rounded-full bg-[#00ca4e]" />
-                <span className="ml-2 text-xs text-gray-500 font-mono">terminal — about.md</span>
+              <div className="border-l-2 border-purple-500/50 pl-4">
+                <p className="text-lg">
+                  <span className="text-[#50fa7b]">&quot;</span>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 font-semibold">
+                    Building systems where clarity meets creativity
+                  </span>
+                  <span className="text-[#50fa7b]">&quot;</span>
+                </p>
               </div>
 
-              {/* Terminal Content */}
-              <div className="p-6 font-mono text-sm">
-                {/* Command */}
-                <div className="text-gray-400 mb-4">
-                  <span className="text-cyan-400">$</span> cat about.md
-                </div>
-
-                {/* Output */}
-                <div className="space-y-4 text-gray-300">
-                  <div className="border-l-2 border-purple-500/50 pl-4">
-                    <p className="text-lg">
-                      <span className="text-[#50fa7b]">"</span>
-                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 font-semibold">
-                        Building systems where clarity meets creativity
-                      </span>
-                      <span className="text-[#50fa7b]">"</span>
-                    </p>
-                  </div>
-
-                  <div className="text-gray-400 leading-relaxed">
-                    Specialized in designing and implementing scalable backend architectures.
-                    Passionate about clean code, system optimization, and creating robust APIs that
-                    power modern applications.
-                  </div>
-
-                  <div className="text-gray-500 text-xs pt-2 border-t border-gray-700/30">
-                    <span className="text-green-400">→</span> 2 years hands-on experience • 1 year
-                    professional employment • Production-grade solutions
-                  </div>
-                </div>
-
-                {/* Blinking cursor */}
-                <div className="mt-4 text-gray-400">
-                  <span className="text-cyan-400">$</span>{" "}
-                  <span className="animate-cursor text-cyan-400">▌</span>
-                </div>
+              <div className="text-gray-400 leading-relaxed mt-4">
+                Specialized in designing and implementing scalable backend architectures. Passionate
+                about clean code, system optimization, and creating robust APIs that power modern
+                applications.
               </div>
-            </div>
+
+              <div className="text-gray-500 text-xs pt-2 mt-4 border-t border-gray-700/30">
+                <span className="text-green-400">→</span> 2 years hands-on experience • 1 year
+                professional employment • Production-grade solutions
+              </div>
+            </InteractiveTerminal>
           </motion.div>
         </div>
 
