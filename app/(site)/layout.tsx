@@ -20,6 +20,7 @@ const ScrollProgress = lazy(() => import("@/components/ui/ScrollProgress"));
 const ScrollToTop = lazy(() =>
   import("@/components/ui/ScrollToTop").then((mod) => ({ default: mod.ScrollToTop }))
 );
+const FloatingActionButton = lazy(() => import("@/components/ui/FloatingActionButton"));
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -58,6 +59,14 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className="bg-primary-background text-text-secondary antialiased min-h-screen flex flex-col relative overflow-x-hidden font-sans">
+        {/* Skip to content for accessibility */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-cyan-500 focus:text-white focus:rounded-md focus:font-mono focus:text-sm"
+        >
+          Skip to main content
+        </a>
+
         <LoadingScreen />
 
         <ToastProvider>
@@ -80,7 +89,13 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
               <Navigation />
             </header>
 
-            <main className="flex-1 relative z-10 pt-16 md:pt-20">{children}</main>
+            <main id="main-content" className="flex-1 relative z-10 pt-16 md:pt-20">
+              {children}
+            </main>
+
+            <Suspense fallback={null}>
+              <FloatingActionButton />
+            </Suspense>
 
             <Footer />
           </SmoothScrollProvider>

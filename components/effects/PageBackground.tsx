@@ -80,27 +80,29 @@ const commits = [
   { msg: "next: connect", ms: true },
 ];
 
-// Git Graph Component - SCROLLS WITH PAGE (absolute, not fixed)
+// Git Graph Component - Enhanced with bolder styling and glowing milestones
 const GitGraph = memo(function GitGraph() {
-  const nodeSpacing = 65;
-  const topOffset = 140;
-  const totalHeight = commits.length * nodeSpacing + topOffset + 200;
+  const nodeSpacing = 55; // Slightly tighter for more vertical coverage
+  const topOffset = 120;
+  // Extended height to cover through contact section (~6000px typical page)
+  const totalHeight = Math.max(commits.length * nodeSpacing + topOffset + 500, 5500);
 
   return (
     <div
-      className="hidden lg:block absolute left-6 top-0 pointer-events-none z-[1]"
-      style={{ height: `${totalHeight}px` }}
+      className="hidden lg:block absolute left-0 top-0 pointer-events-none z-[1]"
+      style={{ height: `${totalHeight}px`, width: "80px" }}
     >
-      {/* Main branch line */}
+      {/* Main branch line - thicker with glow */}
       <div
-        className="absolute w-[1px]"
+        className="absolute"
         style={{
-          left: "6px",
+          left: "24px",
           top: `${topOffset}px`,
+          width: "2px",
           height: `${totalHeight - topOffset - 100}px`,
           background:
-            "linear-gradient(180deg, transparent 0%, rgba(6,182,212,0.3) 2%, rgba(6,182,212,0.25) 98%, transparent 100%)",
-          boxShadow: "0 0 6px rgba(6,182,212,0.15)",
+            "linear-gradient(180deg, transparent 0%, rgba(6,182,212,0.4) 2%, rgba(6,182,212,0.35) 90%, rgba(6,182,212,0.2) 98%, transparent 100%)",
+          boxShadow: "0 0 10px rgba(6,182,212,0.25), 0 0 20px rgba(6,182,212,0.1)",
           transform: "translateZ(0)",
         }}
       />
@@ -109,7 +111,7 @@ const GitGraph = memo(function GitGraph() {
       {commits.map((commit, i) => {
         const isLast = i === commits.length - 1;
         const isMilestone = commit.ms;
-        const nodeSize = isMilestone ? 5 : 2;
+        const nodeSize = isMilestone ? 12 : 6;
 
         return (
           <div
@@ -125,16 +127,27 @@ const GitGraph = memo(function GitGraph() {
             <div
               className="absolute flex items-center justify-center"
               style={{
-                left: `${6 - nodeSize / 2}px`,
+                left: `${24 - nodeSize / 2}px`,
                 width: `${nodeSize}px`,
                 height: `${nodeSize}px`,
               }}
             >
+              {/* Milestone glow ring */}
+              {isMilestone && (
+                <div
+                  className="absolute rounded-full animate-pulse"
+                  style={{
+                    width: `${nodeSize + 8}px`,
+                    height: `${nodeSize + 8}px`,
+                    background: "radial-gradient(circle, rgba(6,182,212,0.3) 0%, transparent 70%)",
+                  }}
+                />
+              )}
               <div
                 className={`rounded-full ${
                   isMilestone || isLast
-                    ? "bg-cyan-400/80 shadow-[0_0_4px_rgba(6,182,212,0.5)]"
-                    : "bg-cyan-500/40"
+                    ? "bg-cyan-400 shadow-[0_0_8px_rgba(6,182,212,0.8),0_0_16px_rgba(6,182,212,0.4)]"
+                    : "bg-cyan-500/60"
                 }`}
                 style={{
                   width: `${nodeSize}px`,
@@ -143,19 +156,23 @@ const GitGraph = memo(function GitGraph() {
               />
               {isLast && (
                 <div
-                  className="absolute rounded-full bg-cyan-400/30 animate-ping"
-                  style={{ width: "6px", height: "6px" }}
+                  className="absolute rounded-full bg-cyan-400/40 animate-ping"
+                  style={{ width: "14px", height: "14px" }}
                 />
               )}
             </div>
 
-            {/* Commit message */}
+            {/* Commit message - bolder and more readable */}
             <span
-              className="absolute text-[8px] font-mono whitespace-nowrap"
+              className={`absolute font-mono whitespace-nowrap ${
+                isMilestone ? "font-semibold" : "font-normal"
+              }`}
               style={{
-                left: "16px",
-                color: isMilestone ? "rgba(6,182,212,0.5)" : "rgba(156,163,175,0.3)",
-                letterSpacing: "-0.02em",
+                left: "40px",
+                fontSize: "11px",
+                color: isMilestone ? "rgba(6,182,212,0.7)" : "rgba(156,163,175,0.45)",
+                letterSpacing: "-0.01em",
+                textShadow: isMilestone ? "0 0 10px rgba(6,182,212,0.3)" : "none",
               }}
             >
               {commit.msg}

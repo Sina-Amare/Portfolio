@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { motion, useScroll, useSpring } from "framer-motion";
+import { motion, useScroll, useSpring, useMotionValueEvent } from "framer-motion";
 
 interface ScrollProgressProps {
   color?: string;
@@ -11,9 +11,10 @@ interface ScrollProgressProps {
 export default function ScrollProgress({
   color = "linear-gradient(90deg, #9333EA, #06B6D4)",
   height = 3,
-  showPercentage = false,
+  showPercentage = true, // Default to true for better UX
 }: ScrollProgressProps) {
   const [mounted, setMounted] = useState(false);
+  const [percentage, setPercentage] = useState(0);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -24,6 +25,11 @@ export default function ScrollProgress({
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Update percentage on scroll
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    setPercentage(Math.round(latest * 100));
+  });
 
   if (!mounted) return null;
 
@@ -39,13 +45,14 @@ export default function ScrollProgress({
         }}
       />
 
-      {/* Percentage Indicator (optional) */}
-      {showPercentage && (
+      {/* Percentage Indicator - shows when scrolled */}
+      {showPercentage && percentage > 5 && (
         <motion.div
-          className="fixed top-4 right-4 z-50 px-3 py-1 rounded-full bg-[#0D1117]/80 backdrop-blur-sm border border-gray-800/50 font-mono text-xs text-cyan-400"
-          style={{ opacity: scrollYProgress }}
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="fixed top-[72px] md:top-[88px] right-4 z-50 px-2 py-0.5 rounded-md bg-[#0D1117]/90 backdrop-blur-sm border border-gray-800/50 font-mono text-[10px] text-cyan-400"
         >
-          <motion.span>{Math.round(scrollYProgress.get() * 100)}%</motion.span>
+          {percentage}%
         </motion.div>
       )}
     </>

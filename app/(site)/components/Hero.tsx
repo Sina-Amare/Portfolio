@@ -56,6 +56,23 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Auto-trigger after 3 seconds if user doesn't click
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!showOutput) handleRun();
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [showOutput]);
+
+  // Keyboard listener for Enter key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Enter" && !showOutput) handleRun();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [showOutput]);
+
   const handleRun = () => {
     if (showOutput) return;
     setShowOutput(true);
@@ -395,27 +412,30 @@ const Hero = () => {
 
               {/* Animated Run Button - Pulsing to attract attention */}
               {!showOutput && (
-                <motion.button
-                  onClick={handleRun}
-                  animate={{
-                    boxShadow: [
-                      "0 0 0 0 rgba(34, 197, 94, 0.4)",
-                      "0 0 0 8px rgba(34, 197, 94, 0)",
-                      "0 0 0 0 rgba(34, 197, 94, 0)",
-                    ],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-green-500/20 border border-green-500/50 text-green-400 text-xs font-mono hover:bg-green-500/30 transition-colors"
-                >
-                  <FaPlay className="w-2.5 h-2.5" />
-                  <span>Run</span>
-                </motion.button>
+                <div className="flex flex-col items-end gap-1">
+                  <motion.button
+                    onClick={handleRun}
+                    animate={{
+                      boxShadow: [
+                        "0 0 0 0 rgba(34, 197, 94, 0.4)",
+                        "0 0 0 8px rgba(34, 197, 94, 0)",
+                        "0 0 0 0 rgba(34, 197, 94, 0)",
+                      ],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-green-500/20 border border-green-500/50 text-green-400 text-xs font-mono hover:bg-green-500/30 transition-colors"
+                  >
+                    <FaPlay className="w-2.5 h-2.5" />
+                    <span>Run</span>
+                  </motion.button>
+                  <span className="text-[10px] text-gray-500 font-mono">Press Enter ↵</span>
+                </div>
               )}
               {showOutput && <span className="text-xs font-mono text-green-400">✓ executed</span>}
             </div>
