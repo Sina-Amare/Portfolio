@@ -155,10 +155,10 @@ export default function ContactSection() {
               </div>
             </GlassCard>
 
-            {/* Social Links */}
-            <GlassCard variant="subtle" className="p-6">
+            {/* Social Links - Terminal Style */}
+            <GlassCard variant="terminal" className="p-6">
               <h3 className="text-sm font-mono text-gray-400 uppercase tracking-wider mb-4">
-                Connect With Me
+                <span className="text-[#50fa7b]">$</span> list --connections
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 {socialLinks.map((social) => (
@@ -168,15 +168,20 @@ export default function ContactSection() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group"
-                    whileHover={{ y: -3 }}
+                    whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <div className="p-4 bg-white/5 border border-white/10 rounded-lg hover:border-cyan-500/30 hover:bg-white/10 transition-all">
-                      <div className="text-2xl text-gray-400 group-hover:text-cyan-400 transition-colors mb-2 flex justify-center">
-                        {social.icon}
-                      </div>
-                      <div className="text-xs font-mono text-gray-500 text-center">
-                        {social.label}
+                    <div className="p-4 bg-[#161b22] border border-gray-800 rounded-lg hover:border-cyan-500/40 hover:bg-[#1c2128] transition-all">
+                      <div className="flex items-center gap-3">
+                        <div className="text-xl text-gray-500 group-hover:text-cyan-400 transition-colors">
+                          {social.icon}
+                        </div>
+                        <div className="font-mono text-sm">
+                          <span className="text-cyan-400/60">$</span>
+                          <span className="text-gray-400 group-hover:text-gray-200 ml-1">
+                            open {social.label.toLowerCase()}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </motion.a>

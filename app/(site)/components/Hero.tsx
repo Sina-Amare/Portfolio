@@ -8,36 +8,38 @@ import MagneticEffect from "@/components/effects/MagneticEffect";
 import { PageBackground } from "@/components/effects/PageBackground";
 import { CopyButton } from "@/components/ui/CopyButton";
 
-// Terminal output lines for real HTTP request feel
-const terminalOutput = [
-  {
-    type: "command" as const,
-    text: "$ curl -s https://api.sina.dev/profile -H 'Accept: application/json'",
-  },
-  { type: "blank" as const, text: "" },
-  { type: "status" as const, text: "HTTP/1.1 200 OK" },
-  { type: "header" as const, text: "Content-Type: application/json; charset=utf-8" },
-  { type: "header" as const, text: "X-Response-Time: 42ms" },
-  { type: "blank" as const, text: "" },
-  { type: "json" as const, text: "{" },
-  { type: "json" as const, text: '  "name": "Sina Amareh",' },
-  { type: "json" as const, text: '  "role": "Backend Architect",' },
-  { type: "json" as const, text: '  "focus": "Building scalable systems",' },
-  { type: "json" as const, text: '  "experience": "2+ years",' },
-  { type: "json" as const, text: '  "stack": ["Python", "Django", "FastAPI", "PostgreSQL"],' },
-  { type: "json" as const, text: '  "status": "available_for_hire",' },
-  { type: "json" as const, text: '  "contact": "#contact"' },
-  { type: "json" as const, text: "}" },
-  { type: "blank" as const, text: "" },
-  { type: "success" as const, text: "✓ Request completed successfully" },
-];
+// Build the full terminal output as a string for typewriter effect
+const buildTerminalOutput = () => {
+  const lines = [
+    "",
+    "HTTP/1.1 200 OK",
+    "Content-Type: application/json; charset=utf-8",
+    "X-Response-Time: 42ms",
+    "",
+    "{",
+    '  "name": "Sina Amareh",',
+    '  "role": "Backend Architect",',
+    '  "focus": "Building scalable systems",',
+    '  "experience": "2+ years",',
+    '  "stack": ["Python", "Django", "FastAPI", "PostgreSQL"],',
+    '  "status": "available_for_hire",',
+    '  "contact": "#contact"',
+    "}",
+    "",
+    "✓ Request completed successfully",
+  ];
+  return lines.join("\n");
+};
+
+const fullOutput = buildTerminalOutput();
 
 const Hero = () => {
   const [showOutput, setShowOutput] = useState(false);
-  const [visibleLines, setVisibleLines] = useState(0);
+  const [outputTyped, setOutputTyped] = useState("");
   const [commandTyped, setCommandTyped] = useState("");
+  const [isTypingComplete, setIsTypingComplete] = useState(false);
 
-  const command = terminalOutput[0].text;
+  const command = "$ curl -s https://api.sina.dev/profile -H 'Accept: application/json'";
 
   // Typewriter effect for command
   useEffect(() => {
@@ -50,7 +52,7 @@ const Hero = () => {
         setCommandTyped(command.substring(0, i + 1));
         i++;
       }
-    }, 50);
+    }, 40);
     return () => clearInterval(interval);
   }, []);
 
@@ -58,34 +60,77 @@ const Hero = () => {
     if (showOutput) return;
     setShowOutput(true);
 
-    // Animate output lines one by one (skip command line)
-    let currentLine = 1;
+    // Character-by-character typewriter for output
+    let charIndex = 0;
     const interval = setInterval(() => {
-      if (currentLine >= terminalOutput.length) {
+      if (charIndex >= fullOutput.length) {
         clearInterval(interval);
+        setIsTypingComplete(true);
       } else {
-        setVisibleLines(currentLine);
-        currentLine++;
+        setOutputTyped(fullOutput.substring(0, charIndex + 1));
+        charIndex++;
       }
-    }, 120);
+    }, 12); // Fast but smooth typing
   };
 
-  // Get line color based on type
-  const getLineColor = (type: string) => {
-    switch (type) {
-      case "command":
-        return "text-green-400";
-      case "status":
-        return "text-[#50fa7b]";
-      case "header":
-        return "text-gray-500";
-      case "json":
-        return "text-purple-400";
-      case "success":
-        return "text-[#50fa7b]";
-      default:
-        return "text-gray-400";
-    }
+  // Syntax highlight the typed output
+  const renderOutput = () => {
+    if (!outputTyped) return null;
+
+    return outputTyped.split("\n").map((line, i) => {
+      // HTTP status
+      if (line.startsWith("HTTP/")) {
+        return (
+          <div key={i} className="text-[#50fa7b]">
+            {line}
+          </div>
+        );
+      }
+      // Headers
+      if (line.startsWith("Content-Type") || line.startsWith("X-Response")) {
+        return (
+          <div key={i} className="text-[#6272a4]">
+            {line}
+          </div>
+        );
+      }
+      // Success message
+      if (line.startsWith("✓")) {
+        return (
+          <div key={i} className="text-[#50fa7b]">
+            {line}
+          </div>
+        );
+      }
+      // JSON brackets
+      if (line === "{" || line === "}") {
+        return (
+          <div key={i} className="text-[#f8f8f2]">
+            {line}
+          </div>
+        );
+      }
+      // JSON key-value lines
+      if (line.includes('":')) {
+        const parts = line.match(/^(\s*)"([^"]+)":\s*(.+)$/);
+        if (parts) {
+          const [, indent, key, value] = parts;
+          return (
+            <div key={i} className="text-[#f8f8f2]">
+              {indent}
+              <span className="text-[#ff79c6]">"{key}"</span>:{" "}
+              {value.startsWith("[") ? (
+                <span className="text-[#8be9fd]">{value}</span>
+              ) : (
+                <span className="text-[#50fa7b]">{value}</span>
+              )}
+            </div>
+          );
+        }
+      }
+      // Empty or other lines
+      return <div key={i}>{line || "\u00A0"}</div>;
+    });
   };
 
   return (
@@ -385,17 +430,11 @@ const Hero = () => {
                 )}
               </div>
 
-              {/* HTTP Response Output */}
+              {/* HTTP Response Output - Character-by-character typewriter */}
               {showOutput && (
                 <div className="mt-3 space-y-0.5">
-                  {terminalOutput.slice(1, visibleLines + 1).map((line, i) => (
-                    <div key={i} className={getLineColor(line.type)}>
-                      {line.text || "\u00A0"}
-                    </div>
-                  ))}
-                  {visibleLines < terminalOutput.length - 1 && (
-                    <span className="animate-cursor text-green-400">_</span>
-                  )}
+                  {renderOutput()}
+                  {!isTypingComplete && <span className="animate-cursor text-cyan-400">▌</span>}
                 </div>
               )}
             </div>

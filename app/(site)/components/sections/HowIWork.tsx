@@ -85,16 +85,21 @@ export default function HowIWork() {
           transition={{ duration: 0.6 }}
           className="relative"
         >
-          {/* Terminal container */}
-          <div className="bg-[#0d1117] border border-gray-800 rounded-lg overflow-hidden shadow-2xl">
+          {/* Terminal container - styled to match AboutSection terminal */}
+          <div
+            className="rounded-xl overflow-hidden border border-cyan-500/20"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(15,23,42,0.98) 0%, rgba(10,14,20,0.98) 100%)",
+              boxShadow: "0 0 40px rgba(6,182,212,0.08)",
+            }}
+          >
             {/* Terminal header */}
-            <div className="flex items-center gap-2 px-4 py-3 bg-[#161b22] border-b border-gray-800">
-              <div className="w-3 h-3 rounded-full bg-red-500/80" />
-              <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-              <div className="w-3 h-3 rounded-full bg-green-500/80" />
-              <span className="ml-3 text-xs text-gray-500 font-mono">
-                sina@portfolio ~ methodology
-              </span>
+            <div className="flex items-center gap-2 px-4 py-3 border-b border-cyan-500/10">
+              <div className="w-2.5 h-2.5 rounded-full bg-[#ff605c]" />
+              <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd44]" />
+              <div className="w-2.5 h-2.5 rounded-full bg-[#00ca4e]" />
+              <span className="ml-2 text-xs text-gray-500 font-mono">terminal — methodology</span>
             </div>
 
             {/* Terminal content */}
@@ -107,7 +112,7 @@ export default function HowIWork() {
                 transition={{ delay: 0.2 }}
                 className="mb-6"
               >
-                <span className="text-green-400">$</span>
+                <span className="text-[#50fa7b]">$</span>
                 <span className="text-white ml-2">sina --methodology</span>
                 <span className="animate-cursor text-cyan-400 ml-1">_</span>
               </motion.div>

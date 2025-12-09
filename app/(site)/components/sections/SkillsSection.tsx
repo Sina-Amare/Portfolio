@@ -272,60 +272,78 @@ export default function SkillsSection() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Experience Summary Card */}
+          {/* Experience Summary Card - Terminal Style */}
           <motion.div className="skill-card">
-            <GlassCard
-              variant="subtle"
-              className="p-8 h-full flex flex-col justify-center relative overflow-hidden"
-            >
-              {/* Decorative gradient */}
-              <div
-                className="absolute top-0 right-0 w-32 h-32 rounded-full blur-3xl opacity-20"
-                style={{ background: currentCategory.color }}
-              />
-
-              <h3 className="text-xl font-bold text-white mb-6 font-mono relative">
-                <span className="text-cyan-400">$</span> summary --experience
-              </h3>
-              <p className="text-gray-300 mb-6 leading-relaxed text-lg relative">
-                2 years of hands-on backend development experience with{" "}
-                <span className="text-purple-400 font-semibold">Python</span>,{" "}
-                <span className="text-cyan-400 font-semibold">Django</span>, and{" "}
-                <span className="text-green-400 font-semibold">FastAPI</span>. Specialized in
-                building scalable APIs, optimizing database performance, and implementing robust
-                system architectures.
-              </p>
-
-              {/* Tech tags */}
-              <div className="flex flex-wrap gap-2 relative">
-                {[
-                  "Python",
-                  "Django",
-                  "FastAPI",
-                  "PostgreSQL",
-                  "Docker",
-                  "REST APIs",
-                  "Redis",
-                  "CI/CD",
-                ].map((tech, i) => (
-                  <motion.span
-                    key={tech}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: i * 0.05 }}
-                    className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-sm font-mono text-gray-400 hover:border-purple-500/50 hover:text-purple-400 hover:bg-purple-500/10 transition-all cursor-default"
-                  >
-                    {tech}
-                  </motion.span>
-                ))}
+            <GlassCard variant="terminal" className="p-0 h-full overflow-hidden" glow>
+              {/* Terminal Chrome */}
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-cyan-500/10">
+                <div className="w-2.5 h-2.5 rounded-full bg-[#ff605c]" />
+                <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd44]" />
+                <div className="w-2.5 h-2.5 rounded-full bg-[#00ca4e]" />
+                <span className="ml-2 text-xs text-gray-500 font-mono">terminal — experience</span>
               </div>
 
-              {/* Status indicator */}
-              <div className="mt-8 pt-4 border-t border-white/10">
-                <div className="flex items-center gap-2 text-sm font-mono">
-                  <span className="text-green-400">●</span>
-                  <span className="text-gray-500">Currently learning:</span>
-                  <span className="text-cyan-400">Kubernetes, AWS, System Design</span>
+              {/* Terminal Content */}
+              <div className="p-6 relative">
+                {/* Decorative gradient */}
+                <div
+                  className="absolute top-0 right-0 w-32 h-32 rounded-full blur-3xl opacity-20"
+                  style={{ background: currentCategory.color }}
+                />
+
+                {/* Command */}
+                <div className="font-mono text-sm mb-4">
+                  <span className="text-[#50fa7b]">$</span>
+                  <span className="text-white ml-2">summary --experience</span>
+                </div>
+
+                {/* Output */}
+                <p className="text-gray-300 mb-6 leading-relaxed text-base relative">
+                  2 years of hands-on backend development experience with{" "}
+                  <span className="text-[#ff79c6] font-semibold">Python</span>,{" "}
+                  <span className="text-[#8be9fd] font-semibold">Django</span>, and{" "}
+                  <span className="text-[#50fa7b] font-semibold">FastAPI</span>. Specialized in
+                  building scalable APIs, optimizing database performance, and implementing robust
+                  system architectures.
+                </p>
+
+                {/* Tech tags */}
+                <div className="flex flex-wrap gap-2 relative">
+                  {[
+                    "Python",
+                    "Django",
+                    "FastAPI",
+                    "PostgreSQL",
+                    "Docker",
+                    "REST APIs",
+                    "Redis",
+                    "CI/CD",
+                  ].map((tech, i) => (
+                    <motion.span
+                      key={tech}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: i * 0.05 }}
+                      className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-sm font-mono text-gray-400 hover:border-cyan-500/50 hover:text-cyan-400 hover:bg-cyan-500/10 transition-all cursor-default"
+                    >
+                      {tech}
+                    </motion.span>
+                  ))}
+                </div>
+
+                {/* Status indicator */}
+                <div className="mt-6 pt-4 border-t border-white/10">
+                  <div className="flex items-center gap-2 text-sm font-mono">
+                    <span className="text-[#50fa7b]">●</span>
+                    <span className="text-gray-500">Currently learning:</span>
+                    <span className="text-[#8be9fd]">Kubernetes, AWS, System Design</span>
+                  </div>
+                </div>
+
+                {/* Blinking cursor - matches AboutSection style */}
+                <div className="mt-4 text-gray-400 font-mono text-sm">
+                  <span className="text-cyan-400">$</span>{" "}
+                  <span className="animate-cursor text-cyan-400">▌</span>
                 </div>
               </div>
             </GlassCard>
