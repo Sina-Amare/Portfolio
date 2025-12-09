@@ -165,14 +165,18 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           className="flex flex-col items-center lg:items-start text-center lg:text-left"
         >
-          {/* Section Number */}
+          {/* Section Number - Terminal style */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="section-number mb-4"
+            className="font-mono text-sm text-cyan-400/70 mb-4 tracking-wider"
+            style={{ textShadow: "0 0 15px rgba(6,182,212,0.3)" }}
           >
-            // 00. Home
+            <span className="text-gray-500">{"// "}</span>
+            <span className="text-cyan-400">00</span>
+            <span className="text-gray-600">.</span>
+            <span className="text-gray-400 uppercase tracking-widest"> HOME</span>
           </motion.div>
 
           {/* Hero Heading with Staggered Animation */}
@@ -219,38 +223,45 @@ const Hero = () => {
             <span className="text-pink-400 font-medium">imagination</span>.
           </motion.p>
 
-          {/* Consolidated Credentials - Staggered Animation */}
+          {/* Consolidated Credentials - Premium styling with glowing borders */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 1 }}
-            className="flex flex-wrap items-center gap-3 mt-6"
+            className="flex flex-wrap items-center gap-3 mt-6 p-3 rounded-xl bg-gradient-to-r from-white/[0.03] to-transparent border border-white/[0.06]"
+            style={{ boxShadow: "0 0 30px rgba(6,182,212,0.05)" }}
           >
             <motion.span
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.4, delay: 1.1 }}
-              className="text-sm font-mono text-gray-500 px-2 py-1 rounded bg-white/5"
+              className="text-sm font-mono text-cyan-400/80 px-3 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20"
+              style={{ textShadow: "0 0 10px rgba(6,182,212,0.3)" }}
             >
               2+ Years
             </motion.span>
-            <span className="text-gray-600">·</span>
+            <span className="text-gray-700">•</span>
             <motion.span
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.4, delay: 1.3 }}
-              className="text-sm font-mono text-gray-500 px-2 py-1 rounded bg-white/5"
+              className="text-sm font-mono text-purple-400/80 px-3 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20"
+              style={{ textShadow: "0 0 10px rgba(147,51,234,0.3)" }}
             >
               Backend Specialist
             </motion.span>
-            <span className="text-gray-600">·</span>
+            <span className="text-gray-700">•</span>
             <motion.span
               initial={{ opacity: 0, x: -10, scale: 0.9 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               transition={{ duration: 0.5, delay: 1.5 }}
-              className="text-sm font-mono text-green-400 flex items-center gap-1.5 px-2 py-1 rounded bg-green-500/10 border border-green-500/20"
+              className="text-sm font-mono text-green-400 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-green-500/10 border border-green-500/30"
+              style={{ boxShadow: "0 0 15px rgba(34,197,94,0.2)" }}
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
+              <span
+                className="w-2 h-2 rounded-full bg-green-400 animate-pulse"
+                style={{ boxShadow: "0 0 8px rgba(34,197,94,0.8)" }}
+              ></span>
               Available
             </motion.span>
           </motion.div>
