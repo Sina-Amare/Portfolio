@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SkillBar } from "@/components/ui/SkillBar";
 import { GlassCard } from "@/components/ui/GlassCard";
 import Card3D from "@/components/3d/Card3D";
+import InteractiveTerminal from "@/components/ui/InteractiveTerminal";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -272,81 +273,91 @@ export default function SkillsSection() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Experience Summary Card - Terminal Style */}
+          {/* Experience Summary Card - Interactive Terminal Style */}
           <motion.div className="skill-card">
-            <GlassCard variant="terminal" className="p-0 h-full overflow-hidden" glow>
-              {/* Terminal Chrome */}
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-cyan-500/10">
-                <div className="w-2.5 h-2.5 rounded-full bg-[#ff605c]" />
-                <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd44]" />
-                <div className="w-2.5 h-2.5 rounded-full bg-[#00ca4e]" />
-                <span className="ml-2 text-xs text-gray-500 font-mono">terminal — experience</span>
-              </div>
-
-              {/* Terminal Content */}
-              <div className="p-6 relative">
-                {/* Decorative gradient */}
-                <div
-                  className="absolute top-0 right-0 w-32 h-32 rounded-full blur-3xl opacity-20"
-                  style={{ background: currentCategory.color }}
-                />
-
-                {/* Command */}
-                <div className="font-mono text-sm mb-4">
-                  <span className="text-[#50fa7b]">$</span>
-                  <span className="text-white ml-2">summary --experience</span>
-                </div>
-
-                {/* Output */}
-                <p className="text-gray-300 mb-6 leading-relaxed text-base relative">
-                  2 years of hands-on backend development experience with{" "}
-                  <span className="text-[#ff79c6] font-semibold">Python</span>,{" "}
-                  <span className="text-[#8be9fd] font-semibold">Django</span>, and{" "}
-                  <span className="text-[#50fa7b] font-semibold">FastAPI</span>. Specialized in
-                  building scalable APIs, optimizing database performance, and implementing robust
-                  system architectures.
-                </p>
-
-                {/* Tech tags */}
-                <div className="flex flex-wrap gap-2 relative">
-                  {[
-                    "Python",
-                    "Django",
-                    "FastAPI",
-                    "PostgreSQL",
-                    "Docker",
-                    "REST APIs",
-                    "Redis",
-                    "CI/CD",
-                  ].map((tech, i) => (
-                    <motion.span
-                      key={tech}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: i * 0.05 }}
-                      className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-sm font-mono text-gray-400 hover:border-cyan-500/50 hover:text-cyan-400 hover:bg-cyan-500/10 transition-all cursor-default"
-                    >
-                      {tech}
-                    </motion.span>
-                  ))}
-                </div>
-
-                {/* Status indicator */}
-                <div className="mt-6 pt-4 border-t border-white/10">
-                  <div className="flex items-center gap-2 text-sm font-mono">
-                    <span className="text-[#50fa7b]">●</span>
-                    <span className="text-gray-500">Currently learning:</span>
-                    <span className="text-[#8be9fd]">Kubernetes, AWS, System Design</span>
+            <InteractiveTerminal
+              title="terminal — experience"
+              command="summary --experience"
+              hintCommand="hire"
+              secretCommands={{
+                hire: (
+                  <div className="space-y-2">
+                    <div className="text-[#50fa7b] font-semibold">🎉 Achievement Unlocked!</div>
+                    <div className="text-gray-300">
+                      You found the secret! I&apos;m actively looking for opportunities.
+                    </div>
+                    <div className="text-cyan-400">
+                      →{" "}
+                      <a href="#contact" className="underline hover:text-cyan-300">
+                        Let&apos;s connect!
+                      </a>
+                    </div>
                   </div>
-                </div>
+                ),
+                coffee: (
+                  <div className="space-y-2">
+                    <div className="text-[#ffbd44] font-semibold">☕ Coffee Counter: ∞</div>
+                    <div className="text-gray-400">Fueled by caffeine, powered by curiosity.</div>
+                  </div>
+                ),
+                sudo: (
+                  <div className="text-[#ff79c6]">
+                    Nice try! But you don&apos;t have sudo access here 😄
+                  </div>
+                ),
+                help: (
+                  <div className="space-y-1 text-gray-400">
+                    <div>Available commands:</div>
+                    <div className="text-cyan-400"> hire - 🎯 See hiring info</div>
+                    <div className="text-cyan-400"> coffee - ☕ Coffee stats</div>
+                    <div className="text-cyan-400"> sudo - 🔐 Admin access</div>
+                  </div>
+                ),
+              }}
+            >
+              {/* Output content */}
+              <p className="text-gray-300 leading-relaxed text-base">
+                2 years of hands-on backend development experience with{" "}
+                <span className="text-[#ff79c6] font-semibold">Python</span>,{" "}
+                <span className="text-[#8be9fd] font-semibold">Django</span>, and{" "}
+                <span className="text-[#50fa7b] font-semibold">FastAPI</span>. Specialized in
+                building scalable APIs, optimizing database performance, and implementing robust
+                system architectures.
+              </p>
 
-                {/* Blinking cursor - matches AboutSection style */}
-                <div className="mt-4 text-gray-400 font-mono text-sm">
-                  <span className="text-cyan-400">$</span>{" "}
-                  <span className="animate-cursor text-cyan-400">▌</span>
+              {/* Tech tags */}
+              <div className="flex flex-wrap gap-2 mt-4">
+                {[
+                  "Python",
+                  "Django",
+                  "FastAPI",
+                  "PostgreSQL",
+                  "Docker",
+                  "REST APIs",
+                  "Redis",
+                  "CI/CD",
+                ].map((tech, i) => (
+                  <motion.span
+                    key={tech}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: i * 0.05 }}
+                    className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-sm font-mono text-gray-400 hover:border-cyan-500/50 hover:text-cyan-400 hover:bg-cyan-500/10 transition-all cursor-default"
+                  >
+                    {tech}
+                  </motion.span>
+                ))}
+              </div>
+
+              {/* Status indicator */}
+              <div className="mt-4 pt-4 border-t border-white/10">
+                <div className="flex items-center gap-2 text-sm font-mono">
+                  <span className="text-[#50fa7b]">●</span>
+                  <span className="text-gray-500">Currently learning:</span>
+                  <span className="text-[#8be9fd]">Kubernetes, AWS, System Design</span>
                 </div>
               </div>
-            </GlassCard>
+            </InteractiveTerminal>
           </motion.div>
         </div>
       </div>

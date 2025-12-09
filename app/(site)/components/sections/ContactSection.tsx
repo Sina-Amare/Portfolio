@@ -10,6 +10,7 @@ import {
   FaClock,
 } from "react-icons/fa";
 import { GlassCard } from "@/components/ui/GlassCard";
+import InteractiveTerminal from "@/components/ui/InteractiveTerminal";
 
 interface FormData {
   name: string;
@@ -121,12 +122,44 @@ export default function ContactSection() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="space-y-6"
           >
-            {/* Terminal Connection */}
-            <GlassCard variant="terminal" className="p-6" glow>
-              <div className="font-mono text-sm space-y-2 mb-6">
-                <div className="text-gray-400">
-                  <span className="text-[#50fa7b]">$</span> ssh contact@sina-amareh.dev
-                </div>
+            {/* Terminal Connection - Interactive */}
+            <InteractiveTerminal
+              title="terminal — contact"
+              command="ssh contact@sina-amareh.dev"
+              hintCommand="connect"
+              secretCommands={{
+                connect: (
+                  <div className="space-y-2">
+                    <div className="text-[#50fa7b] font-semibold">🔗 Connection Established!</div>
+                    <div className="text-gray-300">
+                      Ready to collaborate. Fill out the form or reach out directly!
+                    </div>
+                    <div className="text-cyan-400">→ Email: hello@sina-amareh.dev</div>
+                  </div>
+                ),
+                ping: (
+                  <div className="space-y-1 font-mono text-sm">
+                    <div className="text-gray-400">PING sina-amareh.dev (127.0.0.1): 56 bytes</div>
+                    <div className="text-[#50fa7b]">64 bytes: time=0.1ms ✓ ONLINE</div>
+                    <div className="text-cyan-400">Response time: &lt;24 hours</div>
+                  </div>
+                ),
+                whoami: (
+                  <div className="text-[#8be9fd]">
+                    A curious developer exploring your portfolio 🕵️
+                  </div>
+                ),
+                help: (
+                  <div className="space-y-1 text-gray-400 text-sm">
+                    <div>Available commands:</div>
+                    <div className="text-cyan-400"> connect - 🔗 Start connection</div>
+                    <div className="text-cyan-400"> ping - 📡 Check availability</div>
+                    <div className="text-cyan-400"> whoami - 🕵️ Who are you?</div>
+                  </div>
+                ),
+              }}
+            >
+              <div className="font-mono text-sm space-y-2 mb-4">
                 <div className="text-gray-500">
                   <span className="text-cyan-400">›</span> Establishing secure connection...
                 </div>
@@ -153,12 +186,19 @@ export default function ContactSection() {
                   </div>
                 </div>
               </div>
-            </GlassCard>
+            </InteractiveTerminal>
 
-            {/* Social Links - Terminal Style */}
-            <GlassCard variant="terminal" className="p-6">
+            {/* Social Links - About.md Style */}
+            <div
+              className="rounded-xl overflow-hidden border border-cyan-500/20 p-6"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(15,23,42,0.98) 0%, rgba(10,14,20,0.98) 100%)",
+                boxShadow: "0 0 40px rgba(6,182,212,0.08)",
+              }}
+            >
               <h3 className="text-sm font-mono text-gray-400 uppercase tracking-wider mb-4">
-                <span className="text-[#50fa7b]">$</span> list --connections
+                <span className="text-cyan-400">$</span> list --connections
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 {socialLinks.map((social) => (
@@ -171,7 +211,7 @@ export default function ContactSection() {
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <div className="p-4 bg-[#161b22] border border-gray-800 rounded-lg hover:border-cyan-500/40 hover:bg-[#1c2128] transition-all">
+                    <div className="p-4 bg-white/5 border border-cyan-500/10 rounded-lg hover:border-cyan-500/40 hover:bg-cyan-500/5 transition-all">
                       <div className="flex items-center gap-3">
                         <div className="text-xl text-gray-500 group-hover:text-cyan-400 transition-colors">
                           {social.icon}
@@ -187,7 +227,7 @@ export default function ContactSection() {
                   </motion.a>
                 ))}
               </div>
-            </GlassCard>
+            </div>
 
             {/* Email Direct */}
             <GlassCard variant="subtle" className="p-6">
