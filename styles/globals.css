@@ -49,15 +49,23 @@ body {
 /* Hide cursor on interactive elements */
 a,
 button,
+[role="button"],
+.cursor-pointer,
 [data-interactive="true"] {
-  cursor: none;
+  cursor: none !important;
 }
 
 @media (max-width: 1024px) {
+  body {
+    cursor: auto !important;
+  }
+
   a,
   button,
+  [role="button"],
+  .cursor-pointer,
   [data-interactive="true"] {
-    cursor: pointer;
+    cursor: pointer !important;
   }
 }
 
