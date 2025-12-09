@@ -56,11 +56,11 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Auto-trigger after 3 seconds if user doesn't click
+  // Auto-trigger after 7 seconds if user doesn't click
   useEffect(() => {
     const timer = setTimeout(() => {
       if (!showOutput) handleRun();
-    }, 3000);
+    }, 7000);
     return () => clearTimeout(timer);
   }, [showOutput]);
 

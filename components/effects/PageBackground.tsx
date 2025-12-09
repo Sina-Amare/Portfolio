@@ -1,7 +1,17 @@
 "use client";
 import { memo } from "react";
 
-// Extended git commits - 75 nodes for full journey (short labels)
+// Generate a pseudo-random commit hash
+const generateHash = (seed: number) => {
+  const chars = "0123456789abcdef";
+  let hash = "";
+  for (let i = 0; i < 7; i++) {
+    hash += chars[(seed * (i + 1) * 7) % 16];
+  }
+  return hash;
+};
+
+// Extended git commits - journey from hello world to hiring (with hashes)
 const commits = [
   { msg: "init: hello world", ms: true },
   { msg: "feat: print()", ms: false },
@@ -78,7 +88,16 @@ const commits = [
   { msg: "feat: search", ms: false },
   { msg: "deploy: v2", ms: false },
   { msg: "next: connect", ms: true },
-];
+  // Extended commits to reach contact section
+  { msg: "feat: portfolio", ms: false },
+  { msg: "style: ui/ux", ms: false },
+  { msg: "feat: terminal", ms: false },
+  { msg: "anim: effects", ms: true },
+  { msg: "test: across", ms: false },
+  { msg: "docs: readme", ms: false },
+  { msg: "deploy: live", ms: false },
+  { msg: "await: hire()", ms: true },
+].map((c, i) => ({ ...c, hash: generateHash(i + 1) }));
 
 // Git Graph Component - Enhanced with bolder styling and glowing milestones
 const GitGraph = memo(function GitGraph() {
@@ -162,19 +181,24 @@ const GitGraph = memo(function GitGraph() {
               )}
             </div>
 
-            {/* Commit message - bolder and more readable */}
+            {/* Commit hash + message - bolder and more readable */}
             <span
               className={`absolute font-mono whitespace-nowrap ${
                 isMilestone ? "font-semibold" : "font-normal"
               }`}
               style={{
                 left: "40px",
-                fontSize: "11px",
+                fontSize: "10px",
                 color: isMilestone ? "rgba(6,182,212,0.7)" : "rgba(156,163,175,0.45)",
                 letterSpacing: "-0.01em",
                 textShadow: isMilestone ? "0 0 10px rgba(6,182,212,0.3)" : "none",
               }}
             >
+              <span
+                style={{ color: isMilestone ? "rgba(147,51,234,0.7)" : "rgba(147,51,234,0.4)" }}
+              >
+                {commit.hash}
+              </span>{" "}
               {commit.msg}
             </span>
           </div>

@@ -6,6 +6,7 @@ import {
   ContactSection,
 } from "./components/sections";
 import HowIWork from "./components/sections/HowIWork";
+import Timeline from "./components/sections/Timeline";
 import { SectionDivider } from "@/components/ui/SectionDivider";
 
 export default function HomePage() {
@@ -31,6 +32,10 @@ export default function HomePage() {
 
       {/* Skills Section */}
       <SkillsSection />
+
+      {/* Timeline - Experience Journey */}
+      <SectionDivider variant="terminal" label="journey" />
+      <Timeline />
 
       {/* How I Work - Methodology */}
       <HowIWork />
