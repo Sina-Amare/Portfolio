@@ -15,6 +15,7 @@ import {
 import { GlassCard } from "@/components/ui/GlassCard";
 import Card3D from "@/components/3d/Card3D";
 import InteractiveTerminal from "@/components/ui/InteractiveTerminal";
+import { MatrixRain, TypingEffect, GlitchText } from "@/components/effects/EasterEggAnimations";
 
 export default function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -144,51 +145,54 @@ export default function AboutSection() {
             <InteractiveTerminal
               title="terminal — about.md"
               command="cat about.md"
-              hintCommand="whoami"
+              hintCommand="cat secrets.txt"
               secretCommands={{
-                whoami: (
-                  <div className="space-y-3">
-                    <div className="text-2xl">👨‍💻</div>
-                    <div className="text-[#8be9fd] font-semibold">Sina Amareh</div>
-                    <div className="text-gray-400 text-sm">
-                      A developer who turns ☕ into {"<code />"} and bugs into features.
+                "cat secrets.txt": (
+                  <MatrixRain message="You found the hidden truth: I love building things that matter." />
+                ),
+                "echo $USER": (
+                  <TypingEffect
+                    lines={[
+                      "sina@developer:~$",
+                      "Name: Sina Amareh",
+                      "Role: Backend Engineer",
+                      "Status: Available for hire",
+                      "Fun fact: Bugs fear me 🐛",
+                    ]}
+                    speed={40}
+                  />
+                ),
+                fortune: (
+                  <div className="space-y-3 text-center py-4">
+                    <GlitchText text="CODE IS POETRY" />
+                    <div className="text-gray-400 text-sm italic">
+                      &quot;Clean code always looks like it was written by someone who cares.&quot;
                     </div>
-                    <div className="text-[#50fa7b] text-xs font-mono">
-                      status: ready_to_build_something_amazing
-                    </div>
+                    <div className="text-gray-500 text-xs">— Robert C. Martin</div>
                   </div>
                 ),
-                story: (
-                  <div className="space-y-3">
-                    <div className="text-[#ffbd44] font-semibold">📖 My Journey</div>
-                    <div className="text-gray-400 text-sm leading-relaxed">
-                      Started coding with curiosity, fell in love with backend systems. Now I
-                      architect solutions that scale and code that speaks.
-                    </div>
-                    <div className="flex gap-2 text-xs font-mono">
-                      <span className="text-[#ff79c6]">2022</span>
-                      <span className="text-gray-600">→</span>
-                      <span className="text-[#8be9fd]">First API</span>
-                      <span className="text-gray-600">→</span>
-                      <span className="text-[#50fa7b]">Production Ready</span>
-                    </div>
-                  </div>
-                ),
-                why: (
-                  <div className="space-y-2">
-                    <div className="text-[#ff79c6] font-semibold">💡 Why Backend?</div>
-                    <div className="text-gray-400 text-sm">
-                      Because the real magic happens where users don&apos;t see. I love building the
-                      engine, not just the dashboard.
-                    </div>
-                  </div>
+                pwd: (
+                  <div className="font-mono text-cyan-400 text-sm">/home/sina/portfolio/about</div>
                 ),
                 help: (
-                  <div className="space-y-1 text-sm">
-                    <div className="text-gray-400">Discover more about me:</div>
-                    <div className="text-cyan-400"> whoami - 👤 Who is Sina?</div>
-                    <div className="text-cyan-400"> story - 📖 My coding journey</div>
-                    <div className="text-cyan-400"> why - 💡 Why I love backend</div>
+                  <div className="space-y-1 font-mono text-sm">
+                    <div className="text-gray-400 mb-2">Try these commands:</div>
+                    <div className="text-cyan-400">
+                      {" "}
+                      cat secrets.txt <span className="text-gray-500">- 🔮 Matrix reveal</span>
+                    </div>
+                    <div className="text-cyan-400">
+                      {" "}
+                      echo $USER <span className="text-gray-500">- 👤 Who am I?</span>
+                    </div>
+                    <div className="text-cyan-400">
+                      {" "}
+                      fortune <span className="text-gray-500">- 🎲 Developer wisdom</span>
+                    </div>
+                    <div className="text-cyan-400">
+                      {" "}
+                      pwd <span className="text-gray-500">- 📍 Current location</span>
+                    </div>
                   </div>
                 ),
               }}

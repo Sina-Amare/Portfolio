@@ -7,6 +7,11 @@ import { SkillBar } from "@/components/ui/SkillBar";
 import { GlassCard } from "@/components/ui/GlassCard";
 import Card3D from "@/components/3d/Card3D";
 import InteractiveTerminal from "@/components/ui/InteractiveTerminal";
+import {
+  LoadingBar,
+  ParticleExplosion,
+  BootSequence,
+} from "@/components/effects/EasterEggAnimations";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -278,39 +283,60 @@ export default function SkillsSection() {
             <InteractiveTerminal
               title="terminal — experience"
               command="summary --experience"
-              hintCommand="hire"
+              hintCommand="neofetch"
               secretCommands={{
-                hire: (
-                  <div className="space-y-2">
-                    <div className="text-[#50fa7b] font-semibold">🎉 Achievement Unlocked!</div>
-                    <div className="text-gray-300">
-                      You found the secret! I&apos;m actively looking for opportunities.
-                    </div>
-                    <div className="text-cyan-400">
-                      →{" "}
-                      <a href="#contact" className="underline hover:text-cyan-300">
-                        Let&apos;s connect!
-                      </a>
+                neofetch: <BootSequence />,
+                "npm run hire": (
+                  <div className="space-y-4">
+                    <LoadingBar label="Installing developer: sina-amareh@latest..." />
+                    <div className="text-[#50fa7b] font-mono text-sm mt-4">
+                      ✓ Installation complete! Developer ready for deployment.
                     </div>
                   </div>
                 ),
-                coffee: (
-                  <div className="space-y-2">
-                    <div className="text-[#ffbd44] font-semibold">☕ Coffee Counter: ∞</div>
-                    <div className="text-gray-400">Fueled by caffeine, powered by curiosity.</div>
+                "git status": (
+                  <div className="space-y-3">
+                    <ParticleExplosion emoji="🚀" count={15} />
+                    <div className="font-mono text-sm space-y-1">
+                      <div className="text-[#50fa7b]">On branch: available-for-hire</div>
+                      <div className="text-gray-400">
+                        Your branch is up to date with &apos;origin/main&apos;
+                      </div>
+                      <div className="text-cyan-400">
+                        nothing to commit, ready to push (to production)
+                      </div>
+                    </div>
                   </div>
                 ),
-                sudo: (
-                  <div className="text-[#ff79c6]">
-                    Nice try! But you don&apos;t have sudo access here 😄
+                ls: (
+                  <div className="font-mono text-sm grid grid-cols-3 gap-2">
+                    <span className="text-[#8be9fd]">python/</span>
+                    <span className="text-[#8be9fd]">django/</span>
+                    <span className="text-[#8be9fd]">fastapi/</span>
+                    <span className="text-[#50fa7b]">projects.json</span>
+                    <span className="text-[#50fa7b]">skills.md</span>
+                    <span className="text-[#ff79c6]">hire-me.sh</span>
                   </div>
                 ),
                 help: (
-                  <div className="space-y-1 text-gray-400">
-                    <div>Available commands:</div>
-                    <div className="text-cyan-400"> hire - 🎯 See hiring info</div>
-                    <div className="text-cyan-400"> coffee - ☕ Coffee stats</div>
-                    <div className="text-cyan-400"> sudo - 🔐 Admin access</div>
+                  <div className="space-y-1 font-mono text-sm">
+                    <div className="text-gray-400 mb-2">Available commands:</div>
+                    <div className="text-cyan-400">
+                      {" "}
+                      neofetch <span className="text-gray-500">- System info</span>
+                    </div>
+                    <div className="text-cyan-400">
+                      {" "}
+                      npm run hire <span className="text-gray-500">- Install developer</span>
+                    </div>
+                    <div className="text-cyan-400">
+                      {" "}
+                      git status <span className="text-gray-500">- Check availability</span>
+                    </div>
+                    <div className="text-cyan-400">
+                      {" "}
+                      ls <span className="text-gray-500">- List skills</span>
+                    </div>
                   </div>
                 ),
               }}

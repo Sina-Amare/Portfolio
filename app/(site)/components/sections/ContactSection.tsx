@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa";
 import { GlassCard } from "@/components/ui/GlassCard";
 import InteractiveTerminal from "@/components/ui/InteractiveTerminal";
+import { HackAnimation, ParticleExplosion } from "@/components/effects/EasterEggAnimations";
 
 interface FormData {
   name: string;
@@ -126,35 +127,62 @@ export default function ContactSection() {
             <InteractiveTerminal
               title="terminal — contact"
               command="ssh contact@sina-amareh.dev"
-              hintCommand="connect"
+              hintCommand="nmap"
               secretCommands={{
-                connect: (
-                  <div className="space-y-2">
-                    <div className="text-[#50fa7b] font-semibold">🔗 Connection Established!</div>
-                    <div className="text-gray-300">
-                      Ready to collaborate. Fill out the form or reach out directly!
+                nmap: <HackAnimation target="sina-amareh.dev" />,
+                curl: (
+                  <div className="space-y-3">
+                    <ParticleExplosion emoji="📨" count={12} />
+                    <div className="font-mono text-sm space-y-1">
+                      <div className="text-gray-400">HTTP/1.1 200 OK</div>
+                      <div className="text-[#50fa7b]">Content-Type: application/awesome</div>
+                      <div className="text-cyan-400">{`{"status": "ready_to_connect", "response_time": "<24h"}`}</div>
                     </div>
-                    <div className="text-cyan-400">→ Email: hello@sina-amareh.dev</div>
                   </div>
                 ),
-                ping: (
-                  <div className="space-y-1 font-mono text-sm">
-                    <div className="text-gray-400">PING sina-amareh.dev (127.0.0.1): 56 bytes</div>
-                    <div className="text-[#50fa7b]">64 bytes: time=0.1ms ✓ ONLINE</div>
-                    <div className="text-cyan-400">Response time: &lt;24 hours</div>
+                traceroute: (
+                  <div className="font-mono text-sm space-y-1">
+                    <div className="text-gray-500">traceroute to hire-sina (127.0.0.1)</div>
+                    <div>
+                      <span className="text-cyan-400">1</span> visitor.portfolio 0.1ms
+                    </div>
+                    <div>
+                      <span className="text-cyan-400">2</span> contact.form 0.5ms
+                    </div>
+                    <div>
+                      <span className="text-cyan-400">3</span> email.send 1.2ms
+                    </div>
+                    <div className="text-[#50fa7b]">
+                      <span className="text-cyan-400">4</span> hired.success ∞ 🎉
+                    </div>
                   </div>
                 ),
-                whoami: (
-                  <div className="text-[#8be9fd]">
-                    A curious developer exploring your portfolio 🕵️
+                uptime: (
+                  <div className="font-mono text-sm">
+                    <span className="text-[#50fa7b]">↑</span> 2 years, 365 days of coding
+                    <br />
+                    <span className="text-gray-400">Load average: passion, creativity, coffee</span>
                   </div>
                 ),
                 help: (
-                  <div className="space-y-1 text-gray-400 text-sm">
-                    <div>Available commands:</div>
-                    <div className="text-cyan-400"> connect - 🔗 Start connection</div>
-                    <div className="text-cyan-400"> ping - 📡 Check availability</div>
-                    <div className="text-cyan-400"> whoami - 🕵️ Who are you?</div>
+                  <div className="space-y-1 font-mono text-sm">
+                    <div className="text-gray-400 mb-2">Network commands:</div>
+                    <div className="text-cyan-400">
+                      {" "}
+                      nmap <span className="text-gray-500">- 🔓 Scan for openings</span>
+                    </div>
+                    <div className="text-cyan-400">
+                      {" "}
+                      curl <span className="text-gray-500">- 📨 Test connection</span>
+                    </div>
+                    <div className="text-cyan-400">
+                      {" "}
+                      traceroute <span className="text-gray-500">- 🛤️ Path to hire</span>
+                    </div>
+                    <div className="text-cyan-400">
+                      {" "}
+                      uptime <span className="text-gray-500">- ⏰ System uptime</span>
+                    </div>
                   </div>
                 ),
               }}
