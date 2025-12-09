@@ -21,6 +21,7 @@ const ScrollToTop = lazy(() =>
   import("@/components/ui/ScrollToTop").then((mod) => ({ default: mod.ScrollToTop }))
 );
 const FloatingActionButton = lazy(() => import("@/components/ui/FloatingActionButton"));
+const EasterEgg = lazy(() => import("@/components/effects/EasterEgg"));
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -95,6 +96,10 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
 
             <Suspense fallback={null}>
               <FloatingActionButton />
+            </Suspense>
+
+            <Suspense fallback={null}>
+              <EasterEgg />
             </Suspense>
 
             <Footer />

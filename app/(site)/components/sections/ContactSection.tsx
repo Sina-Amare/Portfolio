@@ -231,53 +231,67 @@ export default function ContactSection() {
               {/* Python-style Form */}
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                  <label className="block text-xs font-mono text-gray-500 mb-2">
-                    <span className="text-cyan-400">class</span> ContactRequest:
+                  <label htmlFor="name" className="block text-xs font-mono text-gray-500 mb-2">
+                    <span className="text-cyan-400">class</span> ContactRequest:{" "}
+                    <span className="text-purple-400">name</span>: str
                   </label>
                   <input
                     type="text"
                     name="name"
+                    id="name"
                     value={formData.name}
                     onChange={handleChange}
-                    placeholder='name: str = "Your Name"'
+                    placeholder="Your Name"
                     required
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-cyan-500/50 text-gray-300 placeholder-gray-600 font-mono text-sm transition-colors"
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 text-gray-300 placeholder-gray-600 font-mono text-sm transition-all"
                   />
                 </div>
 
                 <div>
+                  <label htmlFor="email" className="block text-xs font-mono text-gray-500 mb-2">
+                    <span className="text-purple-400">email</span>: EmailStr
+                  </label>
                   <input
                     type="email"
                     name="email"
+                    id="email"
                     value={formData.email}
                     onChange={handleChange}
-                    placeholder='email: EmailStr = "you@example.com"'
+                    placeholder="you@example.com"
                     required
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-cyan-500/50 text-gray-300 placeholder-gray-600 font-mono text-sm transition-colors"
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 text-gray-300 placeholder-gray-600 font-mono text-sm transition-all"
                   />
                 </div>
 
                 <div>
+                  <label htmlFor="subject" className="block text-xs font-mono text-gray-500 mb-2">
+                    <span className="text-purple-400">subject</span>: str
+                  </label>
                   <input
                     type="text"
                     name="subject"
+                    id="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    placeholder='subject: str = "Project Discussion"'
+                    placeholder="Project Discussion"
                     required
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-cyan-500/50 text-gray-300 placeholder-gray-600 font-mono text-sm transition-colors"
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 text-gray-300 placeholder-gray-600 font-mono text-sm transition-all"
                   />
                 </div>
 
                 <div>
+                  <label htmlFor="message" className="block text-xs font-mono text-gray-500 mb-2">
+                    <span className="text-purple-400">message</span>: str
+                  </label>
                   <textarea
                     name="message"
+                    id="message"
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder='message: str = "Tell me about your project..."'
+                    placeholder="Tell me about your project..."
                     required
                     rows={5}
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-cyan-500/50 text-gray-300 placeholder-gray-600 font-mono text-sm transition-colors resize-none"
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 text-gray-300 placeholder-gray-600 font-mono text-sm transition-all resize-none"
                   />
                 </div>
 

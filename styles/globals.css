@@ -94,6 +94,32 @@ a:hover {
   position: relative;
 }
 
+/* Focus visible states for keyboard navigation accessibility */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid rgba(6, 182, 212, 0.8);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Terminal elements focus states */
+.terminal-element:focus-visible,
+[data-terminal]:focus-visible {
+  outline: 2px solid rgba(6, 182, 212, 0.6);
+  outline-offset: 2px;
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
+}
+
+/* Run button specific focus */
+.run-button:focus-visible {
+  outline: 2px solid rgba(34, 197, 94, 0.8);
+  outline-offset: 2px;
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.4);
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }

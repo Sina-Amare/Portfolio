@@ -137,6 +137,15 @@ export default function Navigation() {
                       }`}
                     >
                       {link.name}
+                      {/* Animated underline indicator */}
+                      {activeSection === link.path && (
+                        <motion.div
+                          layoutId="activeSection"
+                          className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 to-purple-500"
+                          style={{ boxShadow: "0 0 8px rgba(6,182,212,0.6)" }}
+                          transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                        />
+                      )}
                     </motion.span>
                   </a>
                 </li>
