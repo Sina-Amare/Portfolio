@@ -8,8 +8,7 @@ interface SectionDividerProps {
 }
 
 /**
- * SectionDivider - Creative visual separators with terminal aesthetic
- * GPU-accelerated CSS animations
+ * SectionDivider - Terminal-style visual separators
  */
 export function SectionDivider({
   variant = "terminal",
@@ -19,52 +18,27 @@ export function SectionDivider({
   if (variant === "terminal") {
     return (
       <div
-        className={`relative h-20 w-full flex items-center justify-center overflow-hidden ${className}`}
+        className={`relative h-16 w-full flex items-center justify-center px-4 sm:px-8 ${className}`}
       >
-        {/* Animated line left */}
-        <motion.div
+        {/* Left line - full width gradient */}
+        <div
           className="flex-1 h-[1px]"
           style={{
-            background:
-              "linear-gradient(90deg, transparent 0%, rgba(6,182,212,0.3) 30%, rgba(6,182,212,0.4) 100%)",
+            background: "linear-gradient(90deg, transparent 0%, rgba(6,182,212,0.4) 100%)",
           }}
-          initial={{ scaleX: 0, originX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
         />
 
-        {/* Terminal comment with glow */}
-        <motion.span
-          className="px-6 text-xs font-mono text-cyan-400/60 whitespace-nowrap flex items-center gap-2"
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-        >
+        {/* Terminal comment */}
+        <span className="px-4 text-xs font-mono text-cyan-500/50 whitespace-nowrap flex items-center gap-2">
           <span className="text-gray-600">{"//"}</span>
           <span>{label || "─────"}</span>
-        </motion.span>
+        </span>
 
-        {/* Animated line right */}
-        <motion.div
+        {/* Right line - full width gradient */}
+        <div
           className="flex-1 h-[1px]"
           style={{
-            background:
-              "linear-gradient(90deg, rgba(6,182,212,0.4) 0%, rgba(6,182,212,0.3) 70%, transparent 100%)",
-          }}
-          initial={{ scaleX: 0, originX: 1 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        />
-
-        {/* Center glow */}
-        <div
-          className="absolute left-1/2 top-1/2 w-32 h-32 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-          style={{
-            background: "radial-gradient(circle, rgba(6,182,212,0.08) 0%, transparent 70%)",
-            filter: "blur(20px)",
+            background: "linear-gradient(90deg, rgba(6,182,212,0.4) 0%, transparent 100%)",
           }}
         />
       </div>
@@ -74,50 +48,34 @@ export function SectionDivider({
   if (variant === "merge") {
     return (
       <div
-        className={`relative h-20 w-full flex items-center justify-center overflow-hidden ${className}`}
+        className={`relative h-16 w-full flex items-center justify-center px-4 sm:px-8 ${className}`}
       >
         {/* Left line */}
-        <motion.div
+        <div
           className="flex-1 h-[1px]"
           style={{
-            background: "linear-gradient(90deg, transparent 0%, rgba(147,51,234,0.3) 100%)",
+            background: "linear-gradient(90deg, transparent 0%, rgba(147,51,234,0.4) 100%)",
           }}
-          initial={{ scaleX: 0, originX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
         />
 
         {/* Diamond node */}
-        <motion.div
-          className="relative w-4 h-4 mx-6"
-          initial={{ scale: 0, rotate: 45 }}
-          whileInView={{ scale: 1, rotate: 45 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.3 }}
-        >
-          <div className="absolute inset-0 bg-purple-500/20 border border-purple-500/40" />
-          <div className="absolute inset-[4px] bg-purple-400/60" />
-          {/* Glow */}
+        <div className="relative w-3 h-3 mx-4">
           <div
-            className="absolute inset-0 scale-150"
-            style={{
-              background: "radial-gradient(circle, rgba(147,51,234,0.2) 0%, transparent 70%)",
-              filter: "blur(8px)",
-            }}
+            className="absolute inset-0 bg-purple-500/20 border border-purple-500/40"
+            style={{ transform: "rotate(45deg)" }}
           />
-        </motion.div>
+          <div
+            className="absolute inset-[3px] bg-purple-400/60"
+            style={{ transform: "rotate(45deg)" }}
+          />
+        </div>
 
         {/* Right line */}
-        <motion.div
+        <div
           className="flex-1 h-[1px]"
           style={{
-            background: "linear-gradient(90deg, rgba(147,51,234,0.3) 0%, transparent 100%)",
+            background: "linear-gradient(90deg, rgba(147,51,234,0.4) 0%, transparent 100%)",
           }}
-          initial={{ scaleX: 0, originX: 1 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
         />
       </div>
     );
@@ -125,33 +83,21 @@ export function SectionDivider({
 
   if (variant === "code") {
     return (
-      <motion.div
-        className={`relative h-16 w-full flex items-center justify-center ${className}`}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-      >
+      <div className={`relative h-16 w-full flex items-center justify-center ${className}`}>
         <span className="text-xs font-mono text-gray-600">
           {"/* "}
           <span className="text-gray-500">{"─".repeat(20)}</span>
           {" */"}
         </span>
-      </motion.div>
+      </div>
     );
   }
 
   if (variant === "minimal") {
     return (
-      <motion.div
-        className={`relative h-12 w-full flex items-center justify-center ${className}`}
-        initial={{ opacity: 0, scaleX: 0 }}
-        whileInView={{ opacity: 1, scaleX: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
+      <div className={`relative h-12 w-full flex items-center justify-center ${className}`}>
         <div className="w-40 h-[1px] bg-gradient-to-r from-transparent via-gray-700/60 to-transparent" />
-      </motion.div>
+      </div>
     );
   }
 

@@ -1,7 +1,7 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { FaGithub, FaLinkedin, FaFacebook, FaTwitter, FaPlay } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaFacebook, FaTwitter, FaPlay, FaTerminal } from "react-icons/fa";
 import { useState, useEffect, useRef } from "react";
 import { StatusBadge } from "./StatusBadge";
 import MagneticEffect from "@/components/effects/MagneticEffect";
@@ -11,77 +11,67 @@ import { CopyButton } from "@/components/ui/CopyButton";
 const Hero = () => {
   const [copied, setCopied] = useState("Copy");
   const [displayedCode, setDisplayedCode] = useState("");
-  const [isCompiling, setIsCompiling] = useState(false);
   const [showOutput, setShowOutput] = useState(false);
-  const [outputText, setOutputText] = useState("");
+  const [outputLines, setOutputLines] = useState<string[]>([]);
+  const outputEndRef = useRef<HTMLDivElement>(null);
 
-  // More impressive Python-style code
-  const plainCodeString = `class Developer:
-    def __init__(self):
-        self.name = "Sina Amareh"
-        self.role = "Backend Architect"
-        self.skills = ["Python", "Django", "FastAPI"]
-        self.available = True
-    
-    def hello(self):
-        return "Let's build something great!"
+  // Terminal command - simple and understandable
+  const commandString = `$ curl -X GET https://api.sina.dev/profile`;
 
-dev = Developer()
-print(dev.hello())`;
+  // Output lines for terminal effect - structured like a real API response
+  const outputData = [
+    { text: "→ Connecting to sina.dev...", delay: 0, type: "info" },
+    { text: "→ Fetching profile data...", delay: 400, type: "info" },
+    { text: "", delay: 600, type: "blank" },
+    { text: "{", delay: 700, type: "json" },
+    { text: '  "name": "Sina Amareh",', delay: 800, type: "json" },
+    { text: '  "title": "Backend Architect",', delay: 900, type: "json" },
+    { text: '  "focus": "Building scalable systems",', delay: 1000, type: "json" },
+    { text: '  "experience": "2+ years",', delay: 1100, type: "json" },
+    {
+      text: '  "stack": ["Python", "Django", "FastAPI", "PostgreSQL"],',
+      delay: 1200,
+      type: "json",
+    },
+    { text: '  "status": "Available for hire ✓",', delay: 1300, type: "json" },
+    { text: '  "contact": "Scroll down to connect"', delay: 1400, type: "json" },
+    { text: "}", delay: 1500, type: "json" },
+    { text: "", delay: 1600, type: "blank" },
+    { text: "✓ 200 OK — Response received in 42ms", delay: 1700, type: "success" },
+  ];
 
-  const highlightedCodeString = `<span class="token keyword">class</span> <span class="token class-name">Developer</span><span class="token punctuation">:</span><br/>    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span><span class="token builtin">self</span><span class="token punctuation">)</span><span class="token punctuation">:</span><br/>        <span class="token builtin">self</span><span class="token punctuation">.</span><span class="token property">name</span> <span class="token operator">=</span> <span class="token string">"Sina Amareh"</span><br/>        <span class="token builtin">self</span><span class="token punctuation">.</span><span class="token property">role</span> <span class="token operator">=</span> <span class="token string">"Backend Architect"</span><br/>        <span class="token builtin">self</span><span class="token punctuation">.</span><span class="token property">skills</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"Python"</span><span class="token punctuation">,</span> <span class="token string">"Django"</span><span class="token punctuation">,</span> <span class="token string">"FastAPI"</span><span class="token punctuation">]</span><br/>        <span class="token builtin">self</span><span class="token punctuation">.</span><span class="token property">available</span> <span class="token operator">=</span> <span class="token boolean">True</span><br/>    <br/>    <span class="token keyword">def</span> <span class="token function">hello</span><span class="token punctuation">(</span><span class="token builtin">self</span><span class="token punctuation">)</span><span class="token punctuation">:</span><br/>        <span class="token keyword">return</span> <span class="token string">"Let's build something great!"</span><br/><br/><span class="token variable">dev</span> <span class="token operator">=</span> <span class="token class-name">Developer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><br/><span class="token function">print</span><span class="token punctuation">(</span><span class="token variable">dev</span><span class="token punctuation">.</span><span class="token function">hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>`;
-
-  // Typewriter Effect with Compilation
+  // Typewriter effect for command
   useEffect(() => {
     let i = 0;
-    const codeString = highlightedCodeString;
     const interval = setInterval(() => {
-      if (codeString[i] === "<") {
-        const closingTagIndex = codeString.indexOf(">", i);
-        i = closingTagIndex + 1;
-      } else {
-        i++;
-      }
-
-      if (i >= codeString.length) {
-        setDisplayedCode(codeString);
+      if (i >= commandString.length) {
+        setDisplayedCode(commandString);
         clearInterval(interval);
       } else {
-        setDisplayedCode(codeString.substring(0, i));
+        setDisplayedCode(commandString.substring(0, i + 1));
+        i++;
       }
-    }, 12);
+    }, 40);
 
     return () => clearInterval(interval);
-  }, [highlightedCodeString]);
+  }, []);
 
   const handleRun = () => {
+    if (showOutput) return; // Prevent multiple runs
     setShowOutput(true);
-    setOutputText("");
-    // Simulate terminal output with typing effect
-    const output = `$ python main.py
->>> Initializing Developer instance...
->>> name: Sina Amareh
->>> role: Backend Architect  
->>> skills: ['Python', 'Django', 'FastAPI']
->>> available: True
+    setOutputLines([]);
 
-"Let's build something great!"
-
-Process finished with exit code 0 ✓`;
-
-    let idx = 0;
-    const typeInterval = setInterval(() => {
-      if (idx < output.length) {
-        setOutputText(output.substring(0, idx + 1));
-        idx++;
-      } else {
-        clearInterval(typeInterval);
-      }
-    }, 15);
+    // Animate output lines one by one
+    outputData.forEach((line, index) => {
+      setTimeout(() => {
+        setOutputLines((prev) => [...prev, line.text]);
+        outputEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      }, line.delay);
+    });
   };
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(plainCodeString);
+    navigator.clipboard.writeText(commandString);
     setCopied("Copied!");
     setTimeout(() => setCopied("Copy"), 2000);
   };
@@ -336,60 +326,73 @@ Process finished with exit code 0 ✓`;
                   <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#ff605c]"></div>
                   <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#ffbd44]"></div>
                   <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#00ca4e]"></div>
-                  <span className="ml-2 text-[10px] sm:text-xs text-gray-500 font-mono">
-                    main.py
+                  <span className="ml-2 text-[10px] sm:text-xs text-gray-500 font-mono flex items-center gap-1">
+                    <FaTerminal className="w-2.5 h-2.5" />
+                    terminal
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
                   {/* Run Button */}
                   <motion.button
                     onClick={handleRun}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-green-500/20 border border-green-500/30 text-green-400 text-[10px] sm:text-xs font-mono hover:bg-green-500/30 transition-colors"
-                    aria-label="Run code"
+                    disabled={showOutput}
+                    whileHover={!showOutput ? { scale: 1.05 } : {}}
+                    whileTap={!showOutput ? { scale: 0.95 } : {}}
+                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded border text-[10px] sm:text-xs font-mono transition-colors ${
+                      showOutput
+                        ? "bg-gray-700/30 border-gray-600/30 text-gray-500 cursor-not-allowed"
+                        : "bg-green-500/20 border-green-500/30 text-green-400 hover:bg-green-500/30"
+                    }`}
+                    aria-label="Run command"
                   >
                     <FaPlay className="w-2 h-2" />
-                    <span>Run</span>
+                    <span>{showOutput ? "Running..." : "Run"}</span>
                   </motion.button>
-                  <CopyButton textToCopy={plainCodeString} />
+                  <CopyButton textToCopy={commandString} />
                 </div>
               </div>
 
-              {/* Code Display */}
-              <div className="overflow-x-auto custom-scrollbar">
-                <pre className="!bg-transparent !border-none !p-0 pb-2">
-                  <code
-                    className="language-python !bg-transparent !border-none !block text-[11px] sm:text-xs md:text-sm"
-                    style={{
-                      whiteSpace: "pre",
-                      lineHeight: "1.5",
-                    }}
-                    dangerouslySetInnerHTML={{
-                      __html: displayedCode + '<span class="typing-cursor"></span>',
-                    }}
-                  ></code>
-                </pre>
+              {/* Command Display */}
+              <div className="font-mono text-[11px] sm:text-xs md:text-sm text-cyan-400 mb-2">
+                {displayedCode}
+                {displayedCode.length < commandString.length && (
+                  <span className="animate-cursor text-cyan-400">▌</span>
+                )}
               </div>
 
               {/* Terminal Output */}
               <AnimatePresence>
                 {showOutput && (
                   <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="mt-4 pt-4 border-t border-gray-700/50 overflow-hidden"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.2 }}
+                    className="mt-3 pt-3 border-t border-gray-700/40"
                   >
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="text-[10px] text-gray-500 font-mono uppercase">Output</span>
-                      <div className="flex-1 h-[1px] bg-gray-700/30" />
+                    <div className="font-mono text-[10px] sm:text-xs leading-relaxed space-y-0.5 max-h-[200px] overflow-y-auto custom-scrollbar">
+                      {outputLines.map((line, i) => (
+                        <div
+                          key={i}
+                          className={
+                            line.startsWith("→")
+                              ? "text-gray-500"
+                              : line.startsWith("✓")
+                                ? "text-green-400"
+                                : line.startsWith("{") ||
+                                    line.startsWith("}") ||
+                                    line.startsWith(" ")
+                                  ? "text-purple-400"
+                                  : "text-gray-400"
+                          }
+                        >
+                          {line || "\u00A0"}
+                        </div>
+                      ))}
+                      {outputLines.length > 0 && outputLines.length < outputData.length && (
+                        <span className="animate-cursor text-green-400">▌</span>
+                      )}
+                      <div ref={outputEndRef} />
                     </div>
-                    <pre className="text-[10px] sm:text-xs text-green-400 font-mono whitespace-pre-wrap leading-relaxed">
-                      {outputText}
-                      <span className="animate-cursor">▌</span>
-                    </pre>
                   </motion.div>
                 )}
               </AnimatePresence>
