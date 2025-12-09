@@ -283,10 +283,33 @@ export default function ContactSection() {
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="p-4 bg-[#50fa7b]/10 border border-[#50fa7b]/30 rounded-lg"
+                    className="p-4 bg-[#0a0f14] border border-[#50fa7b]/30 rounded-lg font-mono text-xs"
                   >
-                    <div className="font-mono text-sm text-[#50fa7b]">
-                      <span>✓</span> 200 OK - Message delivered successfully
+                    <div className="text-gray-500 mb-2">// Response</div>
+                    <div className="space-y-1">
+                      <div className="text-[#50fa7b]">→ POST /api/v1/contact/message</div>
+                      <div className="text-gray-500">
+                        → Headers: &#123; "Content-Type": "application/json" &#125;
+                      </div>
+                      <div className="text-gray-400 py-2 border-t border-gray-700/30 mt-2">
+                        &#123;
+                        <br />
+                        &nbsp;&nbsp;"status": <span className="text-[#50fa7b]">200</span>,<br />
+                        &nbsp;&nbsp;"message":{" "}
+                        <span className="text-cyan-400">"Request received successfully"</span>,
+                        <br />
+                        &nbsp;&nbsp;"eta_response": <span className="text-purple-400">"24h"</span>,
+                        <br />
+                        &nbsp;&nbsp;"ticket_id":{" "}
+                        <span className="text-yellow-400">
+                          "#{Math.random().toString(36).substring(2, 8).toUpperCase()}"
+                        </span>
+                        <br />
+                        &#125;
+                      </div>
+                      <div className="text-[#50fa7b] pt-2 border-t border-gray-700/30">
+                        ✓ 200 OK — I'll get back to you soon!
+                      </div>
                     </div>
                   </motion.div>
                 )}

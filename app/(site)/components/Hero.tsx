@@ -2,78 +2,95 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { FaGithub, FaLinkedin, FaFacebook, FaTwitter, FaPlay, FaTerminal } from "react-icons/fa";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { StatusBadge } from "./StatusBadge";
 import MagneticEffect from "@/components/effects/MagneticEffect";
 import { PageBackground } from "@/components/effects/PageBackground";
 import { CopyButton } from "@/components/ui/CopyButton";
 
+// Progress bar component matching methodology style
+function ProgressBar({
+  progress,
+  delay,
+  active,
+}: {
+  progress: number;
+  delay: number;
+  active: boolean;
+}) {
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    if (!active) return;
+    const timer = setTimeout(() => setWidth(progress), delay);
+    return () => clearTimeout(timer);
+  }, [progress, delay, active]);
+
+  const filledBlocks = Math.floor((active ? width : 0) / 10);
+  const blocks = Array.from({ length: 10 }, (_, i) => i < filledBlocks);
+
+  return (
+    <span className="font-mono text-xs sm:text-sm">
+      {blocks.map((filled, i) => (
+        <span key={i} className={filled ? "text-cyan-400" : "text-gray-700"}>
+          {filled ? "▓" : "░"}
+        </span>
+      ))}
+      <span className="text-gray-500 ml-2">{active ? width : 0}%</span>
+    </span>
+  );
+}
+
+// Profile data for terminal display
+const profileData = [
+  {
+    key: "Backend",
+    value: 95,
+    details: ["Python specialist", "Django & FastAPI", "RESTful APIs"],
+  },
+  {
+    key: "Database",
+    value: 90,
+    details: ["PostgreSQL", "Redis caching", "Query optimization"],
+  },
+  {
+    key: "DevOps",
+    value: 80,
+    details: ["Docker", "CI/CD pipelines", "Cloud deployment"],
+  },
+  {
+    key: "Available",
+    value: 100,
+    details: ["Remote work", "Freelance & Full-time", "24h response"],
+  },
+];
+
 const Hero = () => {
-  const [copied, setCopied] = useState("Copy");
-  const [displayedCode, setDisplayedCode] = useState("");
   const [showOutput, setShowOutput] = useState(false);
-  const [outputLines, setOutputLines] = useState<string[]>([]);
-  const outputEndRef = useRef<HTMLDivElement>(null);
+  const [isTyping, setIsTyping] = useState(true);
+  const [commandText, setCommandText] = useState("");
 
-  // Terminal command - simple and understandable
-  const commandString = `$ curl -X GET https://api.sina.dev/profile`;
-
-  // Output lines for terminal effect - structured like a real API response
-  const outputData = [
-    { text: "→ Connecting to sina.dev...", delay: 0, type: "info" },
-    { text: "→ Fetching profile data...", delay: 400, type: "info" },
-    { text: "", delay: 600, type: "blank" },
-    { text: "{", delay: 700, type: "json" },
-    { text: '  "name": "Sina Amareh",', delay: 800, type: "json" },
-    { text: '  "title": "Backend Architect",', delay: 900, type: "json" },
-    { text: '  "focus": "Building scalable systems",', delay: 1000, type: "json" },
-    { text: '  "experience": "2+ years",', delay: 1100, type: "json" },
-    {
-      text: '  "stack": ["Python", "Django", "FastAPI", "PostgreSQL"],',
-      delay: 1200,
-      type: "json",
-    },
-    { text: '  "status": "Available for hire ✓",', delay: 1300, type: "json" },
-    { text: '  "contact": "Scroll down to connect"', delay: 1400, type: "json" },
-    { text: "}", delay: 1500, type: "json" },
-    { text: "", delay: 1600, type: "blank" },
-    { text: "✓ 200 OK — Response received in 42ms", delay: 1700, type: "success" },
-  ];
+  const command = "$ sina --profile";
 
   // Typewriter effect for command
   useEffect(() => {
     let i = 0;
     const interval = setInterval(() => {
-      if (i >= commandString.length) {
-        setDisplayedCode(commandString);
+      if (i >= command.length) {
+        setCommandText(command);
+        setIsTyping(false);
         clearInterval(interval);
       } else {
-        setDisplayedCode(commandString.substring(0, i + 1));
+        setCommandText(command.substring(0, i + 1));
         i++;
       }
-    }, 40);
-
+    }, 60);
     return () => clearInterval(interval);
   }, []);
 
   const handleRun = () => {
-    if (showOutput) return; // Prevent multiple runs
+    if (showOutput) return;
     setShowOutput(true);
-    setOutputLines([]);
-
-    // Animate output lines one by one
-    outputData.forEach((line, index) => {
-      setTimeout(() => {
-        setOutputLines((prev) => [...prev, line.text]);
-        outputEndRef.current?.scrollIntoView({ behavior: "smooth" });
-      }, line.delay);
-    });
-  };
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(commandString);
-    setCopied("Copied!");
-    setTimeout(() => setCopied("Copy"), 2000);
   };
 
   return (
@@ -145,21 +162,40 @@ const Hero = () => {
             <span className="text-pink-400 animate-underline">imagination</span>.
           </motion.p>
 
-          {/* Consolidated Credentials */}
+          {/* Consolidated Credentials - Staggered Animation */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 1 }}
             className="flex flex-wrap items-center gap-3 mt-6"
           >
-            <span className="text-sm font-mono text-gray-500">2+ Years</span>
+            <motion.span
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, delay: 1.1 }}
+              className="text-sm font-mono text-gray-500 px-2 py-1 rounded bg-white/5"
+            >
+              2+ Years
+            </motion.span>
             <span className="text-gray-600">·</span>
-            <span className="text-sm font-mono text-gray-500">Backend Specialist</span>
+            <motion.span
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, delay: 1.3 }}
+              className="text-sm font-mono text-gray-500 px-2 py-1 rounded bg-white/5"
+            >
+              Backend Specialist
+            </motion.span>
             <span className="text-gray-600">·</span>
-            <span className="text-sm font-mono text-green-400 flex items-center gap-1.5">
+            <motion.span
+              initial={{ opacity: 0, x: -10, scale: 0.9 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              transition={{ duration: 0.5, delay: 1.5 }}
+              className="text-sm font-mono text-green-400 flex items-center gap-1.5 px-2 py-1 rounded bg-green-500/10 border border-green-500/20"
+            >
               <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
               Available
-            </span>
+            </motion.span>
           </motion.div>
 
           <motion.div
@@ -297,102 +333,122 @@ const Hero = () => {
           </motion.div>
         </motion.div>
 
-        {/* Right Column - Code Block */}
+        {/* Right Column - Terminal Profile */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-          className="w-full max-w-2xl mx-auto z-10 float-slow px-2 sm:px-0"
+          className="w-full max-w-lg mx-auto z-10 float-slow px-2 sm:px-0"
         >
-          {/* Glowing Border Wrapper - Modern gradient */}
-          <div
-            className="p-[1px] rounded-xl"
-            style={{
-              background:
-                "linear-gradient(135deg, rgba(147,51,234,0.5) 0%, rgba(6,182,212,0.5) 50%, rgba(20,184,166,0.5) 100%)",
-            }}
-          >
-            <div
-              className="rounded-xl p-4 sm:p-5 overflow-hidden"
-              style={{
-                background:
-                  "linear-gradient(180deg, rgba(15,23,42,0.98) 0%, rgba(10,14,20,0.98) 100%)",
-                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05), 0 0 40px rgba(6,182,212,0.1)",
-              }}
-            >
-              {/* Window Controls */}
-              <div className="flex items-center justify-between gap-2 mb-4">
-                <div className="flex items-center gap-1.5 sm:gap-2">
-                  <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#ff605c]"></div>
-                  <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#ffbd44]"></div>
-                  <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#00ca4e]"></div>
-                  <span className="ml-2 text-[10px] sm:text-xs text-gray-500 font-mono flex items-center gap-1">
-                    <FaTerminal className="w-2.5 h-2.5" />
-                    terminal
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  {/* Run Button */}
-                  <motion.button
-                    onClick={handleRun}
-                    disabled={showOutput}
-                    whileHover={!showOutput ? { scale: 1.05 } : {}}
-                    whileTap={!showOutput ? { scale: 0.95 } : {}}
-                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded border text-[10px] sm:text-xs font-mono transition-colors ${
-                      showOutput
-                        ? "bg-gray-700/30 border-gray-600/30 text-gray-500 cursor-not-allowed"
-                        : "bg-green-500/20 border-green-500/30 text-green-400 hover:bg-green-500/30"
-                    }`}
-                    aria-label="Run command"
-                  >
-                    <FaPlay className="w-2 h-2" />
-                    <span>{showOutput ? "Running..." : "Run"}</span>
-                  </motion.button>
-                  <CopyButton textToCopy={commandString} />
-                </div>
+          {/* Terminal Window */}
+          <div className="bg-[#0d1117] border border-gray-800 rounded-lg overflow-hidden shadow-2xl">
+            {/* Terminal header */}
+            <div className="flex items-center justify-between px-4 py-3 bg-[#161b22] border-b border-gray-800">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-red-500/80" />
+                <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                <div className="w-3 h-3 rounded-full bg-green-500/80" />
+                <span className="ml-3 text-xs text-gray-500 font-mono">
+                  sina@portfolio ~ profile
+                </span>
               </div>
 
-              {/* Command Display */}
-              <div className="font-mono text-[11px] sm:text-xs md:text-sm text-cyan-400 mb-2">
-                {displayedCode}
-                {displayedCode.length < commandString.length && (
-                  <span className="animate-cursor text-cyan-400">▌</span>
-                )}
+              {/* Animated Run Button - Pulsing to attract attention */}
+              {!showOutput && (
+                <motion.button
+                  onClick={handleRun}
+                  animate={{
+                    boxShadow: [
+                      "0 0 0 0 rgba(34, 197, 94, 0.4)",
+                      "0 0 0 8px rgba(34, 197, 94, 0)",
+                      "0 0 0 0 rgba(34, 197, 94, 0)",
+                    ],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-green-500/20 border border-green-500/50 text-green-400 text-xs font-mono hover:bg-green-500/30 transition-colors"
+                >
+                  <FaPlay className="w-2.5 h-2.5" />
+                  <span>Run</span>
+                </motion.button>
+              )}
+              {showOutput && <span className="text-xs font-mono text-green-400">✓ executed</span>}
+            </div>
+
+            {/* Terminal content */}
+            <div className="p-5 space-y-4">
+              {/* Command input */}
+              <div className="font-mono text-sm">
+                <span className="text-green-400">$</span>{" "}
+                <span className="text-gray-300">{commandText}</span>
+                {isTyping && <span className="text-cyan-400 animate-cursor">_</span>}
               </div>
 
-              {/* Terminal Output */}
+              {/* Output - Profile data with progress bars */}
               <AnimatePresence>
                 {showOutput && (
                   <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.2 }}
-                    className="mt-3 pt-3 border-t border-gray-700/40"
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    transition={{ duration: 0.4 }}
+                    className="space-y-5 pt-2"
                   >
-                    <div className="font-mono text-[10px] sm:text-xs leading-relaxed space-y-0.5 max-h-[200px] overflow-y-auto custom-scrollbar">
-                      {outputLines.map((line, i) => (
-                        <div
-                          key={i}
-                          className={
-                            line.startsWith("→")
-                              ? "text-gray-500"
-                              : line.startsWith("✓")
-                                ? "text-green-400"
-                                : line.startsWith("{") ||
-                                    line.startsWith("}") ||
-                                    line.startsWith(" ")
-                                  ? "text-purple-400"
-                                  : "text-gray-400"
-                          }
-                        >
-                          {line || "\u00A0"}
+                    {profileData.map((item, index) => (
+                      <motion.div
+                        key={item.key}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.4, delay: index * 0.15 }}
+                        className="space-y-2"
+                      >
+                        {/* Progress row */}
+                        <div className="flex items-center gap-3">
+                          <span className="text-gray-500 font-mono text-xs w-8">
+                            [{index + 1}/4]
+                          </span>
+                          <span className="text-white font-mono text-sm font-semibold min-w-[80px]">
+                            {item.key}
+                          </span>
+                          <ProgressBar
+                            progress={item.value}
+                            delay={(index + 1) * 200}
+                            active={showOutput}
+                          />
                         </div>
-                      ))}
-                      {outputLines.length > 0 && outputLines.length < outputData.length && (
-                        <span className="animate-cursor text-green-400">▌</span>
-                      )}
-                      <div ref={outputEndRef} />
-                    </div>
+                        {/* Details */}
+                        <div className="pl-12 space-y-1">
+                          {item.details.map((detail, i) => (
+                            <motion.div
+                              key={i}
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              transition={{ duration: 0.3, delay: index * 0.15 + 0.3 + i * 0.1 }}
+                              className="text-gray-500 font-mono text-xs"
+                            >
+                              <span className="text-cyan-400">→</span> {detail}
+                            </motion.div>
+                          ))}
+                        </div>
+                      </motion.div>
+                    ))}
+
+                    {/* Success message */}
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.4, delay: 1 }}
+                      className="pt-4 border-t border-gray-800"
+                    >
+                      <div className="font-mono text-xs text-green-400 flex items-center gap-2">
+                        <span>✓</span>
+                        <span>Ready to collaborate - scroll down to connect!</span>
+                      </div>
+                    </motion.div>
                   </motion.div>
                 )}
               </AnimatePresence>

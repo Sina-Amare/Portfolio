@@ -103,22 +103,25 @@ export default function Navigation() {
           }}
         />
         <div className="max-w-screen-xl w-full mx-auto px-6 md:px-8 flex justify-between items-center h-full">
-          <Link href="/">
+          <Link href="/" className="flex items-center gap-2">
+            <span className="text-gray-600 font-mono text-sm hidden sm:inline">{">"}</span>
             <motion.h1
-              className="text-xl font-bold font-display tracking-tight bg-clip-text text-transparent relative"
+              className="text-lg sm:text-xl font-bold font-display tracking-tight bg-clip-text text-transparent relative"
               style={{
-                backgroundImage:
-                  "linear-gradient(90deg, #ff3ea5, #b040ff, #00ffe0, #b040ff, #ff3ea5)",
+                backgroundImage: "linear-gradient(90deg, #06b6d4, #a855f7, #06b6d4)",
                 backgroundSize: "200% 100%",
+                animation: "gradient-shift 4s ease infinite",
               }}
               whileHover={{
-                scale: 1.05,
-                textShadow: "0 0 20px rgba(176, 64, 255, 0.4)",
+                scale: 1.02,
               }}
-              whileTap={{ scale: 0.95 }}
+              whileTap={{ scale: 0.98 }}
             >
-              SINA AMAREH
+              SINA.DEV
             </motion.h1>
+            <span className="text-cyan-400 font-mono text-sm animate-cursor hidden sm:inline">
+              _
+            </span>
           </Link>
 
           <div className="flex items-center gap-6">

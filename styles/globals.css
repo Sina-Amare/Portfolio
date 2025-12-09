@@ -914,14 +914,16 @@ pre > code {
 .animate-underline::after {
   content: "";
   position: absolute;
-  bottom: -4px;
+  bottom: -2px;
   left: 0;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, currentColor, currentColor);
+  background: currentColor;
   transform: scaleX(0);
   transform-origin: left;
-  animation: drawUnderline 0.8s ease-out 1s forwards;
+  animation: drawUnderline 0.6s ease-out 1.2s forwards;
+  box-shadow: 0 0 8px currentColor;
+  border-radius: 1px;
 }
 
 @keyframes drawUnderline {

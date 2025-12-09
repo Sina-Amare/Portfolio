@@ -22,7 +22,7 @@ export default function AboutSection() {
   const isTechGridInView = useInView(techGridRef, { once: true, amount: 0.2 });
 
   const techStack = [
-    { name: "Django", icon: <SiDjango className="text-[#092e20]" /> },
+    { name: "Django", icon: <SiDjango className="text-[#44B78B]" /> },
     { name: "FastAPI", icon: <SiFastapi className="text-[#009688]" /> },
     { name: "PostgreSQL", icon: <SiPostgresql className="text-[#336791]" /> },
     { name: "Redis", icon: <SiRedis className="text-[#DC382D]" /> },
@@ -107,31 +107,68 @@ export default function AboutSection() {
             </div>
           </motion.div>
 
-          {/* Philosophy & Bio */}
+          {/* Philosophy & Bio - Terminal Style */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.3 }}
             className="flex flex-col justify-center"
           >
-            <GlassCard variant="subtle" className="p-8">
-              <h3 className="text-2xl font-bold text-white mb-6 font-mono">
-                <span className="text-cyan-400">$</span> cat about.md
-              </h3>
-              <p className="text-xl text-gray-300 leading-relaxed font-mono mb-6">
-                <span className="text-[#50fa7b]">"</span>
-                <span className="gradient-text font-semibold">
-                  Building systems where clarity meets creativity
-                </span>
-                <span className="text-[#50fa7b]">"</span>
-              </p>
-              <p className="text-gray-400 leading-relaxed">
-                Specialized in designing and implementing scalable backend architectures. Passionate
-                about clean code, system optimization, and creating robust APIs that power modern
-                applications. With 2 years of hands-on experience and 1 year of professional
-                employment, I deliver production-grade solutions.
-              </p>
-            </GlassCard>
+            {/* Terminal Window */}
+            <div
+              className="rounded-xl overflow-hidden border border-cyan-500/20"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(15,23,42,0.98) 0%, rgba(10,14,20,0.98) 100%)",
+                boxShadow: "0 0 40px rgba(6,182,212,0.08)",
+              }}
+            >
+              {/* Terminal Chrome */}
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-cyan-500/10">
+                <div className="w-2.5 h-2.5 rounded-full bg-[#ff605c]" />
+                <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd44]" />
+                <div className="w-2.5 h-2.5 rounded-full bg-[#00ca4e]" />
+                <span className="ml-2 text-xs text-gray-500 font-mono">terminal — about.md</span>
+              </div>
+
+              {/* Terminal Content */}
+              <div className="p-6 font-mono text-sm">
+                {/* Command */}
+                <div className="text-gray-400 mb-4">
+                  <span className="text-cyan-400">$</span> cat about.md
+                </div>
+
+                {/* Output */}
+                <div className="space-y-4 text-gray-300">
+                  <div className="border-l-2 border-purple-500/50 pl-4">
+                    <p className="text-lg">
+                      <span className="text-[#50fa7b]">"</span>
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 font-semibold">
+                        Building systems where clarity meets creativity
+                      </span>
+                      <span className="text-[#50fa7b]">"</span>
+                    </p>
+                  </div>
+
+                  <div className="text-gray-400 leading-relaxed">
+                    Specialized in designing and implementing scalable backend architectures.
+                    Passionate about clean code, system optimization, and creating robust APIs that
+                    power modern applications.
+                  </div>
+
+                  <div className="text-gray-500 text-xs pt-2 border-t border-gray-700/30">
+                    <span className="text-green-400">→</span> 2 years hands-on experience • 1 year
+                    professional employment • Production-grade solutions
+                  </div>
+                </div>
+
+                {/* Blinking cursor */}
+                <div className="mt-4 text-gray-400">
+                  <span className="text-cyan-400">$</span>{" "}
+                  <span className="animate-cursor text-cyan-400">▌</span>
+                </div>
+              </div>
+            </div>
           </motion.div>
         </div>
 
