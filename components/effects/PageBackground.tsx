@@ -1,5 +1,5 @@
 "use client";
-import { memo } from "react";
+import React, { memo } from "react";
 
 // Generate a pseudo-random commit hash
 const generateHash = (seed: number) => {
@@ -209,13 +209,47 @@ const GitGraph = memo(function GitGraph() {
   );
 });
 
-// Aurora Background with visible motion
+// Aurora Background with visible motion - optimized for performance
 export const PageBackground = memo(function PageBackground() {
+  // Detect if we should reduce effects for performance
+  const [isLowPower, setIsLowPower] = React.useState(true); // Default to low power until hydrated
+  const [prefersReducedMotion, setPrefersReducedMotion] = React.useState(false);
+
+  React.useEffect(() => {
+    // Check device capabilities
+    const isMobile = window.innerWidth < 768 || "ontouchstart" in window;
+    const deviceMemory = (navigator as { deviceMemory?: number }).deviceMemory;
+    const hasLowMemory = deviceMemory !== undefined && deviceMemory < 4;
+    setIsLowPower(isMobile || hasLowMemory);
+
+    // Check reduced motion preference
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(motionQuery.matches);
+
+    const handleMotionChange = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+    motionQuery.addEventListener("change", handleMotionChange);
+    return () => motionQuery.removeEventListener("change", handleMotionChange);
+  }, []);
+
+  // If user prefers reduced motion, render minimal background
+  if (prefersReducedMotion) {
+    return (
+      <>
+        <div className="fixed inset-0 pointer-events-none z-0 bg-[#0d1117]" />
+        <GitGraph />
+      </>
+    );
+  }
+
+  // Reduced effects for mobile/low-power devices
+  const particleCount = isLowPower ? 6 : 12;
+  const blobOpacity = isLowPower ? 0.5 : 1;
+
   return (
     <>
       {/* Fixed background container for aurora */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        {/* Aurora Blob 1 */}
+        {/* Aurora Blob 1 - Always show */}
         <div
           className="absolute w-[900px] h-[900px] rounded-full animate-aurora-1"
           style={{
@@ -226,10 +260,11 @@ export const PageBackground = memo(function PageBackground() {
             filter: "blur(60px)",
             transform: "translateZ(0)",
             willChange: "transform",
+            opacity: blobOpacity,
           }}
         />
 
-        {/* Aurora Blob 2 */}
+        {/* Aurora Blob 2 - Always show */}
         <div
           className="absolute w-[800px] h-[800px] rounded-full animate-aurora-2"
           style={{
@@ -240,35 +275,40 @@ export const PageBackground = memo(function PageBackground() {
             filter: "blur(60px)",
             transform: "translateZ(0)",
             willChange: "transform",
+            opacity: blobOpacity,
           }}
         />
 
-        {/* Aurora Blob 3 */}
-        <div
-          className="absolute w-[700px] h-[700px] rounded-full animate-aurora-3"
-          style={{
-            bottom: "5%",
-            left: "15%",
-            background:
-              "radial-gradient(circle, rgba(236,72,153,0.10) 0%, rgba(236,72,153,0.03) 40%, transparent 65%)",
-            filter: "blur(80px)",
-            transform: "translateZ(0)",
-            willChange: "transform",
-          }}
-        />
+        {/* Aurora Blob 3 - Desktop only */}
+        {!isLowPower && (
+          <div
+            className="absolute w-[700px] h-[700px] rounded-full animate-aurora-3"
+            style={{
+              bottom: "5%",
+              left: "15%",
+              background:
+                "radial-gradient(circle, rgba(236,72,153,0.10) 0%, rgba(236,72,153,0.03) 40%, transparent 65%)",
+              filter: "blur(80px)",
+              transform: "translateZ(0)",
+              willChange: "transform",
+            }}
+          />
+        )}
 
-        {/* Aurora Blob 4 */}
-        <div
-          className="absolute w-[600px] h-[600px] rounded-full animate-aurora-4"
-          style={{
-            top: "40%",
-            left: "35%",
-            background: "radial-gradient(circle, rgba(6,182,212,0.10) 0%, transparent 50%)",
-            filter: "blur(50px)",
-            transform: "translate(-50%, -50%) translateZ(0)",
-            willChange: "transform",
-          }}
-        />
+        {/* Aurora Blob 4 - Desktop only */}
+        {!isLowPower && (
+          <div
+            className="absolute w-[600px] h-[600px] rounded-full animate-aurora-4"
+            style={{
+              top: "40%",
+              left: "35%",
+              background: "radial-gradient(circle, rgba(6,182,212,0.10) 0%, transparent 50%)",
+              filter: "blur(50px)",
+              transform: "translate(-50%, -50%) translateZ(0)",
+              willChange: "transform",
+            }}
+          />
+        )}
 
         {/* Grid overlay */}
         <div
@@ -283,9 +323,9 @@ export const PageBackground = memo(function PageBackground() {
           }}
         />
 
-        {/* Floating particles */}
+        {/* Floating particles - reduced count on mobile */}
         <div className="absolute inset-0">
-          {Array.from({ length: 12 }).map((_, i) => (
+          {Array.from({ length: particleCount }).map((_, i) => (
             <div
               key={i}
               className={`absolute rounded-full ${
@@ -308,16 +348,18 @@ export const PageBackground = memo(function PageBackground() {
           ))}
         </div>
 
-        {/* Scan line effect */}
-        <div
-          className="absolute inset-0 opacity-[0.015] pointer-events-none"
-          style={{
-            background:
-              "repeating-linear-gradient(0deg, transparent 0px, transparent 2px, rgba(6,182,212,0.1) 2px, rgba(6,182,212,0.1) 4px)",
-            animation: "scanlines 8s linear infinite",
-            transform: "translateZ(0)",
-          }}
-        />
+        {/* Scan line effect - desktop only */}
+        {!isLowPower && (
+          <div
+            className="absolute inset-0 opacity-[0.015] pointer-events-none"
+            style={{
+              background:
+                "repeating-linear-gradient(0deg, transparent 0px, transparent 2px, rgba(6,182,212,0.1) 2px, rgba(6,182,212,0.1) 4px)",
+              animation: "scanlines 8s linear infinite",
+              transform: "translateZ(0)",
+            }}
+          />
+        )}
       </div>
 
       {/* Git Graph - scrolls with page content */}
