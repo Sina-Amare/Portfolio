@@ -10,7 +10,7 @@ import {
   SiDocker,
   SiPython,
   SiGit,
-  SiNginx,
+  SiLinux,
 } from "react-icons/si";
 import { GlassCard } from "@/components/ui/GlassCard";
 import Card3D from "@/components/3d/Card3D";
@@ -24,14 +24,14 @@ export default function AboutSection() {
   const isTechGridInView = useInView(techGridRef, { once: true, amount: 0.2 });
 
   const techStack = [
+    { name: "Python", icon: <SiPython className="text-[#3776AB]" /> },
     { name: "Django", icon: <SiDjango className="text-[#44B78B]" /> },
     { name: "FastAPI", icon: <SiFastapi className="text-[#009688]" /> },
     { name: "PostgreSQL", icon: <SiPostgresql className="text-[#336791]" /> },
     { name: "Redis", icon: <SiRedis className="text-[#DC382D]" /> },
     { name: "Docker", icon: <SiDocker className="text-[#2496ED]" /> },
-    { name: "Python", icon: <SiPython className="text-[#3776AB]" /> },
     { name: "Git", icon: <SiGit className="text-[#F05032]" /> },
-    { name: "Nginx", icon: <SiNginx className="text-[#009639]" /> },
+    { name: "Linux", icon: <SiLinux className="text-[#FCC624]" /> },
   ];
 
   return (
@@ -155,9 +155,9 @@ export default function AboutSection() {
                     lines={[
                       "sina@developer:~$",
                       "Name: Sina Amareh",
-                      "Role: Backend Engineer",
+                      "Role: Python Developer & AI Engineer",
                       "Status: Available for hire",
-                      "Fun fact: Bugs fear me 🐛",
+                      "Mindset: Problems are puzzles, not obstacles 🧩",
                     ]}
                     speed={40}
                   />
@@ -200,25 +200,54 @@ export default function AboutSection() {
                 ),
               }}
             >
-              <div className="border-l-2 border-purple-500/50 pl-4">
-                <p className="text-lg">
-                  <span className="text-[#50fa7b]">&quot;</span>
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 font-semibold">
-                    Building systems where clarity meets creativity
+              {/* Output content - styled like experience terminal */}
+              <p className="text-gray-300 leading-relaxed text-base">
+                Known as an{" "}
+                <span className="text-[#ff79c6] font-semibold">energetic problem solver</span> who
+                doesn&apos;t stop until the job is done. Colleagues say I{" "}
+                <span className="text-[#8be9fd] font-semibold">grasp problems fast</span> and come
+                back with results — whether I&apos;ve faced it before or not.
+              </p>
+
+              <p className="text-gray-300 leading-relaxed text-base mt-3">
+                I approach challenges with{" "}
+                <span className="text-[#50fa7b] font-semibold">creative solutions</span> and{" "}
+                <span className="text-[#8be9fd] font-semibold">engineering discipline</span>.
+                Working with coding agents and LLMs as reasoning companions — never blindly, always
+                with principles.
+              </p>
+
+              {/* Trait tags */}
+              <div className="flex flex-wrap gap-2 mt-4">
+                {[
+                  "Problem Solver",
+                  "Fast Learner",
+                  "Creative Thinker",
+                  "AI-Augmented",
+                  "Detail-Oriented",
+                  "Never Gives Up",
+                ].map((trait, i) => (
+                  <motion.span
+                    key={trait}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: i * 0.05 }}
+                    className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-sm font-mono text-gray-400 hover:border-purple-500/50 hover:text-purple-400 hover:bg-purple-500/10 transition-all cursor-default"
+                  >
+                    {trait}
+                  </motion.span>
+                ))}
+              </div>
+
+              {/* Status indicator */}
+              <div className="mt-4 pt-4 border-t border-white/10">
+                <div className="flex items-center gap-2 text-sm font-mono">
+                  <span className="text-[#50fa7b]">●</span>
+                  <span className="text-gray-500">Journey:</span>
+                  <span className="text-[#8be9fd]">
+                    5 years coding • 1 year professional • AI-first development
                   </span>
-                  <span className="text-[#50fa7b]">&quot;</span>
-                </p>
-              </div>
-
-              <div className="text-gray-400 leading-relaxed mt-4">
-                Specialized in designing and implementing scalable backend architectures. Passionate
-                about clean code, system optimization, and creating robust APIs that power modern
-                applications.
-              </div>
-
-              <div className="text-gray-500 text-xs pt-2 mt-4 border-t border-gray-700/30">
-                <span className="text-green-400">→</span> 2 years hands-on experience • 1 year
-                professional employment • Production-grade solutions
+                </div>
               </div>
             </InteractiveTerminal>
           </motion.div>

@@ -155,7 +155,7 @@ export default function Navigation() {
             {/* Social Links */}
             <div className="hidden lg:flex items-center gap-3">
               <Link
-                href="https://github.com/sina-amareh"
+                href="https://github.com/Sina-Amare"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
@@ -169,7 +169,7 @@ export default function Navigation() {
                 </motion.div>
               </Link>
               <Link
-                href="https://linkedin.com/in/sina-amareh"
+                href="https://www.linkedin.com/in/sina-amareh-909987286/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"

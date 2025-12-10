@@ -24,7 +24,7 @@ export default function FloatingActionButton() {
     {
       icon: FaLinkedin,
       label: "LinkedIn",
-      href: "https://linkedin.com/in/sina-amareh",
+      href: "https://www.linkedin.com/in/sina-amareh-909987286/",
       external: true,
       color: "bg-blue-600",
     },

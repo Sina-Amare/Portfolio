@@ -1,7 +1,7 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { FaGithub, FaLinkedin, FaFacebook, FaTwitter, FaPlay, FaTerminal } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaInstagram, FaPlay, FaTerminal } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { StatusBadge } from "./StatusBadge";
 import MagneticEffect from "@/components/effects/MagneticEffect";
@@ -238,7 +238,7 @@ const Hero = () => {
               className="text-sm font-mono text-cyan-400/80 px-3 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20"
               style={{ textShadow: "0 0 10px rgba(6,182,212,0.3)" }}
             >
-              2+ Years
+              1 Year
             </motion.span>
             <span className="text-gray-700">•</span>
             <motion.span
@@ -248,7 +248,7 @@ const Hero = () => {
               className="text-sm font-mono text-purple-400/80 px-3 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20"
               style={{ textShadow: "0 0 10px rgba(147,51,234,0.3)" }}
             >
-              Backend Specialist
+              Python Developer
             </motion.span>
             <span className="text-gray-700">•</span>
             <motion.span
@@ -274,7 +274,7 @@ const Hero = () => {
           >
             <MagneticEffect strength={0.15}>
               <Link
-                href="https://github.com/sina-amareh"
+                href="https://github.com/Sina-Amare"
                 aria-label="Github"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -294,7 +294,7 @@ const Hero = () => {
             </MagneticEffect>
             <MagneticEffect strength={0.15}>
               <Link
-                href="https://linkedin.com/in/sina-amareh"
+                href="https://www.linkedin.com/in/sina-amareh-909987286/"
                 aria-label="LinkedIn"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -314,8 +314,8 @@ const Hero = () => {
             </MagneticEffect>
             <MagneticEffect strength={0.15}>
               <Link
-                href="https://facebook.com/sina.amareh"
-                aria-label="Facebook"
+                href="https://instagram.com/sina_amare"
+                aria-label="Instagram"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -328,27 +328,7 @@ const Hero = () => {
                   }}
                   whileTap={{ scale: 0.9 }}
                 >
-                  <FaFacebook className="hover:text-accent-cyan transition-colors" />
-                </motion.div>
-              </Link>
-            </MagneticEffect>
-            <MagneticEffect strength={0.15}>
-              <Link
-                href="https://twitter.com/sina_amareh"
-                aria-label="Twitter"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <motion.div
-                  whileHover={{
-                    scale: 1.2,
-                    y: -5,
-                    color: "#00e0d3",
-                    textShadow: "0 0 10px #00e0d3",
-                  }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <FaTwitter className="hover:text-accent-cyan transition-colors" />
+                  <FaInstagram className="hover:text-accent-cyan transition-colors" />
                 </motion.div>
               </Link>
             </MagneticEffect>

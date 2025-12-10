@@ -11,7 +11,7 @@ const careerData = [
     title: "Python Developer",
     company: "Dekamond",
     logo: "/assets/images/dekamond-logo.png",
-    location: "On-site",
+    location: "Hybrid",
     link: "https://kaleri.ai",
     linkLabel: "Kaleri.ai",
     summary:

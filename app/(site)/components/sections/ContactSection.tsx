@@ -4,7 +4,7 @@ import { motion, useInView } from "framer-motion";
 import {
   FaGithub,
   FaLinkedin,
-  FaTwitter,
+  FaInstagram,
   FaEnvelope,
   FaMapMarkerAlt,
   FaClock,
@@ -64,22 +64,22 @@ export default function ContactSection() {
     {
       icon: <FaGithub />,
       label: "GitHub",
-      href: "https://github.com/sina-amareh",
+      href: "https://github.com/Sina-Amare",
     },
     {
       icon: <FaLinkedin />,
       label: "LinkedIn",
-      href: "https://linkedin.com/in/sina-amareh",
+      href: "https://www.linkedin.com/in/sina-amareh-909987286/",
     },
     {
-      icon: <FaTwitter />,
-      label: "Twitter",
-      href: "https://twitter.com/sina_amareh",
+      icon: <FaInstagram />,
+      label: "Instagram",
+      href: "https://instagram.com/sina_amare",
     },
     {
       icon: <FaEnvelope />,
       label: "Email",
-      href: "mailto:hello@sina-amareh.dev",
+      href: "mailto:sinaamareh0263@gmail.com",
     },
   ];
 
@@ -110,7 +110,7 @@ export default function ContactSection() {
             Initialize <span className="gradient-text">Connection</span>
           </h2>
           <p className="text-gray-400 font-mono text-sm">
-            <span className="text-cyan-400">$</span> ssh contact@sina-amareh.dev
+            <span className="text-cyan-400">$</span> ssh contact@sinaamareh.dev
           </p>
         </motion.div>
 
@@ -126,10 +126,10 @@ export default function ContactSection() {
             {/* Terminal Connection - Interactive */}
             <InteractiveTerminal
               title="terminal — contact"
-              command="ssh contact@sina-amareh.dev"
+              command="ssh contact@sinaamareh.dev"
               hintCommand="help"
               secretCommands={{
-                nmap: <HackAnimation target="sina-amareh.dev" />,
+                nmap: <HackAnimation target="sinaamareh.dev" />,
                 curl: (
                   <div className="space-y-3">
                     <ParticleExplosion emoji="📨" count={12} />
@@ -270,10 +270,10 @@ export default function ContactSection() {
                 <div>
                   <div className="text-xs font-mono text-gray-500 mb-1">Direct Email:</div>
                   <a
-                    href="mailto:hello@sina-amareh.dev"
+                    href="mailto:sinaamareh0263@gmail.com"
                     className="text-sm font-mono text-gray-300 hover:text-cyan-400 transition-colors"
                   >
-                    hello@sina-amareh.dev
+                    sinaamareh0263@gmail.com
                   </a>
                 </div>
               </div>

@@ -346,12 +346,12 @@ export default function SkillsSection() {
             >
               {/* Output content */}
               <p className="text-gray-300 leading-relaxed text-base">
-                2 years of hands-on backend development experience with{" "}
-                <span className="text-[#ff79c6] font-semibold">Python</span>,{" "}
-                <span className="text-[#8be9fd] font-semibold">Django</span>, and{" "}
-                <span className="text-[#50fa7b] font-semibold">FastAPI</span>. Specialized in
-                building scalable APIs, optimizing database performance, and implementing robust
-                system architectures.
+                1 year of professional experience building{" "}
+                <span className="text-[#ff79c6] font-semibold">AI systems</span> and{" "}
+                <span className="text-[#8be9fd] font-semibold">backend architectures</span> with{" "}
+                <span className="text-[#50fa7b] font-semibold">Python</span>. I solve complex
+                problems, work with coding agents and LLMs, and ship production-ready code with
+                engineering discipline.
               </p>
 
               {/* Tech tags */}
@@ -360,11 +360,11 @@ export default function SkillsSection() {
                   "Python",
                   "Django",
                   "FastAPI",
+                  "LangGraph",
+                  "RAG",
                   "PostgreSQL",
                   "Docker",
                   "REST APIs",
-                  "Redis",
-                  "CI/CD",
                 ].map((tech, i) => (
                   <motion.span
                     key={tech}
@@ -382,8 +382,8 @@ export default function SkillsSection() {
               <div className="mt-4 pt-4 border-t border-white/10">
                 <div className="flex items-center gap-2 text-sm font-mono">
                   <span className="text-[#50fa7b]">●</span>
-                  <span className="text-gray-500">Currently learning:</span>
-                  <span className="text-[#8be9fd]">Kubernetes, AWS, System Design</span>
+                  <span className="text-gray-500">Focus areas:</span>
+                  <span className="text-[#8be9fd]">AI Agents, LLM Integration, System Design</span>
                 </div>
               </div>
             </InteractiveTerminal>

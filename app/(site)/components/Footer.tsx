@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope } from "react-icons/fa";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -12,10 +12,14 @@ export default function Footer() {
   });
 
   const socialLinks = [
-    { icon: <FaGithub />, href: "https://github.com/sina-amareh", label: "GitHub" },
-    { icon: <FaLinkedin />, href: "https://linkedin.com/in/sina-amareh", label: "LinkedIn" },
-    { icon: <FaTwitter />, href: "https://twitter.com/sina_amareh", label: "Twitter" },
-    { icon: <FaEnvelope />, href: "mailto:hello@sina-amareh.dev", label: "Email" },
+    { icon: <FaGithub />, href: "https://github.com/Sina-Amare", label: "GitHub" },
+    {
+      icon: <FaLinkedin />,
+      href: "https://www.linkedin.com/in/sina-amareh-909987286/",
+      label: "LinkedIn",
+    },
+    { icon: <FaInstagram />, href: "https://instagram.com/sina_amare", label: "Instagram" },
+    { icon: <FaEnvelope />, href: "mailto:sinaamareh0263@gmail.com", label: "Email" },
   ];
 
   const navLinks = [
@@ -47,7 +51,7 @@ export default function Footer() {
               SINA AMAREH
             </h3>
             <p className="text-sm text-gray-500 font-mono max-w-[30ch]">
-              Backend Architect & System Designer
+              Python Developer & AI Engineer
             </p>
             <p className="text-xs text-gray-600 font-mono">
               {`> Building systems where clarity meets creativity`}
