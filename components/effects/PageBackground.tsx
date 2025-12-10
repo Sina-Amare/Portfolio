@@ -188,7 +188,7 @@ const GitGraph = memo(function GitGraph() {
               }`}
               style={{
                 left: "40px",
-                fontSize: "10px",
+                fontSize: "9px",
                 color: isMilestone ? "rgba(6,182,212,0.7)" : "rgba(156,163,175,0.45)",
                 letterSpacing: "-0.01em",
                 textShadow: isMilestone ? "0 0 10px rgba(6,182,212,0.3)" : "none",
