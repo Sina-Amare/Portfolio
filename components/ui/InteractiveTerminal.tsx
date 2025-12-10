@@ -22,6 +22,7 @@ export default function InteractiveTerminal({
   const [showHint, setShowHint] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Show hint after 10 seconds
   useEffect(() => {
@@ -37,6 +38,12 @@ export default function InteractiveTerminal({
         const matchingKey = Object.keys(secretCommands).find(
           (key) => key.toLowerCase() === cmd.toLowerCase()
         );
+
+        // Clear any existing timeout before setting new animation
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+        }
+
         if (matchingKey) {
           setEasterEggOutput(secretCommands[matchingKey]);
           setShowHint(false);
@@ -53,8 +60,8 @@ export default function InteractiveTerminal({
           );
         }
         setUserInput("");
-        // Clear output after 8 seconds
-        setTimeout(() => setEasterEggOutput(null), 8000);
+        // Clear output after 8 seconds - store ref so we can cancel if needed
+        timeoutRef.current = setTimeout(() => setEasterEggOutput(null), 8000);
       }
     },
     [userInput, secretCommands]

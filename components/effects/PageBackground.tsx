@@ -181,13 +181,14 @@ const GitGraph = memo(function GitGraph() {
               )}
             </div>
 
-            {/* Commit hash + message - bolder and more readable */}
+            {/* Commit hash + message - truncated to prevent overlap */}
             <span
-              className={`absolute font-mono whitespace-nowrap ${
+              className={`absolute font-mono overflow-hidden text-ellipsis ${
                 isMilestone ? "font-semibold" : "font-normal"
               }`}
               style={{
                 left: "40px",
+                maxWidth: "120px",
                 fontSize: "9px",
                 color: isMilestone ? "rgba(6,182,212,0.7)" : "rgba(156,163,175,0.45)",
                 letterSpacing: "-0.01em",
