@@ -98,7 +98,7 @@ export default function AboutSection() {
                 transition={{ duration: 0.5, delay: 0.6, ease: "easeOut" }}
               >
                 <span className="text-purple-500">›</span>
-                <span>Backend Architect & System Designer</span>
+                <span>Python Developer & AI Engineer</span>
               </motion.div>
               <motion.div
                 className="flex items-center gap-3 text-gray-400"
@@ -108,7 +108,7 @@ export default function AboutSection() {
               >
                 <span className="text-cyan-400">›</span>
                 <span>
-                  Experience: <span className="text-[#50fa7b]">2 years</span>
+                  Experience: <span className="text-[#50fa7b]">1 year professional</span>
                 </span>
               </motion.div>
               <motion.div
