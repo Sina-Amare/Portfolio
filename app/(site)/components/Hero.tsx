@@ -363,39 +363,58 @@ const Hero = () => {
             <Link href="/contact" passHref>
               <motion.button
                 whileHover={{
-                  y: -5,
-                  backgroundColor: "rgba(147, 51, 234, 0.1)",
-                  boxShadow: "0 0 10px rgba(147, 51, 234, 0.5), 0 0 20px rgba(6, 182, 212, 0.2)",
+                  scale: 1.03,
+                  boxShadow: "0 0 20px rgba(147, 51, 234, 0.6), 0 0 40px rgba(6, 182, 212, 0.3)",
                 }}
-                whileTap={{ scale: 0.95 }}
-                className="relative inline-flex items-center justify-center py-[14px] px-[28px] rounded-[8px] text-[1.1rem] font-semibold text-white bg-transparent transition-all duration-300 ease-in-out"
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                className="group relative inline-flex items-center justify-center py-[14px] px-[28px] rounded-[10px] text-[1.1rem] font-semibold text-white bg-transparent overflow-hidden"
                 style={{
                   border: "2px solid transparent",
                   backgroundImage:
-                    "linear-gradient(rgba(13, 17, 23, 1), rgba(13, 17, 23, 1)), linear-gradient(to right, #9333EA, #06B6D4)",
+                    "linear-gradient(rgba(13, 17, 23, 1), rgba(13, 17, 23, 1)), linear-gradient(135deg, #9333EA 0%, #06B6D4 50%, #9333EA 100%)",
                   backgroundOrigin: "border-box",
                   backgroundClip: "padding-box, border-box",
-                  boxShadow: "0 0 5px rgba(147, 51, 234, 0.3)",
+                  backgroundSize: "100% 100%, 200% 100%",
+                  boxShadow: "0 0 15px rgba(147, 51, 234, 0.3), 0 0 30px rgba(6, 182, 212, 0.15)",
                 }}
                 aria-label="Contact Me"
               >
-                Contact Me ✉️
+                {/* Shine sweep effect */}
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                <span className="relative flex items-center gap-2">
+                  Contact Me
+                  <span className="group-hover:scale-110 transition-transform duration-300">
+                    ✉️
+                  </span>
+                </span>
               </motion.button>
             </Link>
             <Link href="/resume.pdf" passHref legacyBehavior>
               <motion.button
                 whileHover={{
-                  y: -5,
-                  boxShadow: "0 0 15px rgba(147, 51, 234, 0.6), 0 0 30px rgba(6, 182, 212, 0.4)",
+                  scale: 1.03,
+                  boxShadow: "0 0 25px rgba(6, 182, 212, 0.7), 0 0 50px rgba(147, 51, 234, 0.4)",
                 }}
-                whileTap={{ scale: 0.95 }}
-                className="get-resume-button py-[14px] px-[28px] rounded-[8px] text-[1.1rem] font-semibold text-white bg-gradient-to-r from-[#9333EA] to-[#06B6D4] border-none transition-all duration-300 ease-in-out"
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                className="group relative py-[14px] px-[28px] rounded-[10px] text-[1.1rem] font-semibold text-white border-none overflow-hidden"
                 style={{
-                  boxShadow: "0 0 10px rgba(147, 51, 234, 0.4), 0 0 20px rgba(6, 182, 212, 0.2)",
+                  background: "linear-gradient(135deg, #06B6D4 0%, #22D3EE 50%, #50fa7b 100%)",
+                  backgroundSize: "200% 200%",
+                  animation: "gradientShift 3s ease infinite",
+                  boxShadow: "0 0 20px rgba(6, 182, 212, 0.5), 0 0 40px rgba(80, 250, 123, 0.2)",
                 }}
                 aria-label="Get my resume"
               >
-                Get Resume ⬇️
+                {/* Shine sweep effect */}
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                <span className="relative flex items-center gap-2">
+                  Get Resume
+                  <span className="group-hover:translate-y-1 transition-transform duration-300">
+                    ⬇️
+                  </span>
+                </span>
               </motion.button>
             </Link>
           </motion.div>
