@@ -23,7 +23,7 @@ const buildTerminalOutput = () => {
     '  "experience": "1 year professional",',
     '  "stack": ["Python", "Django", "FastAPI", "LangGraph", "RAG"],',
     '  "status": "available_for_hire",',
-    '  "contact": "#contact"',
+    '  "contact": "sinaamareh0263@gmail.com"',
     "}",
     "",
     "✓ Request completed successfully",

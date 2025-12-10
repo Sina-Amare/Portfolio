@@ -12,8 +12,10 @@ const careerData = [
     company: "Dekamond",
     logo: "/assets/images/dekamond-logo.png",
     location: "On-site",
+    link: "https://kaleri.ai",
+    linkLabel: "Kaleri.ai",
     summary:
-      "Full-stack AI/automation engineering across business intelligence, RAG systems, and developer tooling.",
+      "Full-stack AI/automation engineering across business intelligence, RAG systems, and developer tooling for Kaleri.ai.",
     highlights: [
       "Architected AI-powered business intelligence system using LangGraph for automated financial analysis",
       "Built MCP server enabling AI agents to query Notion databases for real-time insights",
@@ -22,7 +24,8 @@ const careerData = [
       "Created automated HR analytics integrating ClickUp with KPI tracking",
       "Developed Telegram bot for automated code review of job applicants",
       "Built customer support chatbot with RAG over 1000+ historical Q&As",
-      "Scraped and cleaned datasets from Persian/Russian food websites for Kaleri",
+      "Scraped and cleaned datasets from Persian/Russian food websites",
+      "Performed cross-platform QA testing (Android, iOS, Desktop) to identify bugs and UX issues",
     ],
     tech: ["Python", "LangGraph", "RAG", "FastAPI", "PostgreSQL", "Telegram API"],
   },
@@ -81,7 +84,7 @@ const educationData = [
   },
 ];
 
-// Expandable Card Component
+// Expandable Card Component with improved UX
 function CareerCard({ item, index }: { item: (typeof careerData)[0]; index: number }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -100,9 +103,13 @@ function CareerCard({ item, index }: { item: (typeof careerData)[0]; index: numb
 
       {/* Card */}
       <motion.div
-        className="p-5 rounded-xl bg-[#0d1117]/80 border border-gray-800 hover:border-cyan-500/30 transition-all duration-300 cursor-pointer"
+        className={`p-5 rounded-xl bg-[#0d1117]/80 border transition-all duration-300 cursor-pointer group ${
+          isExpanded
+            ? "border-cyan-500/50 shadow-[0_0_20px_rgba(6,182,212,0.15)]"
+            : "border-gray-800 hover:border-cyan-500/30"
+        }`}
         onClick={() => setIsExpanded(!isExpanded)}
-        whileHover={{ scale: 1.01 }}
+        whileHover={{ scale: 1.01, y: -2 }}
         whileTap={{ scale: 0.99 }}
       >
         {/* Header with Logo */}
@@ -120,12 +127,28 @@ function CareerCard({ item, index }: { item: (typeof careerData)[0]; index: numb
           )}
           <div className="flex-1">
             <div className="flex items-center justify-between flex-wrap gap-2">
-              <h4 className="text-white font-semibold">{item.title}</h4>
+              <h4 className="text-white font-semibold group-hover:text-cyan-400 transition-colors">
+                {item.title}
+              </h4>
               <span className="text-xs font-mono text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded">
                 {item.year}
               </span>
             </div>
-            <p className="text-sm text-gray-400">{item.company}</p>
+            <div className="flex items-center gap-2 flex-wrap">
+              <p className="text-sm text-gray-400">{item.company}</p>
+              {item.link && (
+                <a
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-mono bg-purple-500/10 text-purple-400 border border-purple-500/20 hover:bg-purple-500/20 hover:border-purple-500/40 transition-all"
+                >
+                  <span>🔗</span>
+                  <span>{item.linkLabel || item.link}</span>
+                </a>
+              )}
+            </div>
             <p className="text-xs text-gray-600 font-mono">
               {item.duration} {item.location && `• ${item.location}`}
             </p>
@@ -133,7 +156,40 @@ function CareerCard({ item, index }: { item: (typeof careerData)[0]; index: numb
         </div>
 
         {/* Summary - Always Visible */}
-        <p className="text-sm text-gray-400 mb-3 leading-relaxed">{item.summary}</p>
+        <p className="text-sm text-gray-400 mb-4 leading-relaxed">{item.summary}</p>
+
+        {/* CTA Button - Prominent and attention-grabbing */}
+        {!isExpanded && (
+          <motion.div
+            className="mb-4 flex items-center gap-2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+          >
+            <motion.button
+              className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono transition-all hover:bg-cyan-500/20 hover:border-cyan-500/50"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              animate={{
+                boxShadow: [
+                  "0 0 0 rgba(6,182,212,0)",
+                  "0 0 15px rgba(6,182,212,0.3)",
+                  "0 0 0 rgba(6,182,212,0)",
+                ],
+              }}
+              transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
+            >
+              <span>📋</span>
+              <span>View {item.highlights.length} achievements</span>
+              <motion.span
+                animate={{ x: [0, 3, 0] }}
+                transition={{ duration: 1, repeat: Infinity }}
+              >
+                →
+              </motion.span>
+            </motion.button>
+          </motion.div>
+        )}
 
         {/* Expandable Highlights */}
         <AnimatePresence>
@@ -145,8 +201,11 @@ function CareerCard({ item, index }: { item: (typeof careerData)[0]; index: numb
               transition={{ duration: 0.3 }}
               className="overflow-hidden"
             >
-              <div className="border-t border-gray-800 pt-3 mb-3">
-                <p className="text-xs text-cyan-400 font-mono mb-2">// Key Achievements</p>
+              <div className="border-t border-cyan-500/20 pt-4 mb-4">
+                <p className="text-xs text-cyan-400 font-mono mb-3 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+                  Key Achievements
+                </p>
                 <ul className="space-y-2">
                   {item.highlights.map((highlight, i) => (
                     <motion.li
@@ -154,7 +213,7 @@ function CareerCard({ item, index }: { item: (typeof careerData)[0]; index: numb
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.05 }}
-                      className="text-xs text-gray-500 leading-relaxed flex gap-2"
+                      className="text-sm text-gray-400 leading-relaxed flex gap-2"
                     >
                       <span className="text-cyan-500 flex-shrink-0">→</span>
                       <span>{highlight}</span>
@@ -162,30 +221,39 @@ function CareerCard({ item, index }: { item: (typeof careerData)[0]; index: numb
                   ))}
                 </ul>
               </div>
+
+              {/* Collapse button */}
+              <motion.button
+                className="w-full py-2 text-xs text-gray-500 hover:text-cyan-400 font-mono transition-colors flex items-center justify-center gap-2"
+                whileHover={{ scale: 1.01 }}
+              >
+                <span>Collapse</span>
+                <motion.span
+                  animate={{ y: [0, -2, 0] }}
+                  transition={{ duration: 0.5, repeat: Infinity }}
+                >
+                  ▲
+                </motion.span>
+              </motion.button>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Expand Indicator */}
-        <div className="flex items-center justify-between">
-          <div className="flex flex-wrap gap-1.5">
-            {item.tech.slice(0, isExpanded ? item.tech.length : 4).map((t, i) => (
-              <span
-                key={i}
-                className="px-2 py-0.5 text-[10px] font-mono rounded bg-gray-800 text-gray-400"
-              >
-                {t}
-              </span>
-            ))}
-            {!isExpanded && item.tech.length > 4 && (
-              <span className="px-2 py-0.5 text-[10px] font-mono rounded bg-gray-800 text-gray-500">
-                +{item.tech.length - 4}
-              </span>
-            )}
-          </div>
-          <motion.span animate={{ rotate: isExpanded ? 180 : 0 }} className="text-gray-600 text-xs">
-            {isExpanded ? "▲" : "▼"}
-          </motion.span>
+        {/* Tech Tags */}
+        <div className="flex flex-wrap gap-1.5">
+          {item.tech.slice(0, isExpanded ? item.tech.length : 4).map((t, i) => (
+            <span
+              key={i}
+              className="px-2 py-0.5 text-[10px] font-mono rounded bg-gray-800 text-gray-400"
+            >
+              {t}
+            </span>
+          ))}
+          {!isExpanded && item.tech.length > 4 && (
+            <span className="px-2 py-0.5 text-[10px] font-mono rounded bg-gray-800 text-gray-500">
+              +{item.tech.length - 4}
+            </span>
+          )}
         </div>
       </motion.div>
     </motion.div>
