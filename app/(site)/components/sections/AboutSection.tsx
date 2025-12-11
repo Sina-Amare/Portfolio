@@ -98,7 +98,7 @@ export default function AboutSection() {
                 transition={{ duration: 0.5, delay: 0.6, ease: "easeOut" }}
               >
                 <span className="text-purple-500">›</span>
-                <span>Python Developer & AI Engineer</span>
+                <span>Software Developer & AI Engineer</span>
               </motion.div>
               <motion.div
                 className="flex items-center gap-3 text-gray-400"
@@ -108,7 +108,7 @@ export default function AboutSection() {
               >
                 <span className="text-cyan-400">›</span>
                 <span>
-                  Experience: <span className="text-[#50fa7b]">1 year professional</span>
+                  Experience: <span className="text-[#50fa7b]">1 year work experience</span>
                 </span>
               </motion.div>
               <motion.div
@@ -155,7 +155,7 @@ export default function AboutSection() {
                     lines={[
                       "sina@developer:~$",
                       "Name: Sina Amareh",
-                      "Role: Python Developer & AI Engineer",
+                      "Role: Software Developer & AI Engineer",
                       "Status: Available for hire",
                       "Mindset: Problems are puzzles, not obstacles 🧩",
                     ]}
@@ -200,53 +200,96 @@ export default function AboutSection() {
                 ),
               }}
             >
-              {/* Output content - styled like experience terminal */}
-              <p className="text-gray-300 leading-relaxed text-base">
-                Known as an{" "}
-                <span className="text-[#ff79c6] font-semibold">energetic problem solver</span> who
-                doesn&apos;t stop until the job is done. Colleagues say I{" "}
-                <span className="text-[#8be9fd] font-semibold">grasp problems fast</span> and come
-                back with results — whether I&apos;ve faced it before or not.
-              </p>
+              {/* Who I Am */}
+              <div className="mb-4">
+                <span className="text-purple-400 text-xs font-mono uppercase tracking-wider">
+                  Who I Am
+                </span>
+              </div>
 
-              <p className="text-gray-300 leading-relaxed text-base mt-3">
-                I approach challenges with{" "}
-                <span className="text-[#50fa7b] font-semibold">creative solutions</span> and{" "}
-                <span className="text-[#8be9fd] font-semibold">engineering discipline</span>.
-                Working with coding agents and LLMs as reasoning companions — never blindly, always
-                with principles.
-              </p>
+              <div className="space-y-4">
+                {/* Problem Solver */}
+                <div className="flex items-start gap-3">
+                  <span className="text-[#ff79c6] mt-1">◆</span>
+                  <div>
+                    <span className="text-[#ff79c6] font-semibold">Relentless Problem Solver</span>
+                    <p className="text-gray-400 text-sm mt-1">
+                      I don&apos;t just fix bugs — I hunt root causes. Every challenge is a puzzle
+                      I&apos;m wired to crack.
+                    </p>
+                  </div>
+                </div>
 
-              {/* Trait tags */}
-              <div className="flex flex-wrap gap-2 mt-4">
-                {[
-                  "Problem Solver",
-                  "Fast Learner",
-                  "Creative Thinker",
-                  "AI-Augmented",
-                  "Detail-Oriented",
-                  "Never Gives Up",
-                ].map((trait, i) => (
-                  <motion.span
-                    key={trait}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: i * 0.05 }}
-                    className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-sm font-mono text-gray-400 hover:border-purple-500/50 hover:text-purple-400 hover:bg-purple-500/10 transition-all cursor-default"
-                  >
-                    {trait}
-                  </motion.span>
-                ))}
+                {/* Tool Integration */}
+                <div className="flex items-start gap-3">
+                  <span className="text-[#50fa7b] mt-1">◆</span>
+                  <div>
+                    <span className="text-[#50fa7b] font-semibold">
+                      Always Updated & Tool-Agnostic
+                    </span>
+                    <p className="text-gray-400 text-sm mt-1">
+                      Not afraid of new tools. I integrate and orchestrate various technologies —
+                      from coding agents to LLMs to traditional stacks.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Creative & Fast */}
+                <div className="flex items-start gap-3">
+                  <span className="text-[#8be9fd] mt-1">◆</span>
+                  <div>
+                    <span className="text-[#8be9fd] font-semibold">Creative & Lightning Fast</span>
+                    <p className="text-gray-400 text-sm mt-1">
+                      I grasp problems quickly and approach them with unconventional solutions.
+                      Colleagues don&apos;t remember stating a problem twice.
+                    </p>
+                  </div>
+                </div>
+
+                {/* R&D */}
+                <div className="flex items-start gap-3">
+                  <span className="text-[#bd93f9] mt-1">◆</span>
+                  <div>
+                    <span className="text-[#bd93f9] font-semibold">R&D Mindset</span>
+                    <p className="text-gray-400 text-sm mt-1">
+                      Research and experimentation are my comfort zone. I explore, prototype, and
+                      validate before committing.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Patience */}
+                <div className="flex items-start gap-3">
+                  <span className="text-[#ffb86c] mt-1">◆</span>
+                  <div>
+                    <span className="text-[#ffb86c] font-semibold">
+                      Steel-Level Patience & Dedication
+                    </span>
+                    <p className="text-gray-400 text-sm mt-1">
+                      Complex problems need time. I stay focused, iterate relentlessly, and never
+                      give up until it works.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Testimonial */}
+              <div className="mt-5 p-3 bg-white/5 border-l-2 border-purple-500/50 rounded-r">
+                <p className="text-gray-400 text-sm italic">
+                  &quot;Never had to explain something twice. Never came back empty-handed. Your
+                  biggest strength? Being a problem solver.&quot;
+                </p>
+                <p className="text-gray-500 text-xs mt-2 font-mono">
+                  — Feedback from my employer at Dekamond
+                </p>
               </div>
 
               {/* Status indicator */}
-              <div className="mt-4 pt-4 border-t border-white/10">
+              <div className="mt-5 pt-4 border-t border-white/10">
                 <div className="flex items-center gap-2 text-sm font-mono">
                   <span className="text-[#50fa7b]">●</span>
-                  <span className="text-gray-500">Journey:</span>
-                  <span className="text-[#8be9fd]">
-                    5 years coding • 1 year professional • AI-first development
-                  </span>
+                  <span className="text-gray-500">Status:</span>
+                  <span className="text-[#8be9fd]">Energetic • Curious • Unstoppable</span>
                 </div>
               </div>
             </InteractiveTerminal>

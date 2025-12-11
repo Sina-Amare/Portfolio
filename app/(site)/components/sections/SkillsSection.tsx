@@ -3,7 +3,7 @@ import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SkillBar } from "@/components/ui/SkillBar";
+
 import { GlassCard } from "@/components/ui/GlassCard";
 import Card3D from "@/components/3d/Card3D";
 import InteractiveTerminal from "@/components/ui/InteractiveTerminal";
@@ -90,49 +90,44 @@ export default function SkillsSection() {
       title: "Backend Core",
       icon: "⚙️",
       color: "#9333EA",
-      skills: [
-        { name: "Python", percentage: 90, experience: "5 years" },
-        { name: "Django / DRF", percentage: 85, experience: "2 years" },
-        { name: "FastAPI", percentage: 80, experience: "1 year" },
-        { name: "RESTful API Design", percentage: 85, experience: "1 year" },
-        { name: "Async Programming", percentage: 75, experience: "1 year" },
-      ],
+      skills: ["Python", "Django / DRF", "FastAPI", "Celery", "RESTful APIs", "Async Programming"],
     },
     ai: {
       title: "AI & LLM Engineering",
       icon: "🤖",
       color: "#10B981",
       skills: [
-        { name: "LangGraph / LangChain", percentage: 80, experience: "6 months" },
-        { name: "RAG Systems", percentage: 80, experience: "6 months" },
-        { name: "Prompt Engineering", percentage: 75, experience: "6 months" },
-        { name: "AI Agents (MCP)", percentage: 70, experience: "6 months" },
-        { name: "Vector Databases", percentage: 65, experience: "6 months" },
+        "LangGraph / LangChain",
+        "RAG Systems",
+        "Prompt Engineering",
+        "AI Agents (MCP)",
+        "Vector Databases",
+      ],
+    },
+    apis: {
+      title: "APIs & Integrations",
+      icon: "🔗",
+      color: "#F59E0B",
+      skills: [
+        "OpenRouter",
+        "Google AI Studio",
+        "Cloudflare Workers",
+        "Telegram Bot API",
+        "OpenAI API",
+        "Anthropic API",
       ],
     },
     databases: {
       title: "Databases & Caching",
       icon: "🗄️",
       color: "#06B6D4",
-      skills: [
-        { name: "PostgreSQL", percentage: 80, experience: "2 years" },
-        { name: "SQLite", percentage: 85, experience: "4 years" },
-        { name: "Redis", percentage: 65, experience: "6 months" },
-        { name: "Database Design", percentage: 80, experience: "2 years" },
-        { name: "Query Optimization", percentage: 70, experience: "1 year" },
-      ],
+      skills: ["PostgreSQL", "SQLite", "Redis", "Database Design", "Query Optimization"],
     },
     devops: {
       title: "DevOps & Tools",
       icon: "🚀",
       color: "#EC4899",
-      skills: [
-        { name: "Docker / Docker Compose", percentage: 75, experience: "1 year" },
-        { name: "Git & GitHub Actions", percentage: 85, experience: "3 years" },
-        { name: "API Documentation (Swagger)", percentage: 80, experience: "1 year" },
-        { name: "Linux / CLI", percentage: 75, experience: "4 years" },
-        { name: "Telegram Bot API", percentage: 80, experience: "6 months" },
-      ],
+      skills: ["Docker / Compose", "Git & GitHub Actions", "Linux / CLI", "API Docs (Swagger)"],
     },
   };
 
@@ -225,52 +220,64 @@ export default function SkillsSection() {
                     </div>
                     <div>
                       <h3 className="text-white font-semibold">{currentCategory.title}</h3>
-                      <p className="text-gray-500 text-xs font-mono">Proficiency Metrics</p>
+                      <p className="text-gray-500 text-xs font-mono">Skill Levels</p>
                     </div>
                     <div className="ml-auto">
                       <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                     </div>
                   </div>
 
-                  {/* Skills list */}
-                  <div className="space-y-5">
+                  {/* Skills list - vertical layout */}
+                  <div className="space-y-2">
                     {currentCategory.skills.map((skill, index) => (
-                      <SkillBar
-                        key={skill.name}
-                        skill={skill.name}
-                        percentage={skill.percentage}
-                        experience={skill.experience}
-                        delay={index * 0.1}
-                      />
+                      <motion.div
+                        key={skill}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.06 }}
+                        className="group flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-all cursor-default"
+                        style={{
+                          borderColor: `${currentCategory.color}15`,
+                        }}
+                        whileHover={{
+                          borderColor: currentCategory.color,
+                          x: 5,
+                        }}
+                      >
+                        <div
+                          className="w-2.5 h-2.5 rounded-full transition-all group-hover:scale-125 group-hover:shadow-lg"
+                          style={{
+                            backgroundColor: currentCategory.color,
+                            boxShadow: `0 0 0 0 ${currentCategory.color}`,
+                          }}
+                        />
+                        <span className="text-gray-300 font-mono text-sm group-hover:text-white transition-colors flex-1">
+                          {skill}
+                        </span>
+                        <span
+                          className="text-xs font-mono opacity-0 group-hover:opacity-100 transition-opacity"
+                          style={{ color: currentCategory.color }}
+                        >
+                          ✓
+                        </span>
+                      </motion.div>
                     ))}
                   </div>
 
-                  {/* Summary Stats */}
-                  <div className="mt-6 pt-4 border-t border-white/10 grid grid-cols-3 gap-4 text-center">
-                    <div className="group">
+                  {/* Bottom indicator */}
+                  <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
                       <div
-                        className="text-2xl font-bold font-mono transition-transform group-hover:scale-110"
-                        style={{ color: currentCategory.color }}
-                      >
-                        {currentCategory.skills.length}
-                      </div>
-                      <div className="text-xs font-mono text-gray-500 mt-1">Skills</div>
+                        className="w-2 h-2 rounded-full animate-pulse"
+                        style={{ backgroundColor: currentCategory.color }}
+                      />
+                      <span className="text-gray-500 text-xs font-mono">Active toolkit</span>
                     </div>
-                    <div className="group">
-                      <div className="text-2xl font-bold font-mono text-purple-400 transition-transform group-hover:scale-110">
-                        {Math.round(
-                          currentCategory.skills.reduce((acc, s) => acc + s.percentage, 0) /
-                            currentCategory.skills.length
-                        )}
-                        %
-                      </div>
-                      <div className="text-xs font-mono text-gray-500 mt-1">Avg Level</div>
-                    </div>
-                    <div className="group">
-                      <div className="text-2xl font-bold font-mono text-green-400 transition-transform group-hover:scale-110">
-                        2y
-                      </div>
-                      <div className="text-xs font-mono text-gray-500 mt-1">Experience</div>
+                    <div
+                      className="text-lg font-bold font-mono"
+                      style={{ color: currentCategory.color }}
+                    >
+                      {currentCategory.skills.length} items
                     </div>
                   </div>
                 </GlassCard>
@@ -344,47 +351,77 @@ export default function SkillsSection() {
                 ),
               }}
             >
-              {/* Output content */}
-              <p className="text-gray-300 leading-relaxed text-base">
-                1 year of professional experience building{" "}
-                <span className="text-[#ff79c6] font-semibold">AI systems</span> and{" "}
-                <span className="text-[#8be9fd] font-semibold">backend architectures</span> with{" "}
-                <span className="text-[#50fa7b] font-semibold">Python</span>. I solve complex
-                problems, work with coding agents and LLMs, and ship production-ready code with
-                engineering discipline.
-              </p>
-
-              {/* Tech tags */}
-              <div className="flex flex-wrap gap-2 mt-4">
-                {[
-                  "Python",
-                  "Django",
-                  "FastAPI",
-                  "LangGraph",
-                  "RAG",
-                  "PostgreSQL",
-                  "Docker",
-                  "REST APIs",
-                ].map((tech, i) => (
-                  <motion.span
-                    key={tech}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: i * 0.05 }}
-                    className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-sm font-mono text-gray-400 hover:border-cyan-500/50 hover:text-cyan-400 hover:bg-cyan-500/10 transition-all cursor-default"
-                  >
-                    {tech}
-                  </motion.span>
-                ))}
+              {/* Professional summary header */}
+              <div className="mb-4">
+                <span className="text-purple-400 text-xs font-mono uppercase tracking-wider">
+                  What I Bring
+                </span>
               </div>
 
-              {/* Status indicator */}
-              <div className="mt-4 pt-4 border-t border-white/10">
-                <div className="flex items-center gap-2 text-sm font-mono">
-                  <span className="text-[#50fa7b]">●</span>
-                  <span className="text-gray-500">Focus areas:</span>
-                  <span className="text-[#8be9fd]">AI Agents, LLM Integration, System Design</span>
+              {/* Value propositions */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-3 p-2 rounded bg-white/5">
+                  <span className="text-[#50fa7b] text-lg">⚡</span>
+                  <div>
+                    <span className="text-white text-sm font-semibold">
+                      AI Integration Expertise
+                    </span>
+                    <p className="text-gray-500 text-xs">
+                      LangGraph, RAG, OpenRouter, multi-model orchestration
+                    </p>
+                  </div>
                 </div>
+                <div className="flex items-center gap-3 p-2 rounded bg-white/5">
+                  <span className="text-[#8be9fd] text-lg">🚀</span>
+                  <div>
+                    <span className="text-white text-sm font-semibold">Fast Turnaround</span>
+                    <p className="text-gray-500 text-xs">
+                      Prototype to production in days, not weeks
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 p-2 rounded bg-white/5">
+                  <span className="text-[#ff79c6] text-lg">🔗</span>
+                  <div>
+                    <span className="text-white text-sm font-semibold">
+                      API & Service Integration
+                    </span>
+                    <p className="text-gray-500 text-xs">
+                      Connect any API, build robust backend systems
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 p-2 rounded bg-white/5">
+                  <span className="text-[#bd93f9] text-lg">🏗️</span>
+                  <div>
+                    <span className="text-white text-sm font-semibold">Clean Architecture</span>
+                    <p className="text-gray-500 text-xs">
+                      Maintainable, documented, production-ready code
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Core stack */}
+              <div className="mt-4 pt-4 border-t border-white/10">
+                <div className="text-gray-500 text-xs font-mono mb-2">Core Stack:</div>
+                <div className="flex flex-wrap gap-1.5">
+                  {["Python", "FastAPI", "Django", "LangGraph", "PostgreSQL", "Docker"].map((t) => (
+                    <span
+                      key={t}
+                      className="px-2 py-0.5 text-xs font-mono bg-cyan-500/10 text-cyan-400 rounded"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Availability */}
+              <div className="mt-3 flex items-center gap-2 text-xs font-mono">
+                <span className="text-green-400 animate-pulse">●</span>
+                <span className="text-gray-400">Available for:</span>
+                <span className="text-white">Remote • Hybrid • Contract • Full-time</span>
               </div>
             </InteractiveTerminal>
           </motion.div>

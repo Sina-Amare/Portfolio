@@ -8,7 +8,7 @@ const careerData = [
   {
     year: "2025",
     duration: "6 months",
-    title: "Python Developer",
+    title: "Software Developer",
     company: "Dekamond",
     logo: "/assets/images/dekamond-logo.png",
     location: "Hybrid",
@@ -262,7 +262,7 @@ function CareerCard({ item, index }: { item: (typeof careerData)[0]; index: numb
 
 export default function Timeline() {
   return (
-    <section className="w-full py-20 px-6 sm:px-8 lg:px-12">
+    <section id="experience" className="w-full py-20 px-6 sm:px-8 lg:px-12">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
@@ -283,7 +283,7 @@ export default function Timeline() {
             Education
           </h2>
           <p className="text-gray-500 mt-3 font-mono text-sm">
-            5 years coding • 1 year professional • Click cards to expand
+            5 years coding • 1 year work experience • Click cards to expand
           </p>
         </motion.div>
 
@@ -303,7 +303,7 @@ export default function Timeline() {
               </div>
               <div>
                 <h3 className="text-white font-semibold">Career</h3>
-                <p className="text-gray-500 text-xs font-mono">1 year experience</p>
+                <p className="text-gray-500 text-xs font-mono">1 year work experience</p>
               </div>
             </motion.div>
 

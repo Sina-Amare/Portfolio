@@ -1,7 +1,7 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { FaGithub, FaLinkedin, FaInstagram, FaPlay, FaTerminal } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaTelegram, FaPlay, FaTerminal } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { StatusBadge } from "./StatusBadge";
 import MagneticEffect from "@/components/effects/MagneticEffect";
@@ -18,9 +18,9 @@ const buildTerminalOutput = () => {
     "",
     "{",
     '  "name": "Sina Amareh",',
-    '  "role": "Python Developer",',
+    '  "role": "Software Developer",',
     '  "focus": "AI Systems & Backend Architecture",',
-    '  "experience": "1 year professional",',
+    '  "experience": "1 year work experience",',
     '  "stack": ["Python", "Django", "FastAPI", "LangGraph", "RAG"],',
     '  "status": "available_for_hire",',
     '  "contact": "sinaamareh0263@gmail.com"',
@@ -235,20 +235,10 @@ const Hero = () => {
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.4, delay: 1.1 }}
-              className="text-sm font-mono text-cyan-400/80 px-3 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20"
-              style={{ textShadow: "0 0 10px rgba(6,182,212,0.3)" }}
-            >
-              1 Year
-            </motion.span>
-            <span className="text-gray-700">•</span>
-            <motion.span
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.4, delay: 1.3 }}
               className="text-sm font-mono text-purple-400/80 px-3 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20"
               style={{ textShadow: "0 0 10px rgba(147,51,234,0.3)" }}
             >
-              Python Developer
+              Software Developer
             </motion.span>
             <span className="text-gray-700">•</span>
             <motion.span
@@ -314,8 +304,8 @@ const Hero = () => {
             </MagneticEffect>
             <MagneticEffect strength={0.15}>
               <Link
-                href="https://instagram.com/sina_amare"
-                aria-label="Instagram"
+                href="https://t.me/sinaam_00"
+                aria-label="Telegram"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -328,7 +318,7 @@ const Hero = () => {
                   }}
                   whileTap={{ scale: 0.9 }}
                 >
-                  <FaInstagram className="hover:text-accent-cyan transition-colors" />
+                  <FaTelegram className="hover:text-accent-cyan transition-colors" />
                 </motion.div>
               </Link>
             </MagneticEffect>
@@ -340,7 +330,7 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="flex flex-col sm:flex-row gap-4 mt-8 z-10"
           >
-            <Link href="/contact" passHref>
+            <Link href="#contact" passHref>
               <motion.button
                 whileHover={{
                   scale: 1.03,
@@ -365,7 +355,7 @@ const Hero = () => {
                 <span className="relative flex items-center gap-2">
                   Contact Me
                   <span className="group-hover:scale-110 transition-transform duration-300">
-                    ✉️
+                    📬
                   </span>
                 </span>
               </motion.button>

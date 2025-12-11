@@ -1,12 +1,12 @@
 "use client";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
 
 const methodologySteps = [
   {
     id: 1,
     name: "Problem Analysis",
-    progress: 100,
+    status: "core",
+    icon: "🎯",
     details: [
       "Define the problem clearly with AI collaboration",
       "Discuss all engineering aspects & edge cases",
@@ -16,7 +16,8 @@ const methodologySteps = [
   {
     id: 2,
     name: "PRD & Architecture",
-    progress: 100,
+    status: "core",
+    icon: "📐",
     details: [
       "Create detailed Product Requirements Document",
       "Define tech stack based on project needs",
@@ -26,7 +27,8 @@ const methodologySteps = [
   {
     id: 3,
     name: "AI Agent Guidelines",
-    progress: 90,
+    status: "active",
+    icon: "🤖",
     details: [
       "Ultra-thinking mode for complex decisions",
       "Simplicity over complexity — always",
@@ -37,7 +39,8 @@ const methodologySteps = [
   {
     id: 4,
     name: "MVP & Iteration",
-    progress: 85,
+    status: "active",
+    icon: "🚀",
     details: [
       "Build incrementally with clear milestones",
       "Version control with meaningful commits",
@@ -46,27 +49,17 @@ const methodologySteps = [
   },
 ];
 
-function ProgressBar({ progress, delay }: { progress: number; delay: number }) {
-  const [width, setWidth] = useState(0);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setWidth(progress);
-    }, delay);
-    return () => clearTimeout(timer);
-  }, [progress, delay]);
-
-  const filledBlocks = Math.floor(width / 10);
-  const blocks = Array.from({ length: 10 }, (_, i) => i < filledBlocks);
+function StatusBadge({ status }: { status: string }) {
+  const styles = {
+    core: { bg: "bg-green-500/20", text: "text-green-400", label: "Core Practice" },
+    active: { bg: "bg-cyan-500/20", text: "text-cyan-400", label: "Active Focus" },
+    learning: { bg: "bg-yellow-500/20", text: "text-yellow-400", label: "Expanding" },
+  };
+  const style = styles[status as keyof typeof styles] || styles.active;
 
   return (
-    <span className="font-mono text-sm">
-      {blocks.map((filled, i) => (
-        <span key={i} className={filled ? "text-cyan-400" : "text-gray-700"}>
-          {filled ? "▓" : "░"}
-        </span>
-      ))}
-      <span className="text-gray-500 ml-2">{progress}%</span>
+    <span className={`px-2 py-1 text-xs font-mono rounded ${style.bg} ${style.text}`}>
+      {style.label}
     </span>
   );
 }
@@ -105,7 +98,7 @@ export default function HowIWork() {
           transition={{ duration: 0.6 }}
           className="relative"
         >
-          {/* Terminal container - styled to match AboutSection terminal */}
+          {/* Terminal container */}
           <div
             className="rounded-xl overflow-hidden border border-cyan-500/20"
             style={{
@@ -171,9 +164,9 @@ export default function HowIWork() {
                   >
                     {/* Step header */}
                     <div className="flex items-center gap-3 mb-2">
-                      <span className="text-purple-400">[{step.id}/4]</span>
+                      <span className="text-xl">{step.icon}</span>
                       <span className="text-white font-semibold">{step.name}</span>
-                      <ProgressBar progress={step.progress} delay={600 + index * 200} />
+                      <StatusBadge status={step.status} />
                     </div>
 
                     {/* Step details */}

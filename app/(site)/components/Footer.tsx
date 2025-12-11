@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaTelegram, FaEnvelope } from "react-icons/fa";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -18,7 +18,7 @@ export default function Footer() {
       href: "https://www.linkedin.com/in/sina-amareh-909987286/",
       label: "LinkedIn",
     },
-    { icon: <FaInstagram />, href: "https://instagram.com/sina_amare", label: "Instagram" },
+    { icon: <FaTelegram />, href: "https://t.me/sinaam_00", label: "Telegram" },
     { icon: <FaEnvelope />, href: "mailto:sinaamareh0263@gmail.com", label: "Email" },
   ];
 
@@ -51,7 +51,7 @@ export default function Footer() {
               SINA AMAREH
             </h3>
             <p className="text-sm text-gray-500 font-mono max-w-[30ch]">
-              Python Developer & AI Engineer
+              Software Developer & AI Engineer
             </p>
             <p className="text-xs text-gray-600 font-mono">
               {`> Building systems where clarity meets creativity`}

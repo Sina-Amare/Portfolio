@@ -4,7 +4,7 @@ import { motion, useInView } from "framer-motion";
 import {
   FaGithub,
   FaLinkedin,
-  FaInstagram,
+  FaTelegram,
   FaEnvelope,
   FaMapMarkerAlt,
   FaClock,
@@ -38,19 +38,35 @@ export default function ContactSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitStatus("idle");
 
     // Store form data before clearing (for terminal output)
     const dataToSend = { ...formData };
 
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dataToSend),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus("success");
+        setSubmittedData(dataToSend);
+        setTicketId(Math.random().toString(36).substring(2, 8).toUpperCase());
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        console.error("Contact form error:", result.error);
+        setSubmitStatus("error");
+      }
+    } catch (error) {
+      console.error("Contact form error:", error);
+      setSubmitStatus("error");
+    } finally {
       setIsSubmitting(false);
-      setSubmitStatus("success");
-      setSubmittedData(dataToSend);
-      setTicketId(Math.random().toString(36).substring(2, 8).toUpperCase());
-      setFormData({ name: "", email: "", subject: "", message: "" });
-      // NO auto-hide - output persists until refresh or new submission
-    }, 2000);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -72,9 +88,9 @@ export default function ContactSection() {
       href: "https://www.linkedin.com/in/sina-amareh-909987286/",
     },
     {
-      icon: <FaInstagram />,
-      label: "Instagram",
-      href: "https://instagram.com/sina_amare",
+      icon: <FaTelegram />,
+      label: "Telegram",
+      href: "https://t.me/sinaam_00",
     },
     {
       icon: <FaEnvelope />,

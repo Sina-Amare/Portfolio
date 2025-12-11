@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaTelegram } from "react-icons/fa";
 import { CommandPalette } from "@/components/ui/CommandPalette";
 
 export default function Navigation() {
@@ -38,6 +38,7 @@ export default function Navigation() {
     { name: "ABOUT", path: "#about" },
     { name: "PROJECTS", path: "#projects" },
     { name: "SKILLS", path: "#skills" },
+    { name: "EXPERIENCE", path: "#experience" },
     { name: "CONTACT", path: "#contact" },
   ];
 
@@ -46,7 +47,7 @@ export default function Navigation() {
 
   useEffect(() => {
     const handleSectionScroll = () => {
-      const sections = ["about", "projects", "skills", "contact"];
+      const sections = ["about", "projects", "skills", "experience", "contact"];
       const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
@@ -180,6 +181,20 @@ export default function Navigation() {
                   whileTap={{ scale: 0.95 }}
                 >
                   <FaLinkedin className="w-4 h-4" />
+                </motion.div>
+              </Link>
+              <Link
+                href="https://t.me/sinaam_00"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Telegram"
+              >
+                <motion.div
+                  className="text-gray-500 hover:text-cyan-400 transition-colors"
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <FaTelegram className="w-4 h-4" />
                 </motion.div>
               </Link>
             </div>
