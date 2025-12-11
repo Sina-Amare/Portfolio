@@ -799,7 +799,7 @@ pre > code {
   }
 }
 
-/* Reduce animations on mobile for performance */
+/* Reduce animations on mobile for performance (quality preserved) */
 @media (max-width: 768px) {
   .animate-float-slow,
   .animate-float-medium,
@@ -807,11 +807,17 @@ pre > code {
     animation-duration: 20s; /* Slower = less CPU */
   }
 
-  .animate-pulse-slow,
-  .animate-pulse-slow-reverse,
+  /* Slow down pulse animations instead of disabling */
+  .animate-pulse-slow {
+    animation-duration: 16s;
+  }
+
+  .animate-pulse-slow-reverse {
+    animation-duration: 20s;
+  }
+
   .animate-pulse-slower {
-    animation: none; /* Disable on mobile */
-    opacity: 0.2;
+    animation-duration: 25s;
   }
 }
 
@@ -918,14 +924,19 @@ pre > code {
   }
 }
 
-/* Mobile: Disable aurora blobs for performance */
+/* Mobile: Slow down aurora blobs for performance (quality preserved) */
 @media (max-width: 768px) {
-  .animate-aurora-1,
-  .animate-aurora-2,
-  .animate-aurora-3,
+  .animate-aurora-1 {
+    animation-duration: 40s;
+  }
+  .animate-aurora-2 {
+    animation-duration: 50s;
+  }
+  .animate-aurora-3 {
+    animation-duration: 55s;
+  }
   .animate-aurora-4 {
-    animation: none;
-    opacity: 0.5;
+    animation-duration: 35s;
   }
 }
 

@@ -142,11 +142,11 @@ export default function SkillsSection() {
     >
       {/* Animated decorative glows - CSS @keyframes, GPU accelerated */}
       <div
-        className="absolute top-20 right-20 w-64 h-64 rounded-full opacity-20 blur-3xl pointer-events-none animate-pulse-slow"
+        className="hidden sm:block absolute top-20 right-20 w-64 h-64 rounded-full opacity-20 blur-3xl pointer-events-none animate-pulse-slow"
         style={{ background: currentCategory.color, transform: "translateZ(0)" }}
       />
       <div
-        className="absolute bottom-20 left-20 w-48 h-48 rounded-full opacity-20 blur-3xl pointer-events-none animate-pulse-slow-reverse"
+        className="hidden sm:block absolute bottom-20 left-20 w-48 h-48 rounded-full opacity-20 blur-3xl pointer-events-none animate-pulse-slow-reverse"
         style={{ background: "#06B6D4", transform: "translateZ(0)" }}
       />
 
@@ -156,7 +156,7 @@ export default function SkillsSection() {
           <span className="text-purple-400 font-mono text-sm tracking-wider uppercase mb-4 block">
             // 03. Expertise
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
             Technical
             <span className="bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
               {" "}
@@ -177,7 +177,7 @@ export default function SkillsSection() {
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`px-5 py-3 rounded-xl font-mono text-sm transition-all duration-300 flex items-center gap-2 ${
+                  className={`px-3 py-2 sm:px-5 sm:py-3 rounded-xl font-mono text-xs sm:text-sm transition-all duration-300 flex items-center gap-2 ${
                     activeTab === tab
                       ? "text-white border-2"
                       : "text-gray-500 hover:text-gray-300 bg-white/5 border-2 border-transparent hover:border-white/10"
@@ -197,7 +197,10 @@ export default function SkillsSection() {
         </div>
 
         {/* Skills Display */}
-        <div ref={cardsRef} className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div
+          ref={cardsRef}
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8 justify-items-center lg:justify-items-stretch"
+        >
           {/* Skill Bars Card */}
           <AnimatePresence mode="wait">
             <motion.div
@@ -206,7 +209,7 @@ export default function SkillsSection() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 30 }}
               transition={{ duration: 0.4 }}
-              className="skill-card"
+              className="skill-card w-full max-w-md lg:max-w-none"
             >
               <Card3D intensity={6}>
                 <GlassCard variant="terminal" className="p-6 h-full" glow interactive>
@@ -286,7 +289,7 @@ export default function SkillsSection() {
           </AnimatePresence>
 
           {/* Experience Summary Card - Interactive Terminal Style */}
-          <motion.div className="skill-card">
+          <motion.div className="skill-card w-full max-w-md lg:max-w-none">
             <InteractiveTerminal
               title="terminal — experience"
               command="summary --experience"
