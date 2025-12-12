@@ -4,7 +4,7 @@
 
 A modern, terminal-themed portfolio website showcasing backend development and AI/LLM engineering expertise. Built with Next.js 13 and featuring interactive terminal components, smooth animations, and a developer-focused aesthetic.
 
-[![Live Demo](https://img.shields.io/badge/Live-sina--amareh.vercel.app-00d4ff?style=for-the-badge)](https://sina-amareh.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live-Portfolio-00d4ff?style=for-the-badge)](https://portfolio-fawn-chi-dw3293ov37.vercel.app/)
 [![Next.js](https://img.shields.io/badge/Next.js-13.5-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://typescriptlang.org/)
 
@@ -117,13 +117,7 @@ TELEGRAM_CHAT_ID=your_chat_id
 
 ## 🎁 Easter Eggs
 
-Try these in the terminal components:
-
-- `neofetch` — System info display
-- `npm run hire` — Developer installation animation
 - `help` — List available commands
-- `ls` — List skills
-- `Cmd/Ctrl + K` — Command palette
 
 ---
 
