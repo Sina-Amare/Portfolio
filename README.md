@@ -126,7 +126,7 @@ TELEGRAM_CHAT_ID=your_chat_id
 **Sina Amareh**  
 Software Developer & AI Engineer
 
-- 🌐 [Portfolio](https://sina-amareh.vercel.app)
+- 🌐 [Portfolio](https://portfolio-fawn-chi-dw3293ov37.vercel.app/)
 - 💼 [LinkedIn](https://www.linkedin.com/in/sina-amareh-909987286/)
 - 🐙 [GitHub](https://github.com/Sina-Amare)
 - ✈️ [Telegram](https://t.me/sinaam_00)
