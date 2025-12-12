@@ -200,31 +200,38 @@ export default function Navigation() {
             </div>
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile menu button - Premium animated hamburger */}
           <button
-            className="lg:hidden text-cyan-400 hover:text-cyan-300 transition-colors"
+            className="lg:hidden relative w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 hover:border-cyan-500/50 transition-all duration-300 group"
+            style={{
+              boxShadow: mobileMenuOpen ? "0 0 15px rgba(6,182,212,0.3)" : "none",
+            }}
             aria-label="Toggle menu"
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-menu"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {mobileMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
+            <div className="w-5 h-4 flex flex-col justify-between items-center">
+              <span
+                className={`block w-full h-0.5 rounded-full transition-all duration-300 ${
+                  mobileMenuOpen
+                    ? "rotate-45 translate-y-[7px] bg-gradient-to-r from-cyan-400 to-purple-500"
+                    : "bg-gray-400 group-hover:bg-cyan-400"
+                }`}
+              />
+              <span
+                className={`block w-full h-0.5 rounded-full transition-all duration-300 ${
+                  mobileMenuOpen ? "opacity-0 scale-0" : "bg-gray-400 group-hover:bg-cyan-400"
+                }`}
+              />
+              <span
+                className={`block w-full h-0.5 rounded-full transition-all duration-300 ${
+                  mobileMenuOpen
+                    ? "-rotate-45 -translate-y-[7px] bg-gradient-to-r from-purple-500 to-cyan-400"
+                    : "bg-gray-400 group-hover:bg-cyan-400"
+                }`}
+              />
+            </div>
           </button>
         </div>
       </motion.nav>

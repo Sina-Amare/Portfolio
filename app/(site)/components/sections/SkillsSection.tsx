@@ -156,7 +156,7 @@ export default function SkillsSection() {
           <span className="text-purple-400 font-mono text-sm tracking-wider uppercase mb-4 block">
             // 03. Expertise
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight mb-4">
             Technical
             <span className="bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
               {" "}
@@ -209,7 +209,7 @@ export default function SkillsSection() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 30 }}
               transition={{ duration: 0.4 }}
-              className="skill-card w-full max-w-md lg:max-w-none"
+              className="skill-card w-full max-w-md lg:max-w-none mx-auto lg:mx-0"
             >
               <Card3D intensity={6}>
                 <GlassCard variant="terminal" className="p-6 h-full" glow interactive>
@@ -289,7 +289,7 @@ export default function SkillsSection() {
           </AnimatePresence>
 
           {/* Experience Summary Card - Interactive Terminal Style */}
-          <motion.div className="skill-card w-full max-w-md lg:max-w-none">
+          <motion.div className="skill-card w-full max-w-md lg:max-w-none mx-auto lg:mx-0">
             <InteractiveTerminal
               title="terminal — experience"
               command="summary --experience"

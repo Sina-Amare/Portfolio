@@ -184,7 +184,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.25 }}
-            className="text-[2.5rem] sm:text-[3rem] md:text-[4rem] font-bold leading-[1.1] tracking-tight text-gray-50 z-10 font-montserrat"
+            className="text-[2rem] sm:text-[2.5rem] md:text-[3.5rem] lg:text-[4rem] font-bold leading-[1.1] tracking-tight text-gray-50 z-10 font-montserrat"
           >
             Hello <span className="inline-block animate-wave">👋</span> <br />
             <span className="text-gray-100">I'm </span>
@@ -338,7 +338,7 @@ const Hero = () => {
                 }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                className="group relative inline-flex items-center justify-center py-3 px-5 sm:py-[14px] sm:px-[28px] rounded-[10px] text-base sm:text-[1.1rem] font-semibold text-white bg-transparent overflow-hidden"
+                className="group relative inline-flex items-center justify-center py-2.5 px-4 sm:py-3 sm:px-5 md:py-[14px] md:px-[28px] rounded-[10px] text-sm sm:text-base md:text-[1.1rem] font-semibold text-white bg-transparent overflow-hidden"
                 style={{
                   border: "2px solid transparent",
                   backgroundImage:
@@ -368,7 +368,7 @@ const Hero = () => {
                 }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                className="group relative py-3 px-5 sm:py-[14px] sm:px-[28px] rounded-[10px] text-base sm:text-[1.1rem] font-semibold text-white border-none overflow-hidden"
+                className="group relative py-2.5 px-4 sm:py-3 sm:px-5 md:py-[14px] md:px-[28px] rounded-[10px] text-sm sm:text-base md:text-[1.1rem] font-semibold text-white border-none overflow-hidden"
                 style={{
                   background: "linear-gradient(135deg, #06B6D4 0%, #22D3EE 50%, #50fa7b 100%)",
                   backgroundSize: "200% 200%",
