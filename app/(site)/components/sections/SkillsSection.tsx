@@ -196,20 +196,20 @@ export default function SkillsSection() {
           </div>
         </div>
 
-        {/* Skills Display */}
+        {/* Skills Display - Flex for reliable centering */}
         <div
           ref={cardsRef}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-8 justify-items-center lg:justify-items-stretch"
+          className="flex flex-col lg:flex-row gap-8 items-center lg:items-stretch"
         >
           {/* Skill Bars Card */}
           <AnimatePresence mode="wait">
             <motion.div
               key={`bars-${activeTab}`}
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 30 }}
-              transition={{ duration: 0.4 }}
-              className="skill-card w-full max-w-md lg:max-w-none mx-auto lg:mx-0"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="skill-card w-full max-w-md lg:max-w-none lg:flex-1"
             >
               <Card3D intensity={6}>
                 <GlassCard variant="terminal" className="p-6 h-full" glow interactive>
@@ -289,7 +289,7 @@ export default function SkillsSection() {
           </AnimatePresence>
 
           {/* Experience Summary Card - Interactive Terminal Style */}
-          <motion.div className="skill-card w-full max-w-md lg:max-w-none mx-auto lg:mx-0">
+          <motion.div className="skill-card w-full max-w-md lg:max-w-none lg:flex-1">
             <InteractiveTerminal
               title="terminal — experience"
               command="summary --experience"

@@ -249,27 +249,32 @@ export default function Navigation() {
             onClick={() => setMobileMenuOpen(false)}
           />
 
-          {/* Menu Panel */}
+          {/* Menu Panel - Compact & Stylish */}
           <motion.div
             id="mobile-menu"
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
-            className="fixed top-0 right-0 bottom-0 w-[280px] sm:w-[320px] bg-[#0D1117]/95 backdrop-blur-xl border-l border-gray-800/50 z-50 lg:hidden overflow-y-auto"
+            className="fixed top-0 right-0 bottom-0 w-[200px] bg-[#0D1117]/98 backdrop-blur-xl border-l border-white/10 z-50 lg:hidden"
           >
             <div className="flex flex-col h-full">
               {/* Header */}
-              <div className="flex items-center justify-between p-6 border-b border-gray-800/50">
-                <h2 className="text-lg font-bold bg-gradient-to-r from-[#ff3ea5] via-[#b040ff] to-[#00ffe0] bg-clip-text text-transparent">
-                  MENU
-                </h2>
+              <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
+                <span className="text-xs font-mono text-gray-500 uppercase tracking-widest">
+                  Nav
+                </span>
                 <button
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-gray-400 hover:text-cyan-400 transition-colors"
+                  className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
                   aria-label="Close menu"
                 >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-4 h-4 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -281,43 +286,30 @@ export default function Navigation() {
               </div>
 
               {/* Navigation Links */}
-              <nav className="flex-1 p-6">
-                <ul className="space-y-6">
+              <nav className="flex-1 px-5 py-6">
+                <ul className="space-y-4">
                   {navLinks.map((link, index) => (
                     <motion.li
                       key={link.path}
-                      initial={{ opacity: 0, x: 20 }}
+                      initial={{ opacity: 0, x: 10 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1, duration: 0.3 }}
+                      transition={{ delay: index * 0.05, duration: 0.2 }}
                     >
                       <a
                         href={link.path}
-                        className={`block text-lg font-semibold tracking-wider transition-all duration-300 ${
+                        className={`block text-sm font-medium tracking-wide transition-all duration-200 ${
                           activeSection === link.path
                             ? "text-cyan-400"
-                            : "text-gray-400 hover:text-cyan-400 hover:translate-x-2"
+                            : "text-gray-400 hover:text-white hover:translate-x-1"
                         }`}
                         onClick={(e) => scrollToSection(e, link.path)}
                       >
                         {link.name}
-                        {activeSection === link.path && (
-                          <div className="h-0.5 w-12 bg-gradient-to-r from-purple-500 to-cyan-400 rounded-full mt-2" />
-                        )}
                       </a>
                     </motion.li>
                   ))}
                 </ul>
               </nav>
-
-              {/* Footer with command palette hint */}
-              <div className="p-6 border-t border-gray-800/50">
-                <div className="flex items-center gap-2 text-xs text-gray-500">
-                  <kbd className="px-2 py-1 bg-white/5 rounded border border-white/10 font-mono">
-                    ⌘K
-                  </kbd>
-                  <span>Quick navigation</span>
-                </div>
-              </div>
             </div>
           </motion.div>
         </>
